@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.wxblog.core.bean.User;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
+import org.springframework.stereotype.Component;
 
 /**
  * @author: NightWish
@@ -11,6 +12,7 @@ import org.apache.ibatis.annotations.Param;
  * @description:
  **/
 @Mapper
+@Component
 public interface UserMapper extends BaseMapper<User> {
 
     User checkUserIsExists(@Param("loginName") String loginName);

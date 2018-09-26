@@ -1,6 +1,8 @@
 package com.wxblog.web.service;
 
+import com.wxblog.core.bean.User;
+
 public interface UserService {
 
-    int checkUserIsExist();
+    User checkUserIsExist(String loginName);
 }

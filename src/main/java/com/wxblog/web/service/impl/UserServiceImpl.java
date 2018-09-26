@@ -1,6 +1,9 @@
 package com.wxblog.web.service.impl;
 
+import com.wxblog.core.bean.User;
+import com.wxblog.core.dao.UserMapper;
 import com.wxblog.web.service.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 /**
@@ -12,8 +15,13 @@ import org.springframework.stereotype.Service;
 @Service
 public class UserServiceImpl implements UserService {
 
+    @Autowired
+    private UserMapper userMapper;
+
     @Override
-    public int checkUserIsExist() {
-        return 0;
+    public User checkUserIsExist(String loginName) {
+        User user=userMapper.checkUserIsExists(loginName);
+        return user;
     }
+
 }
