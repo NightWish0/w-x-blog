@@ -1,7 +1,6 @@
 package com.wxblog.core.bean;
 
 import lombok.Data;
-import lombok.experimental.Accessors;
 import org.apache.ibatis.type.Alias;
 
 import java.util.Date;

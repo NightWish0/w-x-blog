@@ -8,18 +8,17 @@
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
   <!--<link rel="shortcut icon" th:href="@{statics//favicon.ico}"/>-->
   <!--<link rel="bookmark" th:href="@{statics//favicon.ico}"/>-->
-  <link rel="stylesheet" th:href="@{css/admin/login.css}">
-  <link rel="stylesheet" th:href="@{layui/css/layui.css}">
-  <script th:href="@{layui/layui.js}"></script>
+  <link rel="stylesheet" th:href="@{statics/css/theme.css}">
+  <script th:href="@{statics/layui/layui.js}"></script>
 </head>
 <body class="login-page">
     <div class="layui-container">
       <h3 class="login-title">博客登陆</h3>
       <form class="layui-form" th:action="@{/login}" method="post">
-        <div class="layui-form-mid layui-word-aux" th:if="${msg!=null}" th:text="${msg}"></div>
+        <div class="layui-form-mid error-msg" th:if="${msg!=null}" th:text="${msg}"></div>
         <div class="layui-form-item">
           <div class="layui-input-block">
-            <input type="text" name="loginName" required  lay-verify="required" placeholder="账号" autocomplete="off" class="layui-input">
+            <input type="text" name="loginName" th:value="${loginName}" required  lay-verify="required" placeholder="账号" autocomplete="off" class="layui-input">
           </div>
         </div>
         <div class="layui-form-item">

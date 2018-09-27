@@ -1,5 +1,6 @@
 package com.wxblog.core.config.shiro;
 
+import org.apache.shiro.authc.credential.HashedCredentialsMatcher;
 import org.apache.shiro.realm.Realm;
 import org.apache.shiro.spring.LifecycleBeanPostProcessor;
 import org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor;
@@ -22,7 +23,9 @@ public class ShiroConfig {
 
     @Bean
     public Realm realm(){
-        return new BlogRealm();
+        BlogRealm blogRealm=new BlogRealm();
+        blogRealm.setCredentialsMatcher(hashedCredentialsMatcher());
+        return blogRealm;
     }
 
     @Bean
@@ -53,6 +56,19 @@ public class ShiroConfig {
         map.put("/admin/**","roles[admin]");
         filterFactoryBean.setFilterChainDefinitionMap(map);
         return filterFactoryBean;
+    }
+
+    /**
+     * 密码加密验证
+     * @return
+     */
+    @Bean
+    public HashedCredentialsMatcher hashedCredentialsMatcher(){
+        HashedCredentialsMatcher credentialsMatcher=new HashedCredentialsMatcher();
+        credentialsMatcher.setHashAlgorithmName("md5");
+        credentialsMatcher.setHashIterations(2);
+        credentialsMatcher.setStoredCredentialsHexEncoded(false);
+        return credentialsMatcher;
     }
 
     @Bean
