@@ -53,6 +53,7 @@ public class ShiroConfig {
         map.put("/statics/**","anon");
         map.put("/login","anon");
         map.put("/","anon");
+        map.put("/druid/**","roles[admin]");
         map.put("/admin/**","roles[admin]");
         filterFactoryBean.setFilterChainDefinitionMap(map);
         return filterFactoryBean;

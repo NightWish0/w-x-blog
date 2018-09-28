@@ -4,27 +4,18 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <title>后台管理</title>
-    <link rel="stylesheet" href="../../static/statics/css/theme.css">
+    <link rel="stylesheet" th:href="@{statics/css/theme.css}" href="../../static/statics/css/theme.css">
+    <script th:src="@{statics/layui/layui.js}" src="../../static/statics/layui/layui.js"></script>
+    <script th:src="@{statics/js/index.js}"></script>
 </head>
 <body class="layui-layout-body">
 <div class="layui-layout layui-layout-admin">
     <div class="layui-header">
         <div class="layui-logo">后台管理</div>
-        <!-- 头部区域（可配合layui已有的水平导航） -->
-        <!--<ul class="layui-nav layui-layout-left">-->
-            <!--<li class="layui-nav-item"><a href="">控制台</a></li>-->
-            <!--<li class="layui-nav-item"><a href="">商品管理</a></li>-->
-            <!--<li class="layui-nav-item"><a href="">用户</a></li>-->
-            <!--<li class="layui-nav-item">-->
-                <!--<a href="javascript:;">其它系统</a>-->
-                <!--<dl class="layui-nav-child">-->
-                    <!--<dd><a href="">邮件管理</a></dd>-->
-                    <!--<dd><a href="">消息管理</a></dd>-->
-                    <!--<dd><a href="">授权管理</a></dd>-->
-                <!--</dl>-->
-            <!--</li>-->
-        <!--</ul>-->
         <ul class="layui-nav layui-layout-right">
+            <li class="layui-nav-item">
+                <a href="javascript:;">消息<span class="layui-badge">4</span></a>
+            </li>
             <li class="layui-nav-item">
                 <a href="javascript:;">
                     <img src="http://t.cn/RCzsdCq" class="layui-nav-img">
@@ -42,22 +33,20 @@
     <div class="layui-side layui-bg-black">
         <div class="layui-side-scroll">
             <!-- 左侧导航区域（可配合layui已有的垂直导航） -->
-            <ul class="layui-nav layui-nav-tree"  lay-filter="test">
+            <ul class="layui-nav layui-nav-tree">
                 <li class="layui-nav-item layui-nav-itemed">
                     <a class="" href="javascript:;">文章管理</a>
                     <dl class="layui-nav-child">
-                        <dd><a href="javascript:;">列表一</a></dd>
-                        <dd><a href="javascript:;">列表二</a></dd>
-                        <dd><a href="javascript:;">列表三</a></dd>
-                        <dd><a href="">超链接</a></dd>
+                        <dd><a href="javascript:;" class="menu-item">所有文章</a></dd>
+                        <dd><a href="javascript:;" class="menu-item">我的文章</a></dd>
+                        <dd><a href="javascript:;" class="menu-item">草稿箱</a></dd>
                     </dl>
                 </li>
                 <li class="layui-nav-item">
                     <a href="javascript:;">评论管理</a>
                     <dl class="layui-nav-child">
-                        <dd><a href="javascript:;">列表一</a></dd>
-                        <dd><a href="javascript:;">列表二</a></dd>
-                        <dd><a href="">超链接</a></dd>
+                        <dd><a href="javascript:;">所有评论</a></dd>
+                        <dd><a href="javascript:;">我的评论</a></dd>
                     </dl>
                 </li>
                 <li class="layui-nav-item">
@@ -69,17 +58,16 @@
                 <li class="layui-nav-item">
                     <a href="javascript:;">系统设置</a>
                     <dl class="layui-nav-child">
-                        <dd><a href="javascript:;">列表一</a></dd>
-                        <dd><a href="javascript:;">列表二</a></dd>
-                        <dd><a href="">超链接</a></dd>
+                        <dd><a href="javascript:;">用户管理</a></dd>
+                        <dd><a href="javascript:;" class="menu-item" data-url="/admin/druid">WEB监控</a></dd>
+                        <dd><a href="javascript:;">日志管理</a></dd>
                     </dl>
                 </li>
             </ul>
         </div>
     </div>
     <div class="layui-body">
-        <!-- 内容主体区域 -->
-        <div style="padding: 15px;">内容主体区域</div>
+        <iframe name="test" th:src="@{/admin/main}"></iframe>
     </div>
 
     <div class="layui-footer">
@@ -87,11 +75,5 @@
         © layui.com - 底部固定区域
     </div>
 </div>
-<script src="../../static/statics/layui/layui.js"></script>
-<script>
-    layui.use('element', function(){
-        var element = layui.element;
-    });
-</script>
 </body>
 </html>

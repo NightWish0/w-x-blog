@@ -20,7 +20,7 @@ public class BaseController {
     private BaseService baseService;
 
     @GetMapping("/login")
-    public String loginPage(String loginName,String password,Model model){
+    public String loginPage(){
         return "admin/login";
     }
 
