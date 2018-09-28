@@ -48,20 +48,12 @@ public class BlogRealm extends AuthorizingRealm {
         String loginName=token.getPrincipal().toString();
         User user=userMapper.checkUserIsExists(loginName);
         if (user != null){
-//            String encodePwd=MD5Util.encodeMd5Salt(loginName, com.wxblog.core.util.StringUtils.charToString(token.getPassword()),user.getSalt());
-//            if (encodePwd.equals(user.getPassword())) {
-//                Session session=SecurityUtils.getSubject().getSession();
-//                session.setAttribute("user","user");
-                SimpleAuthenticationInfo authenticationInfo=new SimpleAuthenticationInfo(
-                                                                user,
-                                                                user.getPassword(),
-                                                                ByteSource.Util.bytes(user.getLoginName()+user.getSalt()),
-                                                                getName());
-//                authenticationInfo.setCredentialsSalt(ByteSource.Util.bytes(user.getLoginName()+user.getSalt()));
-                return authenticationInfo;
-//            }else{
-//                throw new IncorrectCredentialsException();
-//            }
+            SimpleAuthenticationInfo authenticationInfo=new SimpleAuthenticationInfo(
+                                                        user,
+                                                        user.getPassword(),
+                                                        ByteSource.Util.bytes(user.getLoginName()+user.getSalt()),
+                                                        getName());
+            return authenticationInfo;
         }else{
             throw new UnknownAccountException();
         }
