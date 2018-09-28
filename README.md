@@ -7,11 +7,12 @@
 ### 技术栈
 * 后台
   * SpringBoot `2.0.5.RELEASE` 快速搭建
-  * lombok `2.0.5.RELEASE` bean代码简化插件
+  * lombok `2.0.5.RELEASE` 代码简化插件
   * mybatisPlus `3.0.1` orm框架
   * Thymeleaf `2.0.5.RELEASE` 模板引擎
   * MySql `5.6` 数据库
   * Druid `1.1.10`  数据库连接池
+  * shiro `1.4.0-RC2` 安全控制
   * MD5+salt 密码加密
   * elasticsearch 全文搜索
   
