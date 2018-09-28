@@ -32,5 +32,13 @@ public class BaseController {
         }
         return "admin/login";
     }
+    
+    /**
+     * 测试用
+     */
+    public String loginOut(){
+    	
+    	return null;
+    }
 
 }
