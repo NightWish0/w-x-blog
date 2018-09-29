@@ -19,8 +19,8 @@ public class BaseServiceImpl implements BaseService {
 
     @Override
     public boolean loginAuthentication(String loginName, String password, Model model) {
-        Subject subject=SecurityUtils.getSubject();
-        if (!subject.isAuthenticated()){
+        if (!loginAuthentication()){
+            Subject subject=SecurityUtils.getSubject();
             UsernamePasswordToken token=new UsernamePasswordToken(loginName,password);
             try {
                 subject.login(token);
@@ -33,6 +33,23 @@ public class BaseServiceImpl implements BaseService {
                 return false;
             }
         }
-        return false;
+        return true;
+    }
+
+    @Override
+    public boolean loginAuthentication(){
+        Subject subject=SecurityUtils.getSubject();
+        if (subject.isAuthenticated()){
+            return true;
+        }else{
+            return false;
+        }
+    }
+
+
+    @Override
+    public void loginOut() {
+        Subject subject=SecurityUtils.getSubject();
+        subject.logout();
     }
 }

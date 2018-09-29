@@ -21,6 +21,10 @@ public class BaseController {
 
     @GetMapping("/login")
     public String loginPage(){
+        boolean isAuthentication=baseService.loginAuthentication();
+        if (isAuthentication){
+            return "redirect:/admin";
+        }
         return "admin/login";
     }
 
@@ -31,6 +35,12 @@ public class BaseController {
             return "redirect:/admin";
         }
         return "admin/login";
+    }
+
+    @GetMapping("/login_out")
+    public String loginOut(){
+        baseService.loginOut();
+        return "redirect:/login";
     }
 
 }

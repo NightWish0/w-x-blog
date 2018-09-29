@@ -11,11 +11,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
  **/
 @Controller
 @RequestMapping("/admin")
-public class AdminController {
+public class SystemController {
 
-    @GetMapping
-    public String index(){
-        return "admin/index";
+    @GetMapping("/druid")
+    public String druid(){
+        return "admin/system_webMonitor";
     }
-
 }

@@ -9,5 +9,9 @@ import org.springframework.ui.Model;
  **/
 public interface BaseService {
 
+    boolean loginAuthentication();
+
     boolean loginAuthentication(String loginName, String password, Model model);
+
+    void loginOut();
 }

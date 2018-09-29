@@ -4,13 +4,14 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <title>后台管理</title>
-    <link rel="stylesheet" th:href="@{statics/css/theme.css}">
-    <script th:src="@{statics/layui/layui.js}"></script>
+    <link rel="stylesheet" th:href="@{statics/css/theme.css}" href="../../static/statics/css/theme.css">
+    <script th:src="@{statics/layui/layui.js}" src="../../static/statics/layui/layui.js"></script>
     <script th:src="@{statics/js/index.js}"></script>
 </head>
 <body class="layui-layout-body">
 <div class="layui-layout layui-layout-admin">
     <div th:insert="~{admin/header :: header_info}"></div>
+
     <div class="layui-side layui-bg-black">
         <div class="layui-side-scroll">
             <!-- 左侧导航区域（可配合layui已有的垂直导航） -->
@@ -22,7 +23,7 @@
                     <a class="" href="javascript:;">文章管理</a>
                     <dl class="layui-nav-child">
                         <dd><a href="javascript:;">所有文章</a></dd>
-                        <dd><a href="javascript:;">我的文章</a></dd>
+                        <dd><a href="javascript:;"  class="layui-this">我的文章</a></dd>
                         <dd><a href="javascript:;">草稿箱</a></dd>
                     </dl>
                 </li>
@@ -43,7 +44,7 @@
                     <a href="javascript:;">系统设置</a>
                     <dl class="layui-nav-child">
                         <dd><a href="javascript:;">用户管理</a></dd>
-                        <dd><a th:href="@{/admin/druid}">WEB监控</a></dd>
+                        <dd><a href="javascript:;" data-url="/admin/druid">WEB监控</a></dd>
                         <dd><a href="javascript:;">日志管理</a></dd>
                     </dl>
                 </li>
@@ -51,7 +52,7 @@
         </div>
     </div>
     <div class="layui-body">
-
+        <iframe id="content_page" th:src="@{/admin/main}" width="100%" height="100%"  frameborder="no" border="0" marginwidth="0" marginheight=" 0" scrolling="yes" allowtransparency="yes"></iframe>
     </div>
 
     <div th:insert="~{admin/footer :: copy}"></div>

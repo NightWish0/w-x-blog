@@ -11,11 +11,20 @@ import org.springframework.web.bind.annotation.RequestMapping;
  **/
 @Controller
 @RequestMapping("/admin")
-public class AdminController {
+public class TopicController {
 
-    @GetMapping
-    public String index(){
-        return "admin/index";
+    @GetMapping("/topics")
+    public String topics(){
+        return "admin/topic_all";
     }
 
+    @GetMapping("/my_topics")
+    public String myTopics(){
+        return "admin/topic_my";
+    }
+
+    @GetMapping("/draft")
+    public String draft(){
+        return "admin/topic_draft";
+    }
 }
