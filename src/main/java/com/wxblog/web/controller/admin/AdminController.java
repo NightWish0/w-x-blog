@@ -1,8 +1,8 @@
 package com.wxblog.web.controller.admin;
 
+import org.apache.shiro.authz.annotation.RequiresRoles;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 
 /**
  * @author: NightWish
@@ -10,12 +10,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
  * @description:
  **/
 @Controller
-@RequestMapping("/admin")
+@RequiresRoles("admin")
 public class AdminController {
 
-    @GetMapping
+    @GetMapping("/admin")
     public String index(){
         return "admin/index";
     }
-
 }

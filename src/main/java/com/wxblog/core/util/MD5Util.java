@@ -38,8 +38,9 @@ public class MD5Util {
     }
 
     public static void main(String[] args){
-        Map<String,String> map=encodeMd5Salt("18856496310","admin");
+        Map<String,String> map=encodeMd5Salt("18156816237","admin");
         System.out.println(map.get("salt"));
         System.out.println(map.get("password"));
+        System.out.println(ByteSource.Util.bytes("18156816237"+"27fea06199fdb62cf486792cba05fa59"));
     }
 }
