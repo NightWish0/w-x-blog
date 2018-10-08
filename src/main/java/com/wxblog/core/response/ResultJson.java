@@ -1,6 +1,6 @@
 package com.wxblog.core.response;
 
-import lombok.Setter;
+import lombok.Data;
 
 import java.io.Serializable;
 
@@ -9,6 +9,7 @@ import java.io.Serializable;
  * @create:
  * @description:
  **/
+@Data
 public class ResultJson<T> implements Serializable {
 
     private static final String SUCCESS_CODE="1"; //成功

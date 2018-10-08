@@ -1,5 +1,8 @@
-@import "admin/login.css";
 @import "../layui/css/layui.css";
+@import "../bootstrap/css/bootstrap.min.css";
+@import "../bootstrap/css/AdminLTE.min.css";
+@import url("//netdna.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css");
+@import "admin/login.css";
 
 .layui-layout-admin .layui-body{
     overflow: auto;
@@ -10,19 +13,93 @@
 layui-layout-admin #content_page .container{
     width: 100%;
 }
-/*设置*/
-.settting-page .settring-box{
+/*基本资料*/
+.user-info-page .layui-body{
+    background: #eddbc3;
+}
+.user-info-page .user-info-box{
+    height: 630px;
+    width: 630px;
+    margin: auto;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    background: url("../image/bg_info.jpg") no-repeat;
+    background-size: cover;
+}
+.user-info-page .user-info-box .info-update{
+    color: #ff5722;
+    float: right;
+    font-size: 25px;
+    margin-right: -22px;
+    margin-top: -3px;
+}
+.user-info-page .user-info-box .img-avatar{
+    width: 577px;
+    height: 328px;
+    margin-top: 133px;
+    margin-left: 27px;
+}
+.user-info-page .user-info-box .info-box{
+    text-align: center;
+    margin-top: 38px;
+    background: transparent;
+    box-shadow: unset;
+}
+.user-info-page .user-info-box .info-username{
+    font-size: 30px;
+    color: #323133;
+    margin-bottom: -5px;
+}
+.user-info-page .user-info-box .layui-bg-gray{
+    margin-top: 15px;
+}
+.user-info-page .user-info-box .layui-circle{
+    width: 100px;
+}
+.user-info-page .user-info-box .layui-row{
+    margin-left: 100px;
+    margin-right: 100px;
+}
+.user-info-page .user-info-box .bind-platform{
+    float: right;
+    font-size: 28px;
+    margin-top: -51px;
+    margin-right: 105px;
+}
+.user-info-page .user-info-box .bind-platform a{
+    color: #0fb17d;
+    margin-right: 7px;
+}
+/*基本资料编辑*/
+.info-update-page .info-update-box{
     margin: 20px 20px 0 20px;
 }
-.settting-page .settring-box .layui-bg-gray{
+.info-update-page .info-update-box .layui-bg-gray{
     margin-top: 15px;
     margin-bottom: 30px;
 }
-.settting-page .settring-box .layui-input{
+
+/*设置*/
+.setting-page .setting-box{
+    margin: 20px 20px 0 20px;
+}
+.setting-page .setting-box .layui-bg-gray{
+    margin-top: 15px;
+    margin-bottom: 30px;
+}
+.setting-page .setting-box .layui-form-label{
+    padding: 9px 3px;
+}
+.setting-page .setting-box .layui-input{
     border: 0;
     border-bottom: 1px solid #e6e6e6;
     border-radius: 0;
 }
-.settting-page .settring-box .btn{
+.setting-page .setting-box .btn{
     width: 190px;
+}
+.setting-page .layui-layer-msg{
+    top: 70px !important;
+    left: unset !important;
+    right: 0px;
 }

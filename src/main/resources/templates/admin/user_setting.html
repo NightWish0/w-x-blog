@@ -4,11 +4,11 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <title>后台管理</title>
-    <link rel="stylesheet" th:href="@{/statics/css/theme.css}" href="../../static/statics/css/theme.css">
-    <script th:src="@{/statics/layui/layui.js}" src="../../static/statics/layui/layui.js"></script>
+    <link rel="stylesheet" th:href="@{/statics/css/theme.css}">
+    <script th:src="@{/statics/layui/layui.js}"></script>
     <script th:src="@{/statics/js/index.js}"></script>
 </head>
-<body class="layui-layout-body settting-page">
+<body class="layui-layout-body setting-page">
 <div class="layui-layout layui-layout-admin">
     <div th:insert="~{admin/header :: header_info}"></div>
 
@@ -52,36 +52,36 @@
         </div>
     </div>
     <div class="layui-body">
-        <div class="settring-box">
-        <h3>修改密码</h3>
-        <hr class="layui-bg-gray">
-        <form class="layui-form">
-            <div class="layui-form-item">
-                <label class="layui-form-label">旧密码 ：</label>
-                <div class="layui-input-inline">
-                    <input type="password" name="oldPwd" required lay-verify="pass" placeholder="请输入旧密码" autocomplete="off" class="layui-input">
+        <div class="setting-box">
+            <h3>修改密码</h3>
+            <hr class="layui-bg-gray">
+            <form class="layui-form">
+                <div class="layui-form-item">
+                    <label class="layui-form-label">旧密码 ：</label>
+                    <div class="layui-input-inline">
+                        <input type="password" name="oldPwd" required lay-verify="pass" placeholder="请输入旧密码" autocomplete="off" class="layui-input">
+                    </div>
                 </div>
-            </div>
-            <div class="layui-form-item">
-                <label class="layui-form-label">新密码 ：</label>
-                <div class="layui-input-inline">
-                    <input type="password" name="newPwd" required lay-verify="pass" placeholder="请输入新密码" autocomplete="off" class="layui-input">
+                <div class="layui-form-item">
+                    <label class="layui-form-label">新密码 ：</label>
+                    <div class="layui-input-inline">
+                        <input type="password" name="newPwd" required lay-verify="pass" placeholder="请输入新密码" autocomplete="off" class="layui-input">
+                    </div>
+                    <div class="layui-form-mid layui-word-aux pwd-tip">请填写6到12位密码</div>
                 </div>
-                <div class="layui-form-mid layui-word-aux">请填写6到12位密码</div>
-            </div>
-            <div class="layui-form-item">
-                <label class="layui-form-label">确认密码 ：</label>
-                <div class="layui-input-inline">
-                    <input type="password" name="confirmPwd" required lay-verify="pass" placeholder="请再次输入新密码" autocomplete="off" class="layui-input">
+                <div class="layui-form-item">
+                    <label class="layui-form-label">确认密码 ：</label>
+                    <div class="layui-input-inline">
+                        <input type="password" name="confirmPwd" required lay-verify="pass" placeholder="请再次输入新密码" autocomplete="off" class="layui-input">
+                    </div>
+                    <div class="layui-form-mid layui-word-aux pwd-error" style="color: red !important;"></div>
                 </div>
-                <div class="layui-form-mid layui-word-aux pwd-error"></div>
-            </div>
-            <div class="layui-form-item">
-                <div class="layui-input-block">
-                    <button class="layui-btn">确认修改</button>
+                <div class="layui-form-item">
+                    <div class="layui-input-block">
+                        <button class="layui-btn" type="button">确认修改</button>
+                    </div>
                 </div>
-            </div>
-        </form>
+            </form>
         </div>
     </div>
 

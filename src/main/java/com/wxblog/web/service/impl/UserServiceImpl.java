@@ -33,16 +33,23 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public void refreshUserInfo() {
+        Subject subject=SecurityUtils.getSubject();
+        User user= (User) subject.getPrincipal();
+    }
+
+    @Override
     public ResultJson updatePwd(String oldPwd, String newPwd,
                                 String confirmPwd,Model model) {
         User user=initUserInfo(model);
         if (!newPwd.equals(confirmPwd)){
             return ResultJson.failure("两次密码输入不一致");
         }
-        if (user.getPassword().equals(MD5Util.encodeMd5Salt(
-                user.getLoginName(),oldPwd,user.getSalt()))){
-            if (userMapper.updatePwd(user.getId(),MD5Util.encodeMd5Salt(
-                    user.getLoginName(),confirmPwd,user.getSalt()))==1){
+        String md5OldPwd=MD5Util.encodeMd5Salt(user.getLoginName(),oldPwd,user.getSalt());
+        if (user.getPassword().equals(md5OldPwd)){
+            String md5NewPwd=MD5Util.encodeMd5Salt(user.getLoginName(),confirmPwd,user.getSalt());
+            if (userMapper.updatePwd(user.getId(),md5NewPwd)==1){
+                user.setPassword(md5NewPwd);
                 return ResultJson.success();
             }else{
                return ResultJson.failure("异常错误");

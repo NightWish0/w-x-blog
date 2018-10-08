@@ -8,6 +8,8 @@ public interface UserService {
 
     User initUserInfo(Model model);
 
+    void refreshUserInfo();
+
     ResultJson updatePwd(String oldPwd, String newPwd, String confirmPwd,Model model);
 
     int checkUserIsExist();

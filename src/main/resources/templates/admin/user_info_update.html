@@ -8,7 +8,7 @@
     <script th:src="@{/statics/layui/layui.js}"></script>
     <script th:src="@{/statics/js/index.js}"></script>
 </head>
-<body class="layui-layout-body user-info-page">
+<body class="layui-layout-body info-update-page">
 <div class="layui-layout layui-layout-admin">
     <div th:insert="~{admin/header :: header_info}"></div>
 
@@ -52,30 +52,45 @@
         </div>
     </div>
     <div class="layui-body">
-        <div class="user-info-box">
-            <a class="info-update" th:href="@{/admin/setting_update}" title="编辑">
-                <i class="fa fa-file-text"></i>
-            </a>
-            <img th:src="${user.avatar}?${user.avatar}:@{/statics/image/avatar/default_avatar.png}" class="img-avatar">
-            <div class="info-box">
-                <div>
-                    <label class="info-username">[[${user.userName}]]</label>
+        <div class="info-update-box">
+            <h3>基本资料</h3>
+            <hr class="layui-bg-gray">
+            <form class="layui-form" action="">
+                <div class="layui-form-item">
+                    <label class="layui-form-label">用户名</label>
+                    <div class="layui-input-block">
+                        <input type="text" name="userName" th:value="${user.userName}" required  lay-verify="required" autocomplete="off" class="layui-input">
+                    </div>
                 </div>
-                <div>
-                    <label>< ID: [[${user.loginName}]] ></label>
+                <!--<div class="layui-form-item">-->
+                    <!--<label class="layui-form-label">平台绑定</label>-->
+                    <!--<div class="layui-input-block">-->
+                        <!--<input type="checkbox" name="like[write]" title="GitHub">-->
+                    <!--</div>-->
+                <!--</div>-->
+                <!--<div class="layui-form-item">-->
+                    <!--<div class="layui-input-block">-->
+                        <!--<input type="checkbox" name="like[read]" title="邮箱">-->
+                    <!--</div>-->
+                <!--</div>-->
+                <!--<div class="layui-form-item">-->
+                    <!--<div class="layui-input-block">-->
+                        <!--<input type="checkbox" name="like[dai]" title="QQ">-->
+                    <!--</div>-->
+                <!--</div>-->
+                <div class="layui-form-item layui-form-text">
+                    <label class="layui-form-label">个人简介</label>
+                    <div class="layui-input-block">
+                        <textarea th:value="${user.profile}" name="profile" placeholder="请输入内容" class="layui-textarea"></textarea>
+                    </div>
                 </div>
-                <div class="bind-platform">
-                    <a href="" th:title="GitHub">
-                        <i class="fa fa-github"></i>
-                    </a>
-                    <a href="" th:title="邮箱">
-                        <i class="fa fa-envelope"></i>
-                    </a>
+                <div class="layui-form-item">
+                    <div class="layui-input-block">
+                        <button class="layui-btn" lay-submit lay-filter="formDemo">修改</button>
+                        <button type="reset" class="layui-btn layui-btn-primary">返回</button>
+                    </div>
                 </div>
-                <div>
-                    <label th:text="${user.profile}==null?'神秘的coder':${user.profile}"></label>
-                </div>
-            </div>
+            </form>
         </div>
     </div>
 

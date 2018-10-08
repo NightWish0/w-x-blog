@@ -7,23 +7,43 @@ layui.use(['form','element','layer'],function () {
     //         $('#content_page').attr('src',dataUrl);
     //     }
     // });
-    $(".settting-page .layui-btn").on('click',function () {
-        var oldPwd=$(".settting-page input[name='oldPwd']").val();
-        var newPwd=$(".settting-page input[name='newPwd']").val();
-        var confirmPwd=$(".settting-page input[name='confirmPwd']").val();
-        if (newPwd!=confirmPwd){
-            $('.pwd-error').val("两次密码输入不一致");
+    $(".setting-page .layui-btn").on('click',function () {
+        var oldPwd=$(".setting-page input[name='oldPwd']").val();
+        var newPwd=$(".setting-page input[name='newPwd']").val();
+        var confirmPwd=$(".setting-page input[name='confirmPwd']").val();
+        if ($.trim(oldPwd)=="" || $.trim(newPwd)=="" || $.trim(confirmPwd)==""){
             return;
         }
-        $.post('/admin/update_pwd',{'oldPwd':oldPwd,'newPwd':newPwd,'confirmPwd':confirmPwd}
-                ,function (data) {
-            if (data.state){
-                layer.msg('修改密码成功', {
-                    time: 30000, //20s后自动关闭
-                });
-            }else{
-
+        if(newPwd.length<6 || newPwd.length>12){
+            $(".setting-page .pwd-tip").attr("style","color:red!important");
+            $(".setting-page input[name='newPwd']").focus();
+            return;
+        }else{
+            $(".setting-page .pwd-tip").attr("style","color: #999!important;");
+        }
+        if (newPwd!=confirmPwd){
+            $('.setting-page .pwd-error').text("两次密码输入不一致");
+            $(".setting-page input[name='confirmPwd']").focus();
+            return;
+        }
+        $.ajax({
+            type:'post',
+            url:'/admin/update_pwd',
+            data:{'oldPwd':oldPwd,'newPwd':newPwd,'confirmPwd':confirmPwd},
+            success:function (result) {
+                if (result.state){
+                    layer.msg('修改密码成功', {
+                        time: 3000,
+                    });
+                    $(".setting-page input[name='oldPwd']").val("");
+                    $(".setting-page input[name='newPwd']").val("");
+                    $(".setting-page input[name='confirmPwd']").val("");
+                }else{
+                    layer.msg(result.data, {
+                        time: 3000,
+                    });
+                }
             }
-        })
+        });
     })
 })

@@ -31,6 +31,12 @@ public class AdminController {
         return "admin/user_info";
     }
 
+    @GetMapping("/setting_update")
+    public String settingUpdate(Model model){
+        userService.initUserInfo(model);
+        return "admin/user_info_update";
+    }
+
     @GetMapping("/setting")
     public String setting(Model model){
         userService.initUserInfo(model);
