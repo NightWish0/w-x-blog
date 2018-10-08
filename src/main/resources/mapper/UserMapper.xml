@@ -6,4 +6,8 @@
     <select id="checkUserIsExists" parameterType="string" resultType="User">
         SELECT * FROM blog_user WHERE login_name=#{loginName}
     </select>
+    
+    <update id="updatePwd">
+        UPDATE blog_user SET password=#{password} WHERE id=#{id}
+    </update>
 </mapper>

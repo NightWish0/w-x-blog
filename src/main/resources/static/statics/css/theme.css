@@ -1,2 +1,28 @@
 @import "admin/login.css";
 @import "../layui/css/layui.css";
+
+.layui-layout-admin .layui-body{
+    overflow: auto;
+}
+.layui-layout-admin #content_page{
+    min-width: 1100px;
+}
+layui-layout-admin #content_page .container{
+    width: 100%;
+}
+/*设置*/
+.settting-page .settring-box{
+    margin: 20px 20px 0 20px;
+}
+.settting-page .settring-box .layui-bg-gray{
+    margin-top: 15px;
+    margin-bottom: 30px;
+}
+.settting-page .settring-box .layui-input{
+    border: 0;
+    border-bottom: 1px solid #e6e6e6;
+    border-radius: 0;
+}
+.settting-page .settring-box .btn{
+    width: 190px;
+}
