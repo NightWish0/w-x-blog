@@ -71,14 +71,63 @@ layui-layout-admin #content_page .container{
     margin-right: 7px;
 }
 /*基本资料编辑*/
-.info-update-page .info-update-box{
-    margin: 20px 20px 0 20px;
+.user-info-page .user-info-box .input-box{
+    margin-left: 210px;
 }
-.info-update-page .info-update-box .layui-bg-gray{
-    margin-top: 15px;
-    margin-bottom: 30px;
+.user-info-page .user-info-box .info-save{
+    color: #0fb17d;
+    float: right;
+    font-size: 25px;
+    margin-right: -24px;
+    margin-top: -3px;
+    background: transparent;
+    border: 0;
 }
-
+.user-info-page .user-info-box .info-goback{
+    color: red;
+    float: right;
+    font-size: 25px;
+    margin-top: 20px;
+    margin-right: -20px;
+}
+.user-info-page .user-info-box .update-box{
+    margin-top: 18px;
+}
+.user-info-page .user-info-box .upload-box{
+    text-align: center;
+}
+.user-info-page .user-info-box .layui-btn{
+    margin-top: -58px;
+}
+.user-info-page .user-info-box #cancelAvatar{
+    display: none;
+}
+.user-info-page .user-info-box .layui-input{
+    width: 200px;
+    background: transparent;
+    border: 0;
+    border-bottom: 1px solid #fff;
+    border-radius: 0;
+    padding-top: 10px;
+}
+.user-info-page .user-info-box .layui-input:focus,
+.user-info-page .user-info-box .layui-input:hover{
+    border-color: #fff !important;
+}
+.user-info-page .user-info-box .layui-textarea{
+    width: 400px;
+    height: 24px;
+    border: 0;
+    border-bottom: 1px solid #fff;
+    background: transparent;
+    min-height: 24px;
+    padding: 0px 10px;
+    border-radius: 0;
+}
+.user-info-page .user-info-box .layui-textarea:focus,
+.user-info-page .user-info-box .layui-textarea:hover{
+    border-color: #fff !important;
+}
 /*设置*/
 .setting-page .setting-box{
     margin: 20px 20px 0 20px;

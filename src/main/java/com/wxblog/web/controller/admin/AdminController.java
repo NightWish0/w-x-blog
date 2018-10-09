@@ -1,11 +1,13 @@
 package com.wxblog.web.controller.admin;
 
+import com.wxblog.core.bean.User;
 import com.wxblog.core.response.ResultJson;
 import com.wxblog.web.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 /**
  * @author: NightWish
@@ -31,10 +33,19 @@ public class AdminController {
         return "admin/user_info";
     }
 
-    @GetMapping("/setting_update")
+    @GetMapping("/info_update")
     public String settingUpdate(Model model){
         userService.initUserInfo(model);
         return "admin/user_info_update";
+    }
+
+    @PostMapping("/info_save")
+    public String infoSave(@RequestParam("file") MultipartFile file, String userName, String profile, Model model){
+        boolean isSuccess=userService.updateUserInfo(file,userName,profile,model);
+        if (isSuccess){
+            return "redirect:/admin/info";
+        }
+        return "redirect:/admin/info_update";
     }
 
     @GetMapping("/setting")

@@ -18,4 +18,7 @@ public interface UserMapper extends BaseMapper<User> {
     User checkUserIsExists(@Param("loginName") String loginName);
 
     int updatePwd(@Param("id") Long id,@Param("password") String password);
+
+    int updateInfo(@Param("id")Long id,@Param("userName")String userName,
+                   @Param("avatar")String avatar,@Param("profile")String profile);
 }

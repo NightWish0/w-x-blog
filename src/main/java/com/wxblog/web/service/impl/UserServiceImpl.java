@@ -4,6 +4,7 @@ import com.wxblog.core.bean.User;
 import com.wxblog.core.dao.UserMapper;
 import com.wxblog.core.response.ResultJson;
 import com.wxblog.core.util.MD5Util;
+import com.wxblog.core.util.UploadUtil;
 import com.wxblog.web.service.UserService;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.session.Session;
@@ -11,6 +12,7 @@ import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
+import org.springframework.web.multipart.MultipartFile;
 
 /**
  * @author: NightWish
@@ -33,9 +35,24 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void refreshUserInfo() {
-        Subject subject=SecurityUtils.getSubject();
-        User user= (User) subject.getPrincipal();
+    public boolean updateUserInfo(MultipartFile file, String userName, String profile,Model model) {
+        User user=initUserInfo(model);
+        String avatarName=null;
+        if (file!=null&&!file.isEmpty()){
+            String oldName=user.getAvatar();
+            avatarName=UploadUtil.upload(file);
+            if (oldName!=null){
+                String path=oldName.substring(oldName.lastIndexOf("/")+1,oldName.length());
+                UploadUtil.delete(path);
+            }
+        }
+        if(userMapper.updateInfo(user.getId(),userName,avatarName,profile)==1){
+            user.setAvatar(avatarName);
+            user.setUserName(userName);
+            user.setProfile(profile);
+            return true;
+        }
+        return false;
     }
 
     @Override

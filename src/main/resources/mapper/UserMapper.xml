@@ -10,4 +10,8 @@
     <update id="updatePwd">
         UPDATE blog_user SET password=#{password} WHERE id=#{id}
     </update>
+    
+    <update id="updateInfo">
+        UPDATE blog_user SET user_name=#{userName},avatar=#{avatar},profile=#{profile} WHERE id=#{id}
+    </update>
 </mapper>

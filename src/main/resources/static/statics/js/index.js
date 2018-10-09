@@ -1,5 +1,6 @@
-layui.use(['form','element','layer'],function () {
+layui.use(['form','element','upload','layer'],function () {
     var element=layui.element;
+    var upload = layui.upload;
     $=layui.jquery;
     // element.on('nav(menu-nav)',function (elem) {
     //     var dataUrl=$(elem).data('url');
@@ -7,6 +8,7 @@ layui.use(['form','element','layer'],function () {
     //         $('#content_page').attr('src',dataUrl);
     //     }
     // });
+    /*设置*/
     $(".setting-page .layui-btn").on('click',function () {
         var oldPwd=$(".setting-page input[name='oldPwd']").val();
         var newPwd=$(".setting-page input[name='newPwd']").val();
@@ -46,4 +48,29 @@ layui.use(['form','element','layer'],function () {
             }
         });
     })
+
+    /*基本资料*/
+    var src=$('#avatar').attr('src');
+    var uploadInst = upload.render({
+        elem: '#uploadAvatar' //绑定元素
+        // ,url: '/avatar/' //上传接口
+        ,accept:'images'
+        ,acceptMime:'image/*'
+        ,size: 5120
+        ,auto: false
+        ,choose: function(obj){
+            //预读本地文件示例，不支持ie8
+            obj.preview(function(index, file, result){
+                $('#avatar').attr('src', result); //图片链接（base64）
+            });
+            $('#cancelAvatar').attr("style","display:unset");
+        }
+    });
+    $("#cancelAvatar").on('click',function () {
+        $('#avatar').attr('src', src);
+        $(this).attr("style","display:none");
+        var file=$('.upload-box .layui-upload-file');
+        file.val("");
+        file.outerHTML=file.outerHTML;
+    });
 })
