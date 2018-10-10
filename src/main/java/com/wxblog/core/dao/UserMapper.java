@@ -6,6 +6,8 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Component;
 
+import java.util.Date;
+
 /**
  * @author: NightWish
  * @create: 2018-09-21 14:48
@@ -21,4 +23,6 @@ public interface UserMapper extends BaseMapper<User> {
 
     int updateInfo(@Param("id")Long id,@Param("userName")String userName,
                    @Param("avatar")String avatar,@Param("profile")String profile);
+
+    int updateLastLogin(@Param("id")Long id,@Param("lastLoginAt")Date lastLoginAt);
 }

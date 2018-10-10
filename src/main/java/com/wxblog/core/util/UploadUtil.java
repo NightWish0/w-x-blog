@@ -1,10 +1,11 @@
 package com.wxblog.core.util;
 
-import org.springframework.util.ClassUtils;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 /**
  * @author: NightWish
@@ -17,10 +18,11 @@ public class UploadUtil {
                                "\\src\\main\\resources\\static\\statics\\upload\\avatar\\";
     private static final String AVATAR_WEB_PATH="/statics/upload/avatar/";
 
-    public static String upload(MultipartFile file) {
+    public static String uploadAvatar(MultipartFile file) {
         String fileName=file.getOriginalFilename();
         String suffixName=fileName.substring(fileName.lastIndexOf("."));
-        String newFileName=String.valueOf(System.currentTimeMillis());
+        String newFileName=UserUtils.currentUser().getId()+"_"+
+                            String.valueOf(System.currentTimeMillis());
         fileName=newFileName+suffixName;
         File newFile=new File(AVATAR_PATH+fileName);
         if (!newFile.getParentFile().exists()){
@@ -35,12 +37,16 @@ public class UploadUtil {
         return null;
     }
 
-    public static void delete(String name){
+    public static void deleteAvatar(String name){
+        if (name!=null){
+            name=name.substring(name.lastIndexOf("/")+1,name.length());
+        }
         File file=new File(AVATAR_PATH+name);
         file.delete();
     }
 
     public static void main(String[] args){
-        System.out.println(AVATAR_PATH);
+        SimpleDateFormat simpleDateFormat=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        System.out.println(new Date("yyyy-MM-dd HH:mm:ss"));
     }
 }

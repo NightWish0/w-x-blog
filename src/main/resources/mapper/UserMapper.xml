@@ -14,4 +14,8 @@
     <update id="updateInfo">
         UPDATE blog_user SET user_name=#{userName},avatar=#{avatar},profile=#{profile} WHERE id=#{id}
     </update>
+    
+    <update id="updateLastLogin">
+        UPDATE blog_user SET last_login_at=#{lastLoginAt} WHERE id=#{id}
+    </update>
 </mapper>

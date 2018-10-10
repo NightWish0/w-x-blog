@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <title>后台管理</title>
+    <link rel="stylesheet" th:href="@{/statics/css/theme.css}">
+    <script th:src="@{/statics/layui/layui.js}"></script>
+    <script th:src="@{/statics/js/index.js}"></script>
+</head>
+<body class="layui-layout-body">
+<div class="layui-layout layui-layout-admin">
+    <div th:insert="~{admin/layout_header :: header}"></div>
+    <div th:insert="~{admin/layout_menu :: menu(parent='topic',child='myTopics')}"></div>
+    <div class="layui-body">
+        <form class="layui-form" action="">
+            <div class="layui-form-item">
+                <div class="layui-input-block">
+                    <input type="text" name="title" lay-verify="title" autocomplete="off" placeholder="请输入标题" class="layui-input">
+                </div>
+            </div>
+            <div class="layui-form-item layui-form-text">
+                <div class="layui-input-block">
+                    <textarea placeholder="请输入内容" class="layui-textarea"></textarea>
+                </div>
+            </div>
+
+            <div class="layui-form-item">
+                <div class="layui-input-block">
+                    <button class="layui-btn" lay-submit="" lay-filter="demo1">发布</button>
+                    <button type="reset" class="layui-btn layui-btn-primary">保存为草稿</button>
+                    <button type="reset" class="layui-btn layui-btn-primary">返回</button>
+                </div>
+            </div>
+        </form>
+    </div>
+    <div th:insert="~{admin/layout_footer :: footer}"></div>
+</div>
+</body>
+</html>

@@ -1,6 +1,7 @@
-layui.use(['form','element','upload','layer'],function () {
+layui.use(['form','element','upload','layedit','table','layer'],function () {
     var element=layui.element;
     var upload = layui.upload;
+    var layedit = layui.layedit;
     $=layui.jquery;
     // element.on('nav(menu-nav)',function (elem) {
     //     var dataUrl=$(elem).data('url');
@@ -8,6 +9,9 @@ layui.use(['form','element','upload','layer'],function () {
     //         $('#content_page').attr('src',dataUrl);
     //     }
     // });
+    //创建一个编辑器
+    var editIndex = layedit.build('LAY_demo_editor');
+
     /*设置*/
     $(".setting-page .layui-btn").on('click',function () {
         var oldPwd=$(".setting-page input[name='oldPwd']").val();

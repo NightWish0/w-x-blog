@@ -1,6 +1,9 @@
 package com.wxblog.web.controller.admin;
 
+import com.wxblog.web.service.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -10,21 +13,39 @@ import org.springframework.web.bind.annotation.RequestMapping;
  * @description:
  **/
 @Controller
-@RequestMapping("/admin")
+@RequestMapping("/admin/topics")
 public class TopicController {
 
-    @GetMapping("/topics")
-    public String topics(){
-        return "admin/topic_all";
+    @Autowired
+    private UserService userService;
+
+    @GetMapping
+    public String topics(Model model){
+        userService.initUserInfo(model);
+        return "admin/topics";
     }
 
-    @GetMapping("/my_topics")
-    public String myTopics(){
-        return "admin/topic_my";
+    @GetMapping("/my")
+    public String myTopics(Model model){
+        userService.initUserInfo(model);
+        return "admin/topics_my";
+    }
+
+    @GetMapping("/new")
+    public String topicNew(Model model){
+        userService.initUserInfo(model);
+        return "admin/topic_edit";
+    }
+
+    @GetMapping("/{id}/edit")
+    public String topicEdit(Model model){
+        userService.initUserInfo(model);
+        return "admin/topic_edit";
     }
 
     @GetMapping("/draft")
-    public String draft(){
-        return "admin/topic_draft";
+    public String draft(Model model){
+        userService.initUserInfo(model);
+        return "admin/topics_draft";
     }
 }

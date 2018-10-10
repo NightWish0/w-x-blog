@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <title>后台管理</title>
+    <link rel="stylesheet" th:href="@{/statics/css/theme.css}">
+    <script th:src="@{/statics/layui/layui.js}"></script>
+    <script th:src="@{/statics/js/index.js}"></script>
+</head>
+<body class="layui-layout-body">
+<div class="layui-layout layui-layout-admin">
+    <div th:insert="~{admin/layout_header :: header}"></div>
+    <div th:insert="~{admin/layout_menu :: menu(parent='topic',child='myTopics')}"></div>
+    <div class="layui-body">
+        <div class="layui-btn-group demoTable">
+            <a class="layui-btn" th:href="@{/admin/topics/new}">写文章</a>
+            <button class="layui-btn">获取选中数目</button>
+        </div>
+
+        <table class="layui-table" lay-data="{width: 938, height:332, page:true}">
+            <thead>
+                <tr>
+                    <th lay-data="{type:'checkbox',align:'center', fixed: 'left'}"></th>
+                    <th lay-data="{field:'id', width:60,align:'center', sort: true}">ID</th>
+                    <th lay-data="{field:'title',align:'center', width:100}">标题</th>
+                    <th lay-data="{field:'content',align:'center', width:160}">内容</th>
+                    <th lay-data="{field:'username',align:'center', width:80}">作者</th>
+                    <th lay-data="{field:'readCount',align:'center', width:90,sort: true}">阅读量</th>
+                    <th lay-data="{field:'likeCount',align:'center', width:90, sort: true}">点赞量</th>
+                    <th lay-data="{field:'createdAt',align:'center', width:120, sort: true}">创建时间</th>
+                    <th lay-data="{field:'operate',fixed: 'right',align:'center',width:180}">操作</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="topic:${topics}">
+                    <td th:text="${topic.id}"></td>
+                    <td th:text="${topic.title}"></td>
+                    <td th:text="${topic.content}"></td>
+                    <td th:text="${topic.user_id}"></td>
+                    <td th:text="${topic.readCount}"></td>
+                    <td th:text="${topic.likeCount}"></td>
+                    <td th:text="${topic.createdAt}"></td>
+                    <td th:text="${topic.id}">
+                        <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
+                        <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
+                        <a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="detail">导出</a>
+                        <a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="detail">打印</a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div th:insert="~{admin/layout_footer :: footer}"></div>
+</div>
+</body>
+</html>

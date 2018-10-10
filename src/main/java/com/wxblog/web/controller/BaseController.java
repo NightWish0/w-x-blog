@@ -1,6 +1,7 @@
 package com.wxblog.web.controller;
 
 import com.wxblog.web.service.BaseService;
+import com.wxblog.web.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -18,6 +19,8 @@ public class BaseController {
 
     @Autowired
     private BaseService baseService;
+    @Autowired
+    private UserService userService;
 
     @GetMapping("/login")
     public String loginPage(){
@@ -32,6 +35,7 @@ public class BaseController {
     public String login(String loginName,String password,Model model){
         boolean isSuccess=baseService.loginAuthentication(loginName,password,model);
         if (isSuccess){
+            userService.updateLastLogin();
             return "redirect:/admin";
         }
         return "admin/login";

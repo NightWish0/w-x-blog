@@ -5,14 +5,15 @@ import com.wxblog.core.dao.UserMapper;
 import com.wxblog.core.response.ResultJson;
 import com.wxblog.core.util.MD5Util;
 import com.wxblog.core.util.UploadUtil;
+import com.wxblog.core.util.UserUtils;
 import com.wxblog.web.service.UserService;
-import org.apache.shiro.SecurityUtils;
-import org.apache.shiro.session.Session;
-import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 import org.springframework.web.multipart.MultipartFile;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 /**
  * @author: NightWish
@@ -28,8 +29,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User initUserInfo(Model model) {
-        Subject subject=SecurityUtils.getSubject();
-        User user= (User) subject.getPrincipal();
+        User user= UserUtils.currentUser();
         model.addAttribute("user",user);
         return user;
     }
@@ -40,11 +40,8 @@ public class UserServiceImpl implements UserService {
         String avatarName=null;
         if (file!=null&&!file.isEmpty()){
             String oldName=user.getAvatar();
-            avatarName=UploadUtil.upload(file);
-            if (oldName!=null){
-                String path=oldName.substring(oldName.lastIndexOf("/")+1,oldName.length());
-                UploadUtil.delete(path);
-            }
+            avatarName=UploadUtil.uploadAvatar(file);
+            UploadUtil.deleteAvatar(oldName);
         }
         if(userMapper.updateInfo(user.getId(),userName,avatarName,profile)==1){
             user.setAvatar(avatarName);
@@ -78,5 +75,11 @@ public class UserServiceImpl implements UserService {
     @Override
     public int checkUserIsExist() {
         return 0;
+    }
+
+    @Override
+    public void updateLastLogin() {
+        User user=UserUtils.currentUser();
+        userMapper.updateLastLogin(user.getId(),new Date());
     }
 }

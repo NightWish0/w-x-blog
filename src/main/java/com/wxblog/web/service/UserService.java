@@ -14,4 +14,6 @@ public interface UserService {
     ResultJson updatePwd(String oldPwd, String newPwd, String confirmPwd,Model model);
 
     int checkUserIsExist();
+
+    void updateLastLogin();
 }
