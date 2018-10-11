@@ -19,7 +19,7 @@
 * 前台
   * layUi `2.4.3` 模块化前端框架
   * bootstrap `3.3.7`
-  * jquery `3.3.7`
+  * jquery `3.3.1`
   * editor.md `1.5` makedown编辑器
   
   
