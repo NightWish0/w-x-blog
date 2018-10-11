@@ -13,6 +13,24 @@
 layui-layout-admin #content_page .container{
     width: 100%;
 }
+/*文章模块*/
+/*创建文章*/
+.new-topics .layui-form{
+    margin: 40px 40px 40px 40px;
+}
+.new-topics .layui-form-label{
+    padding: 9px 12px;
+    margin-left: -15px;
+}
+.new-topics .layui-input-inline{
+    margin-left: 21px;
+}
+.new-topics .layui-input-block{
+    margin-left: 86px;
+}
+.new-topics  .layui-form-select{
+    width: 193px;
+}
 /*基本资料*/
 .user-info-page .layui-body{
     background: #eddbc3;

@@ -5,32 +5,58 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <title>后台管理</title>
     <link rel="stylesheet" th:href="@{/statics/css/theme.css}">
+    <link rel="stylesheet" th:href="@{/statics/editormd/css/editormd.css}">
+    <link rel="stylesheet" th:href="@{/statics/editormd/lib/codemirror/codemirror.min.css}">
     <script th:src="@{/statics/layui/layui.js}"></script>
+    <script th:src="@{/statics/js/jquery.min.js}"></script>
     <script th:src="@{/statics/js/index.js}"></script>
+    <script th:src="@{/statics/editormd/editormd.min.js}"></script>
 </head>
-<body class="layui-layout-body">
+<body class="layui-layout-body new-topics">
 <div class="layui-layout layui-layout-admin">
     <div th:insert="~{admin/layout_header :: header}"></div>
     <div th:insert="~{admin/layout_menu :: menu(parent='topic',child='myTopics')}"></div>
     <div class="layui-body">
         <form class="layui-form" action="">
             <div class="layui-form-item">
-                <div class="layui-input-block">
-                    <input type="text" name="title" lay-verify="title" autocomplete="off" placeholder="请输入标题" class="layui-input">
-                </div>
+                <input type="text" name="title" lay-verify="title" autocomplete="off" placeholder="请输入标题" class="layui-input">
             </div>
-            <div class="layui-form-item layui-form-text">
-                <div class="layui-input-block">
-                    <textarea placeholder="请输入内容" class="layui-textarea"></textarea>
-                </div>
+            <div class="layui-form-item layui-form-text" style="display: none">
+                <textarea class="layui-textarea layui-hide" name="content" lay-verify="content" id="LAY_demo_editor"></textarea>
             </div>
-
             <div class="layui-form-item">
-                <div class="layui-input-block">
-                    <button class="layui-btn" lay-submit="" lay-filter="demo1">发布</button>
-                    <button type="reset" class="layui-btn layui-btn-primary">保存为草稿</button>
-                    <button type="reset" class="layui-btn layui-btn-primary">返回</button>
+                <div id="editormd">
+                        <textarea class="form-control" id="content-editormd-markdown-doc" name="content-editormd-markdown-doc"></textarea>
                 </div>
+            </div>
+            <div class="layui-inline">
+                <label class="layui-form-label">添加标签</label>
+                <div class="layui-input-inline">
+                    <select name="label_id" lay-search="">
+                        <option value="">暂无标签</option>
+                        <option value="1">layer</option>
+                        <option value="2">form</option>
+                        <option value="3">layim</option>
+                        <option value="4">element</option>
+                    </select>
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">选择分类</label>
+                <div class="layui-input-block">
+                    <select name="category_id" lay-filter="aihao">
+                        <option value="" selected>暂不分类</option>
+                        <option value="1">阅读</option>
+                        <option value="2">游戏</option>
+                        <option value="3">音乐</option>
+                        <option value="4">旅行</option>
+                    </select>
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <button class="layui-btn">发布</button>
+                <button class="layui-btn">保存为草稿</button>
+                <button type="reset" class="layui-btn layui-btn-primary">返回</button>
             </div>
         </form>
     </div>

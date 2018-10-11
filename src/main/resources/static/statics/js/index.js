@@ -9,8 +9,43 @@ layui.use(['form','element','upload','layedit','table','layer'],function () {
     //         $('#content_page').attr('src',dataUrl);
     //     }
     // });
+    /*文章管理*/
     //创建一个编辑器
     var editIndex = layedit.build('LAY_demo_editor');
+    $(function () {
+        editormd("editormd", {
+            width: "100%",
+            height: 640,
+            path : '/statics/editormd/lib/',
+            codeFold : true,
+            syncScrolling : "single",
+            placeholder : "请输入内容",
+            saveHTMLToTextarea : true,    // 保存 HTML 到 Textarea
+            searchReplace : true,
+            htmlDecode : "style,script,iframe|on*",  // 开启 HTML 标签解析，为了安全性，默认不开启
+            toolbarIcons : function() { //自定义工具栏
+                return [
+                    "undo", "redo", "|",
+                    "bold", "del", "italic", "quote", "ucwords", "uppercase", "lowercase", "|",
+                    "link", "reference-link", "image", "preformatted-text", "code-block", "table", "datetime", "emoji", "html-entities", "|",
+                    "watch", "preview", "fullscreen", "clear", "search", "|",
+                    "help"
+                    ]
+            },
+            emoji : true,
+            taskList : true,
+            tocm : true,         // Using [TOCM]
+            tex : true,                   // 开启科学公式TeX语言支持，默认关闭
+            flowChart : true,             // 开启流程图支持，默认关闭
+            sequenceDiagram : true,       // 开启时序/序列图支持，默认关闭,
+            imageUpload : true,
+            imageFormats : ["jpg", "jpeg", "gif", "png", "bmp", "webp"],
+            imageUploadURL : "./php/upload.php",
+            onload : function() { //上传成功之后的回调
+                console.log('onload', this);
+            }
+        });
+    });
 
     /*设置*/
     $(".setting-page .layui-btn").on('click',function () {

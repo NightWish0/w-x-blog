@@ -19,6 +19,7 @@ public class Topic implements Serializable {
     private String title;
     private String content;
     private Long userId;
+    private Long categoryId;
     private Integer readCount;
     private Integer likeCount;
     private Date createdAt;
