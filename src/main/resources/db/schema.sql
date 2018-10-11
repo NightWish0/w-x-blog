@@ -40,6 +40,7 @@ create table blog_label
 (
    id                   bigint not null auto_increment,
    name                 varchar(50),
+   color                varchar(20),
    created_at           datetime,
    primary key (id)
 );
