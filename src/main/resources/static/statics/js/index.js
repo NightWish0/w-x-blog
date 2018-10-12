@@ -46,6 +46,10 @@ layui.use(['form','element','upload','layedit','table','layer'],function () {
             }
         });
     });
+    $(".new-topics .save-draft").on('click',function () {
+        $('#status').val(0);
+        $('.new-topics #topicForm').submit();
+    });
 
     /*设置*/
     $(".setting-page .layui-btn").on('click',function () {

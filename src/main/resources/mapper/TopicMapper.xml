@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.wxblog.core.dao.TopicMapper">
+
+    <resultMap id="topicMap" type="map">
+        <result column="user_id" property="userId"></result>
+        <result column="category_id" property="categoryId"></result>
+        <result column="category_id" property="categoryId"></result>
+        <result column="read_count" property="readCount"></result>
+        <result column="like_count" property="likeCount"></result>
+        <result column="created_at" property="createdAt"></result>
+        <result column="user_name" property="userName"></result>
+    </resultMap>
+    
+    <insert id="insert" parameterType="Topic">
+        INSERT INTO blog_topic(id,title,content,user_id,category_id,created_at,status)
+        VALUES (#{id},#{title},#{content},#{userId},#{categoryId},#{createdAt},#{status})
+    </insert>
+    
+    <select id="topics" resultMap="topicMap">
+        SELECT t.*,u.user_name FROM blog_topic t
+        LEFT JOIN blog_user u ON t.user_id=u.id
+        ORDER BY t.created_at DESC 
+    </select>
+
+</mapper>
