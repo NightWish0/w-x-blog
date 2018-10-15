@@ -39,6 +39,48 @@ layui-layout-admin #content_page .container{
     color: red;
     border-left: 5px solid red;
 }
+/*文章详情*/
+.topic-info .body-box{
+    margin: 20px 40px 40px 40px;
+}
+.topic-info .author{
+    margin: 30px 0 40px;
+}
+.topic-info .author .layui-nav-img{
+    width: 48px;
+    height: 48px;
+    vertical-align: middle;
+    display: inline-block;
+}
+.topic-info .author .info {
+    vertical-align: middle;
+    display: inline-block;
+    margin-left: 8px;
+}
+.topic-info .author .name {
+    margin-right: 3px;
+    font-size: 16px;
+    vertical-align: middle;
+}
+.topic-info .author .name a{
+    color: #333;
+}
+.topic-info .author .meta {
+    margin-top: 5px;
+    font-size: 12px;
+    color: #969696;
+}
+.topic-info .author .meta span {
+    padding-right: 5px;
+}
+.topic-info.topic-body {
+    color: #2f2f2f;
+    word-break: break-word!important;
+    word-break: break-all;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 1.7;
+}
 /*基本资料*/
 .user-info-page .layui-body{
     background: #eddbc3;

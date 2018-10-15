@@ -32,6 +32,13 @@ public class ResultJson<T> implements Serializable {
         return resultJson;
     }
 
+    public static <T> ResultJson<T> failure(){
+        ResultJson<T> resultJson=new ResultJson<T>();
+        resultJson.state=false;
+        resultJson.code=FALIURE_CODE;
+        return resultJson;
+    }
+
     public static <T> ResultJson<T> failure(T data){
         ResultJson<T> resultJson=new ResultJson<T>();
         resultJson.state=false;

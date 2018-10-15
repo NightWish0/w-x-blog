@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.wxblog.core.bean.Topic;
 import com.wxblog.core.dao.TopicMapper;
 import com.wxblog.core.dao.UserMapper;
+import com.wxblog.core.response.ResultJson;
 import com.wxblog.core.util.UserUtils;
 import com.wxblog.web.service.BaseService;
 import com.wxblog.web.service.TopicService;
@@ -55,5 +56,54 @@ public class TopicServiceImpl implements TopicService {
     public void topics(Model model) {
         List<Map<String,String>> topics=topicMapper.topics();
         model.addAttribute("topics",topics);
+    }
+
+    @Override
+    public void topic(Long id,Model model) {
+        Map<String,String> map=topicMapper.topic(id);
+        model.addAttribute("topic",map);
+    }
+
+    @Override
+    public boolean edit(Topic topic, String labelId, RedirectAttributes model) {
+        if (topicMapper.updateById(topic)==1){
+            return true;
+        }
+        if (topic.getStatus()==0){
+            model.addFlashAttribute("errorMsg","保存为草稿失败");
+        }else{
+            model.addFlashAttribute("errorMsg","发布文章失败");
+        }
+        return false;
+    }
+
+    @Override
+    public ResultJson deleteTopic(Long id) {
+        if (topicMapper.delete(new QueryWrapper<Topic>().eq("id",id))==1){
+            return ResultJson.success();
+        }
+        return ResultJson.failure();
+    }
+
+    @Override
+    public ResultJson deleteTopics(Integer status) {
+        topicMapper.deleteAll(status);
+        return ResultJson.success();
+    }
+
+    @Override
+    public ResultJson deleteTopics(List<Long> ids) {
+        if(topicMapper.delete(new QueryWrapper<Topic>().in("id",ids))==ids.size()){
+            return ResultJson.success();
+        }
+        return ResultJson.failure();
+    }
+
+    @Override
+    public ResultJson destroy(List<Long> ids) {
+        if (topicMapper.destroy(ids)==ids.size()){
+            return ResultJson.success();
+        }
+        return  ResultJson.failure();
     }
 }

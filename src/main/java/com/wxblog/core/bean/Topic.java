@@ -3,6 +3,7 @@ package com.wxblog.core.bean;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.KeySequence;
 import com.baomidou.mybatisplus.annotation.TableId;
+import com.baomidou.mybatisplus.annotation.TableLogic;
 import lombok.Data;
 import org.apache.ibatis.type.Alias;
 
@@ -27,5 +28,6 @@ public class Topic implements Serializable {
     private Integer readCount;
     private Integer likeCount;
     private Date createdAt;
+    @TableLogic
     private Integer status;
 }
