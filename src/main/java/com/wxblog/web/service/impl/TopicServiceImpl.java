@@ -6,6 +6,7 @@ import com.wxblog.core.bean.Topic;
 import com.wxblog.core.dao.TopicMapper;
 import com.wxblog.core.dao.UserMapper;
 import com.wxblog.core.response.ResultJson;
+import com.wxblog.core.util.StatusCode;
 import com.wxblog.core.util.UserUtils;
 import com.wxblog.web.service.BaseService;
 import com.wxblog.web.service.TopicService;
@@ -54,7 +55,28 @@ public class TopicServiceImpl implements TopicService {
 
     @Override
     public void topics(Model model) {
-        List<Map<String,String>> topics=topicMapper.topics();
+        List<Map<String,String>> topics=topicMapper.topics(StatusCode.TOPIC_PUBLISH_CODE,null);
+        model.addAttribute("topics",topics);
+    }
+
+    @Override
+    public void myTopics(Model model) {
+        List<Map<String,String>> topics=topicMapper.topics(StatusCode.TOPIC_PUBLISH_CODE,
+                                                            UserUtils.currentUser().getId());
+        model.addAttribute("topics",topics);
+    }
+
+    @Override
+    public void draft(Model model) {
+        List<Map<String,String>> topics=topicMapper.topics(StatusCode.TOPIC_DRAFT_CODE,
+                UserUtils.currentUser().getId());
+        model.addAttribute("topics",topics);
+    }
+
+    @Override
+    public void recycle(Model model) {
+        List<Map<String,String>> topics=topicMapper.topics(StatusCode.TOPIC_DELETE_CODE,
+                UserUtils.currentUser().getId());
         model.addAttribute("topics",topics);
     }
 
@@ -79,7 +101,7 @@ public class TopicServiceImpl implements TopicService {
 
     @Override
     public ResultJson deleteTopic(Long id) {
-        if (topicMapper.delete(new QueryWrapper<Topic>().eq("id",id))==1){
+        if (topicMapper.deleteById(id)==1){
             return ResultJson.success();
         }
         return ResultJson.failure();

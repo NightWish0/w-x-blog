@@ -19,7 +19,7 @@
             <button class="layui-btn layui-btn-danger">选中删除</button>
             <button class="layui-btn layui-btn-danger">全部删除</button>
         </div>
-        <table class="layui-table" lay-data="{page:true}">
+        <table class="layui-table" lay-data="{page:true}" lay-filter="topicTable">
             <thead>
                 <tr>
                     <th lay-data="{type:'checkbox',align:'center'}"></th>
@@ -45,7 +45,7 @@
                     <td th:text="${topic.createdAt}"></td>
                     <td>
                         <a class="layui-btn layui-btn-xs" th:href="@{'/admin/topics/'+${topic.id}+'/edit'}" lay-event="edit">编辑</a>
-                        <a class="layui-btn layui-btn-danger layui-btn-xs" th:href="@{'/admin/topics/'+${topic.id}}" th:method="delete" lay-event="del">删除</a>
+                        <a class="layui-btn layui-btn-danger layui-btn-xs delete-topic" th:data="${topic.id}" lay-event="del">删除</a>
                         <a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="detail">导出</a>
                         <a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="detail">打印</a>
                     </td>

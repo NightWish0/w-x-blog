@@ -35,6 +35,7 @@ public class TopicController {
     @GetMapping
     public String topics(Model model){
         userService.initUserInfo(model);
+        topicService.topics(model);
         return "admin/topics";
     }
 
@@ -46,7 +47,7 @@ public class TopicController {
     @GetMapping("/my")
     public String myTopics(Model model){
         userService.initUserInfo(model);
-        topicService.topics(model);
+        topicService.myTopics(model);
         return "admin/topics_my";
     }
 
@@ -134,9 +135,9 @@ public class TopicController {
      * @param id
      * @return
      */
-    @DeleteMapping("/{id}")
+    @PostMapping("/{id}")
     @ResponseBody
-    public ResultJson topicDelete(Long id){
+    public ResultJson topicDelete(@PathVariable("id") Long id){
         return topicService.deleteTopic(id);
     }
 
@@ -169,6 +170,7 @@ public class TopicController {
     @GetMapping("/draft")
     public String draft(Model model){
         userService.initUserInfo(model);
+        topicService.draft(model);
         return "admin/topics_draft";
     }
 
@@ -180,7 +182,8 @@ public class TopicController {
     @GetMapping("/recycle")
     public String recycle(Model model){
         userService.initUserInfo(model);
-        return "admin/topics_draft";
+        topicService.recycle(model);
+        return "admin/topics_recycle";
     }
 
     /**

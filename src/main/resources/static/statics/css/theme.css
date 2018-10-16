@@ -46,6 +46,15 @@ layui-layout-admin #content_page .container{
 .topic-info .author{
     margin: 30px 0 40px;
 }
+.topic-info .draft-label{
+    float: right;
+    margin-top: -41px;
+    margin-left: 52px;
+    padding: 2px 12px;
+    font-size: 15px;
+    background: #42c02e;
+    color: #fff;
+}
 .topic-info .author .layui-nav-img{
     width: 48px;
     height: 48px;

@@ -16,6 +16,7 @@
         <div class="body-box">
             <div class="topic-header">
                 <h1 th:text="${topic.title}"></h1>
+                <label th:if="${topic.status==0}" class="draft-label">草稿</label>
                 <div class="author">
                     <a href="javascript:;">
                         <img th:src="${topic.userAvatar}?${topic.userAvatar}:@{/statics/image/avatar/default_avatar.png}" class="layui-nav-img">

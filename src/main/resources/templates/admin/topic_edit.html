@@ -18,7 +18,7 @@
     <div th:insert="~{admin/layout_menu :: menu(parent='topic',child='myTopics')}"></div>
     <div class="layui-body">
         <form id="topicForm" class="layui-form" th:action="@{'/admin/topics/'+${topic.id}+'/edit'}" method="post">
-            <blockquote class="layui-elem-quote" th:if="${errorMsg}!=null" th:text="${errorMsg}"></blockquote>
+            <blockquote class="layui-elem-quote" th:if="${errorMsg}!=''" th:text="${errorMsg}"></blockquote>
             <div class="layui-form-item">
                 <input type="text" name="title" th:value="${topic.title}" lay-verify="title" autocomplete="off" placeholder="请输入标题" class="layui-input">
             </div>
@@ -61,7 +61,7 @@
             <div class="layui-form-item">
                 <button type="submit" class="layui-btn">发布</button>
                 <button class="layui-btn save-draft">保存为草稿</button>
-                <button type="reset" class="layui-btn layui-btn-primary">返回</button>
+                <a class="layui-btn layui-btn-primary" th:href="@{/admin/topics/my}">返回</a>
             </div>
         </form>
     </div>

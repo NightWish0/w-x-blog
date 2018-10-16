@@ -11,9 +11,10 @@ import java.util.Map;
 
 @Component
 @Mapper
-public interface TopicMapper extends BaseMapper {
+public interface TopicMapper extends BaseMapper<Topic> {
 
-    List<Map<String,String>> topics();
+    List<Map<String,String>> topics(@Param("status")Integer status,
+                                    @Param("userId")Long userId);
 
     Map<String,String> topic(@Param("id") Long id);
 

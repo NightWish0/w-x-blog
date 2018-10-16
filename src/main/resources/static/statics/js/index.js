@@ -2,14 +2,37 @@ layui.use(['form','element','upload','layedit','table','layer'],function () {
     var element=layui.element;
     var upload = layui.upload;
     var layedit = layui.layedit;
+    var table= layui.table;
+    var layer= layui.layer;
     $=layui.jquery;
     // element.on('nav(menu-nav)',function (elem) {
     //     var dataUrl=$(elem).data('url');
     //     if (dataUrl!=null){
     //         $('#content_page').attr('src',dataUrl);
     //     }
-    // });
+    // }); th:href="@{'/admin/topics/'+${topic.id}}"
     /*文章管理*/
+    table.on('tool(topicTable)', function(obj){
+        var id = $(".delete-topic").attr('data');
+        var layEvent = obj.event;
+       if(layEvent === 'del'){
+            layer.confirm('确定删除吗？', function(index){
+                //向服务端发送删除指令
+                $.post('/admin/topics/'+id,function (result) {
+                    if (result.status){
+                        obj.del(); //删除对应行（tr）的DOM结构
+                        layer.close(index);
+                    }else{
+                        layer.close(index);
+                        layer.msg("删除失败", {
+                            time: 3000,
+                        });
+                    }
+                });
+            });
+        }
+    });
+
     //创建一个编辑器
     var editIndex = layedit.build('LAY_demo_editor');
     $(function () {

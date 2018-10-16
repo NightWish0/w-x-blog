@@ -12,6 +12,23 @@
         <result column="avatar" property="userAvatar"></result>
         <result column="user_name" property="userName"></result>
     </resultMap>
+
+    <sql id="topicWithUser">
+        SELECT t.*,u.id,u.avatar,u.user_name FROM blog_topic t
+        LEFT JOIN blog_user u ON t.user_id=u.id
+    </sql>
+
+    <sql id="statusAndUserIdWhere">
+        <where>
+            <if test="status!=null">
+                t.status=#{status}
+            </if>
+            <if test="userId!=null">
+                AND t.user_id=#{userId}
+            </if>
+        </where>
+        ORDER BY t.created_at DESC
+    </sql>
     
     <insert id="insert" parameterType="Topic">
         INSERT INTO blog_topic(id,title,content,user_id,category_id,created_at,status)
@@ -24,14 +41,15 @@
     </update>
     
     <select id="topics" resultMap="topicMap">
-        SELECT t.*,u.id,u.avatar,u.user_name FROM blog_topic t
-        LEFT JOIN blog_user u ON t.user_id=u.id
-        ORDER BY t.created_at DESC 
+        <include refid="topicWithUser"></include>
+        <include refid="statusAndUserIdWhere">
+            <property name="status" value="status"></property>
+            <property name="userId" value="userId"></property>
+        </include>
     </select>
-    
+
     <select id="topic" resultMap="topicMap" parameterType="long">
-        SELECT t.*,u.avatar,u.user_name FROM blog_topic t
-        LEFT JOIN blog_user u ON t.user_id=u.id
+        <include refid="topicWithUser"></include>
         WHERE t.id=#{id}
     </select>
 
@@ -45,5 +63,5 @@
           #{id}
         </foreach>
     </delete>
-
+    
 </mapper>

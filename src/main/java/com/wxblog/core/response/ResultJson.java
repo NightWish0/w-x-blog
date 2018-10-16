@@ -15,13 +15,13 @@ public class ResultJson<T> implements Serializable {
     private static final String SUCCESS_CODE="1"; //成功
     private static final String FALIURE_CODE="0"; //失败
 
-    private boolean state;
+    private boolean status;
     private String code;
     private T data;
 
     public static <T> ResultJson<T> success(){
         ResultJson<T> resultJson=new ResultJson<T>();
-        resultJson.state=true;
+        resultJson.status=true;
         resultJson.code=SUCCESS_CODE;
         return resultJson;
     }
@@ -34,14 +34,14 @@ public class ResultJson<T> implements Serializable {
 
     public static <T> ResultJson<T> failure(){
         ResultJson<T> resultJson=new ResultJson<T>();
-        resultJson.state=false;
+        resultJson.status=false;
         resultJson.code=FALIURE_CODE;
         return resultJson;
     }
 
     public static <T> ResultJson<T> failure(T data){
         ResultJson<T> resultJson=new ResultJson<T>();
-        resultJson.state=false;
+        resultJson.status=false;
         resultJson.code=FALIURE_CODE;
         resultJson.data=data;
         return resultJson;

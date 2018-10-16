@@ -37,7 +37,7 @@ spring:
       #开启poolPreparedStatements后生效
       max-pool-prepared-statement-per-connection-size: 20
       #配置扩展插件，常用的插件有=>stat:监控统计  log4j:日志  wall:防御sql注入
-      filters: stat,wall,logback
+      filters: stat,wall
       # 通过connectProperties属性来打开mergeSql功能；慢SQL记录
       connection-properties: druid.stat.mergeSql=true;druid.stat.slowSqlMillis=5000
       # Druid WebStatFilter配置
@@ -51,4 +51,3 @@ mybatis-plus:
   global-config:
     # 自动刷新 Mapper 对应的 XML 文件.不建议在生产环境打开
     refresh: true
-

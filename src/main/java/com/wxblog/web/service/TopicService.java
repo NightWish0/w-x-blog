@@ -14,6 +14,12 @@ public interface TopicService {
 
     void topics(Model model);
 
+    void myTopics(Model model);
+
+    void draft(Model model);
+
+    void recycle(Model model);
+
     void topic(Long id,Model model);
 
     boolean edit(Topic topic,String labelId,RedirectAttributes model);
