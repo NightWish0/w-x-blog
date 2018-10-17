@@ -11,50 +11,85 @@
     <script th:src="@{/statics/editormd/editormd.min.js}"></script>
 </head>
 <body class="layui-layout-body">
-<div class="layui-layout layui-layout-admin">
+<div class="layui-layout layui-layout-admin topic-all">
     <div th:insert="~{admin/layout/layout_header :: header}"></div>
     <div th:insert="~{admin/layout/layout_menu :: menu(parent='topic',child='topics')}"></div>
     <div class="layui-body">
         <div class="body-box">
+            <div class="layui-card layadmin-header">
+                <span class="layui-breadcrumb">
+                  <a href="">首页</a>
+                  <a><cite>所有文章</cite></a>
+                </span>
+            </div>
+            <div class="layui-fluid">
+                <div class="layui-card">
+                    <div class="layui-form layui-card-header">
+                        <div class="layui-form-item">
+                            <div class="layui-inline">
+                                <label class="layui-form-label">标题</label>
+                                <div class="layui-input-inline">
+                                    <input type="text" name="title" autocomplete="off" placeholder="请输入标题" class="layui-input">
+                                </div>
+                            </div>
+                            <div class="layui-inline">
+                                <button class="layui-btn layuiadmin-btn-list" lay-submit lay-filter="LAY-app-contlist-search">
+                                    <i class="layui-icon layui-icon-search"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="layui-card-body">
+                        <!--<div class="layui-btn-container" >-->
+                            <!--<button class="layui-btn layui-btn-sm layui-btn-danger" data-type="selectedDel">选中删除</button>-->
+                            <!--<button class="layui-btn layui-btn-sm layui-btn-danger" data-type="allDel">全部删除</button>-->
+                        <!--</div>-->
+                        <table class="layui-table" id="topicTable" lay-data="{page:true,height: 'full-10',limits:[10,20,30]}">
+                            <thead>
+                            <tr>
+                                <th lay-data="{type:'checkbox',align:'center'}"></th>
+                                <th lay-data="{type:'numbers', minWidth:60,align:'center', sort: true}">ID</th>
+                                <th lay-data="{field:'title',align:'center', minWidth:180}">标题</th>
+                                <th lay-data="{field:'userName',align:'center', minWidth:90}">创建人</th>
+                                <th lay-data="{field:'readCount',align:'center', minWidth:90,sort: true}">阅读量</th>
+                                <th lay-data="{field:'likeCount',align:'center', minWidth:90, sort: true}">点赞量</th>
+                                <th lay-data="{field:'content',align:'center', minWidth:90, sort: true}">评论量</th>
+                                <th lay-data="{field:'createdAt',align:'center', minWidth:160, sort: true}">创建时间</th>
+                                <th lay-data="{field:'status',align:'center', minWidth:80}">状态</th>
+                                <th lay-data="{field:'operate',align:'center',minWidth:220}">操作</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr th:each="topic:${topics}" th:data="${topic.id}">
+                                <td></td>
+                                <td></td>
+                                <td>
+                                    <a th:href="@{'/admin/topics/'+${topic.id}}" th:text="${topic.title}"></a>
+                                </td>
+                                <td th:text="${topic.userName}"></td>
+                                <td th:text="${topic.readCount}"></td>
+                                <td th:text="${topic.likeCount}"></td>
+                                <td th:text="${topic.likeCount}"></td>
+                                <td th:text="${topic.createdAt}"></td>
+                                <td>
+                                    <button th:if="${topic.status}==1" class="layui-btn layui-btn-xs" style="background: #22961a">已发布</button>
+                                </td>
+                                <td>
+                                    <a class="layui-btn layui-btn-xs" th:if="${topic.userId}==${user.id}" th:href="@{'/admin/topics/'+${topic.id}+'/edit'}" lay-event="edit">编辑</a>
+                                    <a class="layui-btn layui-btn-danger layui-btn-xs" th:if="${topic.userId}==${user.id}" lay-event="del">删除</a>
+                                    <a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="detail">导出</a>
+                                    <a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="detail">打印</a>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
             <div class="layui-btn-group demoTable">
             </div>
-            <table class="layui-table" lay-data="{page:true}">
-                <thead>
-                <tr>
-                    <th lay-data="{type:'checkbox',align:'center'}"></th>
-                    <th lay-data="{type:'numbers', minWidth:60,align:'center', sort: true}">ID</th>
-                    <th lay-data="{field:'title',align:'center', minWidth:180}">标题</th>
-                    <th lay-data="{field:'userName',align:'center', minWidth:90}">创建人</th>
-                    <th lay-data="{field:'readCount',align:'center', minWidth:90,sort: true}">阅读量</th>
-                    <th lay-data="{field:'likeCount',align:'center', minWidth:90, sort: true}">点赞量</th>
-                    <th lay-data="{field:'content',align:'center', minWidth:90, sort: true}">评论量</th>
-                    <th lay-data="{field:'createdAt',align:'center', minWidth:160, sort: true}">创建时间</th>
-                    <th lay-data="{field:'operate',align:'center',minWidth:220}">操作</th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr th:each="topic:${topics}">
-                    <td></td>
-                    <td></td>
-                    <td>
-                        <a th:href="@{'/admin/topics/'+${topic.id}}" th:text="${topic.title}"></a>
-                    </td>
-                    <td th:text="${topic.userName}"></td>
-                    <td th:text="${topic.readCount}"></td>
-                    <td th:text="${topic.likeCount}"></td>
-                    <td th:text="${topic.likeCount}"></td>
-                    <td th:text="${topic.createdAt}"></td>
-                    <td>
-                        <a class="layui-btn layui-btn-xs" th:href="@{'/admin/topics/'+${topic.id}+'/edit'}" lay-event="edit">编辑</a>
-                        <a class="layui-btn layui-btn-danger layui-btn-xs" th:href="@{'/admin/topics/'+${topic.id}}" th:method="delete" lay-event="del">删除</a>
-                        <a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="detail">导出</a>
-                        <a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="detail">打印</a>
-                    </td>
-                </tr>
-                </tbody>
-            </table>
-        </div>
 
+        </div>
     </div>
     <div th:insert="~{admin/layout/layout_footer :: footer}"></div>
 </div>

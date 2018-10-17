@@ -33,6 +33,53 @@ layui.use(['form','element','upload','layedit','table','layer'],function () {
         }
     });
 
+    //选中、全部删除
+    var active = {
+        selectedDel: function(){
+            var checkStatus = table.checkStatus('topicTable')
+                ,checkData = checkStatus.data; //得到选中的数据
+            if(checkData.length === 0){
+                return layer.msg('请选择数据');
+            }
+            var ids=[];
+            $.each(checkData,function (index,value) {
+                ids[index]=parseInt(value.id);
+            })
+            console.log(checkData[0]);
+            layer.confirm('确定删除吗？', function(index) {
+                $.ajax({
+                    type:'post',
+                    url:'/admin/topics/deleteSelected',
+                    dateType:"json",
+                    contentType : 'application/json',
+                    data:JSON.stringify(ids),
+                    success:function (result) {
+                        if (result.status){
+                            var tableContainer = $('div[lay-filter="LAY-table-1"]');
+                            tableContainer.find('input[name="layTableCheckbox"]:checked').each(function(){
+                                var trDel = $(this).parents('tr');
+                                $(trDel).del();
+                            })
+                            layer.msg('已删除');
+                        }else{
+                            layer.msg("删除失败", {
+                                time: 3000,
+                            });
+                        }
+                    }
+                });
+            });
+        }
+        //全部删除
+        ,allDel: function(othis){
+
+        }
+    };
+    $('.layui-btn.topic-del').on('click', function(){
+        var type = $(this).data('type');
+        active[type] ? active[type].call(this) : '';
+    });
+
     //创建一个编辑器
     var editIndex = layedit.build('LAY_demo_editor');
     $(function () {

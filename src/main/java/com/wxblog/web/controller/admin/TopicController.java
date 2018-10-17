@@ -36,7 +36,7 @@ public class TopicController {
     public String topics(Model model){
         userService.initUserInfo(model);
         topicService.topics(model);
-        return "admin/topics";
+        return "admin/topic/topics";
     }
 
     /**
@@ -146,9 +146,9 @@ public class TopicController {
      * @param ids
      * @return
      */
-    @DeleteMapping("/deleteSelected")
+    @PostMapping(value = "/deleteSelected")
     @ResponseBody
-    public ResultJson topicsDelete(List<Long> ids){
+    public ResultJson topicsDelete(@RequestBody List<Long> ids){
         return topicService.deleteTopics(ids);
     }
 
@@ -156,7 +156,7 @@ public class TopicController {
      * 删除全部<逻辑删除>
      * @return
      */
-    @DeleteMapping("/deleteAll")
+    @PostMapping("/deleteAll")
     @ResponseBody
     public ResultJson topicsDelete(){
         return topicService.deleteTopics(StatusCode.TOPIC_PUBLISH_CODE);
@@ -190,7 +190,7 @@ public class TopicController {
      * 清空回收站/彻底删除单个文章
      * @return
      */
-    @DeleteMapping("/destroy")
+    @PostMapping("/destroy")
     @ResponseBody
     public ResultJson destroy(List<Long> ids){
         return topicService.destroy(ids);

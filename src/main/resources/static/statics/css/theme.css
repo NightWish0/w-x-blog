@@ -10,14 +10,42 @@
 .layui-layout-admin #content_page{
     min-width: 1100px;
 }
-layui-layout-admin #content_page .container{
+.layui-layout-admin #content_page .container{
     width: 100%;
 }
-/*文章模块*/
-/*我的文章*/
-.topics-my .body-box{
-    margin: 40px 40px 60px 40px;
+.layui-layout-admin .body-box{
+    background: #f2f2f2;
 }
+/*导航*/
+.layui-layout-admin .layadmin-header{
+    height: 50px;
+    line-height: 50px;
+    border-radius: 0;
+}
+.layui-layout-admin .layadmin-header .layui-breadcrumb{
+    padding: 0 15px;
+}
+.layui-layout-admin .layui-fluid{
+    padding: 15px;
+}
+.layui-layout-admin .layui-card-header{
+    height: auto;
+}
+/*文章模块*/
+.topic-all .layui-card-header,
+.topics-my .layui-card-header,
+.topic-draft .layui-card-header{
+    padding-top: 18px;
+}
+.topic-all .layuiadmin-btn-list,
+.topics-my .layuiadmin-btn-list,
+.topic-draft .layuiadmin-btn-list{
+    margin-top: -11px;
+}
+/*所有文章*/
+
+/*我的文章*/
+
 /*创建文章*/
 .new-topics .layui-form{
     margin: 40px 40px 40px 40px;
@@ -41,6 +69,7 @@ layui-layout-admin #content_page .container{
 }
 /*文章详情*/
 .topic-info .body-box{
+    background: #fff;
     margin: 20px 40px 40px 40px;
 }
 .topic-info .author{
