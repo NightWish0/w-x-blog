@@ -6,6 +6,8 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Component;
 
+import java.util.Date;
+
 /**
  * @author: NightWish
  * @create: 2018-09-21 14:48
@@ -16,4 +18,11 @@ import org.springframework.stereotype.Component;
 public interface UserMapper extends BaseMapper<User> {
 
     User checkUserIsExists(@Param("loginName") String loginName);
+
+    int updatePwd(@Param("id") Long id,@Param("password") String password);
+
+    int updateInfo(@Param("id")Long id,@Param("userName")String userName,
+                   @Param("avatar")String avatar,@Param("profile")String profile);
+
+    int updateLastLogin(@Param("id")Long id,@Param("lastLoginAt")Date lastLoginAt);
 }

@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<body>
+<div class="layui-header" th:fragment="header">
+    <div class="layui-logo"><a th:href="@{/admin}">博客后台管理</a></div>
+    <ul class="layui-nav layui-layout-right">
+        <li class="layui-nav-item">
+            <a href="javascript:;">消息<span class="layui-badge">4</span></a>
+        </li>
+        <li class="layui-nav-item">
+            <a href="javascript:;">
+                <img th:src="${user.avatar}?${user.avatar}:@{/statics/image/avatar/default_avatar.png}" class="layui-nav-img">
+                [[${user.userName}]]
+            </a>
+            <dl class="layui-nav-child">
+                <dd><a th:href="@{/admin/info}">基本资料</a></dd>
+                <dd><a th:href="@{/admin/setting}">设置</a></dd>
+                <dd><a th:href="@{/login_out}">退出</a></dd>
+            </dl>
+        </li>
+    </ul>
+</div>
+</body>
+</html>

@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <title>后台管理</title>
+    <link rel="stylesheet" th:href="@{/statics/css/theme.css}">
+    <script th:src="@{/statics/layui/layui.js}"></script>
+    <script th:src="@{/statics/js/jquery.min.js}"></script>
+    <script th:src="@{/statics/js/index.js}"></script>
+    <script th:src="@{/statics/editormd/editormd.min.js}"></script>
+</head>
+<body class="layui-layout-body topic-info">
+<div class="layui-layout layui-layout-admin">
+    <div th:insert="~{admin/layout/layout_header :: header}"></div>
+    <div th:insert="~{admin/layout/layout_menu :: menu(parent='topic',child='myTopics')}"></div>
+    <div class="layui-body">
+        <div class="body-box">
+            <div class="topic-header">
+                <h1 th:text="${topic.title}"></h1>
+                <label th:if="${topic.status==0}" class="draft-label">草稿</label>
+                <div class="author">
+                    <a href="javascript:;">
+                        <img th:src="${topic.userAvatar}?${topic.userAvatar}:@{/statics/image/avatar/default_avatar.png}" class="layui-nav-img">
+                    </a>
+                    <div class="info">
+                    <span class="name">
+                        <a href="javascript;" th:text="${topic.userName}"></a>
+                    </span>
+                        <div class="meta">
+                            <span th:text="'发布时间 : '+${topic.createdAt}"></span>
+                            <span th:text="'阅读 '+${topic.readCount}"></span>
+                            <span th:text="'点赞 '+${topic.likeCount}"></span>
+                            <span th:text="'评论 '+0"></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <hr class="layui-bg-gray">
+            <div class="topic-body" th:utext="${topic.content}">
+
+            </div>
+        </div>
+    </div>
+    <div th:insert="~{admin/layout/layout_footer :: footer}"></div>
+</div>
+</body>
+</html>

@@ -1,8 +1,12 @@
 package com.wxblog.web.controller;
 
+import com.wxblog.web.service.BaseService;
+import com.wxblog.web.service.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 
 /**
  * @author: NightWish
@@ -13,9 +17,34 @@ import org.springframework.web.bind.annotation.GetMapping;
 @Controller
 public class BaseController {
 
-    @GetMapping(value = "/login")
-    public String loginPage(String loginName,String password,Model model){
+    @Autowired
+    private BaseService baseService;
+    @Autowired
+    private UserService userService;
+
+    @GetMapping("/login")
+    public String loginPage(){
+        boolean isAuthentication=baseService.loginAuthentication();
+        if (isAuthentication){
+            return "redirect:/admin";
+        }
         return "admin/login";
+    }
+
+    @PostMapping("/login")
+    public String login(String loginName,String password,Model model){
+        boolean isSuccess=baseService.loginAuthentication(loginName,password,model);
+        if (isSuccess){
+            userService.updateLastLogin();
+            return "redirect:/admin";
+        }
+        return "admin/login";
+    }
+
+    @GetMapping("/login_out")
+    public String loginOut(){
+        baseService.loginOut();
+        return "redirect:/login";
     }
 
 }

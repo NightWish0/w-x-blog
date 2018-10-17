@@ -7,6 +7,7 @@ import org.apache.shiro.authz.AuthorizationInfo;
 import org.apache.shiro.authz.SimpleAuthorizationInfo;
 import org.apache.shiro.realm.AuthorizingRealm;
 import org.apache.shiro.subject.PrincipalCollection;
+import org.apache.shiro.util.ByteSource;
 import org.springframework.beans.factory.annotation.Autowired;
 
 /**
@@ -27,9 +28,8 @@ public class BlogRealm extends AuthorizingRealm {
     @Override
     protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principalCollection) {
         SimpleAuthorizationInfo authenticationInfo=new SimpleAuthorizationInfo();
-        String name=principalCollection.getPrimaryPrincipal().toString();
+        User user= (User) principalCollection.getPrimaryPrincipal();
         //只有管理员角色
-        User user=userMapper.checkUserIsExists(name);
         if (user != null){
             authenticationInfo.addRole("admin");
         }
@@ -48,7 +48,12 @@ public class BlogRealm extends AuthorizingRealm {
         String loginName=token.getPrincipal().toString();
         User user=userMapper.checkUserIsExists(loginName);
         if (user != null){
-            return new SimpleAuthenticationInfo(loginName,token.getPassword(),getName());
+            SimpleAuthenticationInfo authenticationInfo=new SimpleAuthenticationInfo(
+                                                        user,
+                                                        user.getPassword(),
+                                                        ByteSource.Util.bytes(user.getLoginName()+user.getSalt()),
+                                                        getName());
+            return authenticationInfo;
         }else{
             throw new UnknownAccountException();
         }

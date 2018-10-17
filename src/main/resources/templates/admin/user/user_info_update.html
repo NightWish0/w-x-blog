@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <title>后台管理</title>
+    <link rel="stylesheet" th:href="@{/statics/css/theme.css}">
+    <script th:src="@{/statics/layui/layui.js}"></script>
+    <script th:src="@{/statics/js/jquery.min.js}"></script>
+    <script th:src="@{/statics/js/index.js}"></script>
+    <script th:src="@{/statics/editormd/editormd.min.js}"></script>
+</head>
+<body class="layui-layout-body user-info-page">
+<div class="layui-layout layui-layout-admin">
+    <div th:insert="~{admin/layout/layout_header :: header}"></div>
+    <div th:insert="~{admin/layout/layout_menu :: menu}"></div>
+    <div class="layui-body">
+        <div class="user-info-box">
+            <form class="layui-form" th:action="@{/admin/info_save}" method="post" enctype="multipart/form-data" >
+            <button class="info-save" type="submit" title="保存">
+                <i class="fa fa-check"></i>
+            </button>
+            <a class="info-goback" th:href="@{/admin/info}" title="返回">
+                <i class="fa fa-close"></i>
+            </a>
+            <img id="avatar" th:src="${user.avatar}?${user.avatar}:@{/statics/image/avatar/default_avatar.png}" class="img-avatar">
+            <div class="upload-box">
+                <button type="button" class="layui-btn" id="uploadAvatar">
+                    <i class="layui-icon">&#xe67c;</i>上传图片
+                </button>
+                <button type="button" class="layui-btn layui-btn-danger" id="cancelAvatar">
+                    <i class="layui-icon">&#x1006;</i>取消
+                </button>
+            </div>
+            <div class="info-box update-box">
+                <div class="input-box">
+                    <input type="text" name="userName" th:value="${user.userName}" placeholder="用户名" lay-verify="required" autocomplete="off" class="layui-input">
+                </div>
+                <div>
+                    <label>< ID: [[${user.loginName}]] ></label>
+                </div>
+                <div class="bind-platform">
+                    <a href="" th:title="GitHub">
+                        <i class="fa fa-github"></i>
+                    </a>
+                    <a href="" th:title="邮箱">
+                        <i class="fa fa-envelope"></i>
+                    </a>
+                </div>
+                <div>
+                    <div class="layui-form-item layui-form-text">
+                        <div class="layui-input-block">
+                            <textarea th:text="${user.profile}" name="profile" placeholder="个人简介" class="layui-textarea"></textarea>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            </form>
+        </div>
+    </div>
+    <div th:insert="~{admin/layout/layout_footer :: footer}"></div>
+</div>
+</body>
+</html>

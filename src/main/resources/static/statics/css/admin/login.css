@@ -1,20 +1,44 @@
 .login-page{
-    background: #eaeaea;
+    background: url("../../image/bg_login.jpg") no-repeat;
+    background-size: cover;
 }
 .login-page .layui-container{
-    width: 432px;
+    width: 380px;
     height: 280px;
-    margin-top: 100px;
-    background: #fff;
+    border-radius: 2px;
+    margin-top: 150px;
+    background: transparent;
+}
+.login-page .error-msg{
+    text-align: center;
+    float: unset;
+    color: red;
+    font-size: 16px;
 }
 .login-page .login-title{
     text-align: center;
     margin-bottom: 20px;
     padding-top: 30px;
+    color: #fff;
 }
 .login-page .layui-input{
     border: 0;
     border-bottom: 1px solid #ebebeb;
+    background: transparent;
+    border-radius: 0;
+    color: #fff;
+}
+.login-page .layui-input::-webkit-input-placeholder{
+    color:#0bd2e6;
+}
+.login-page .layui-input::-moz-placeholder{
+    color:#0bd2e6;
+}
+.login-page .layui-input:-moz-placeholder{
+    color:#0bd2e6;
+}
+.login-page .layui-input:-ms-input-placeholder{
+    color:#0bd2e6;
 }
 .login-page .layui-input-block{
     margin-left: 20px;
@@ -24,9 +48,9 @@
     margin-top: 15px;
     width: 100%;
     color: #fff;
-    background-color: #0084ff;
+    background-color: #0084ff75;
 }
-.login-page .layui-btn:focus{
-    border-color: #0077e6;
-    background-color: #0077e6;
+.login-page .layui-btn:hover{
+    border-color: #0084ff;
+    background-color: #0084ff;
 }
