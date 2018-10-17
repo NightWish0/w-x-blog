@@ -32,7 +32,10 @@
                     </dl>
                 </li>
                 <li th:class="${parent}=='system'?'layui-nav-item layui-nav-itemed':'layui-nav-item'">
-                    <a href="javascript:;">系统设置</a>
+                    <a href="javascript:;">
+                        <i class="layui-icon layui-icon-set"></i>
+                        <cite>系统设置</cite>
+                    </a>
                     <dl class="layui-nav-child">
                         <dd><a href="javascript:;" th:class="${child}=='userManage'?'layui-this':''">用户管理</a></dd>
                         <dd><a th:href="@{/admin/druid}" th:class="${child}=='webManage'?'layui-this':''">WEB监控</a></dd>

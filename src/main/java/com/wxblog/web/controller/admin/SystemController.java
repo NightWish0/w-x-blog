@@ -22,6 +22,6 @@ public class SystemController {
     @GetMapping("/druid")
     public String druid(Model model){
         userService.initUserInfo(model);
-        return "admin/system_webMonitor";
+        return "admin/system/system_webMonitor";
     }
 }

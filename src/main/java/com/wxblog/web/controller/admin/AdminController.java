@@ -1,6 +1,5 @@
 package com.wxblog.web.controller.admin;
 
-import com.wxblog.core.bean.User;
 import com.wxblog.core.response.ResultJson;
 import com.wxblog.web.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,28 +29,28 @@ public class AdminController {
     @GetMapping("/info")
     public String info(Model model){
         userService.initUserInfo(model);
-        return "admin/user_info";
+        return "admin/user/user_info";
     }
 
     @GetMapping("/info_update")
     public String settingUpdate(Model model){
         userService.initUserInfo(model);
-        return "admin/user_info_update";
+        return "admin/user/user_info_update";
     }
 
     @PostMapping("/info_save")
     public String infoSave(@RequestParam("file") MultipartFile file, String userName, String profile, Model model){
         boolean isSuccess=userService.updateUserInfo(file,userName,profile,model);
         if (isSuccess){
-            return "redirect:/admin/info";
+            return "redirect:/admin/user/info";
         }
-        return "redirect:/admin/info_update";
+        return "redirect:/admin/user/info_update";
     }
 
     @GetMapping("/setting")
     public String setting(Model model){
         userService.initUserInfo(model);
-        return "admin/user_setting";
+        return "admin/user/user_setting";
     }
 
     @PostMapping("/update_pwd")

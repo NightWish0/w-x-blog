@@ -6,17 +6,17 @@
     <title>后台管理</title>
     <link rel="stylesheet" th:href="@{/statics/css/theme.css}">
     <script th:src="@{/statics/layui/layui.js}"></script>
+    <script th:src="@{/statics/js/jquery.min.js}"></script>
     <script th:src="@{/statics/js/index.js}"></script>
+    <script th:src="@{/statics/editormd/editormd.min.js}"></script>
 </head>
 <body class="layui-layout-body">
 <div class="layui-layout layui-layout-admin">
-    <div th:insert="~{admin/layout_header :: header}"></div>
-    <div th:insert="~{admin/layout_menu :: menu(parent='topic',child='draft')}"></div>
+    <div th:insert="~{admin/layout/layout_header :: header}"></div>
+    <div th:insert="~{admin/layout/layout_menu :: menu(parent='topic',child='topics')}"></div>
     <div class="layui-body">
         <div class="body-box">
             <div class="layui-btn-group demoTable">
-                <button class="layui-btn layui-btn-danger">选中删除</button>
-                <button class="layui-btn layui-btn-danger">全部删除</button>
             </div>
             <table class="layui-table" lay-data="{page:true}">
                 <thead>
@@ -24,6 +24,7 @@
                     <th lay-data="{type:'checkbox',align:'center'}"></th>
                     <th lay-data="{type:'numbers', minWidth:60,align:'center', sort: true}">ID</th>
                     <th lay-data="{field:'title',align:'center', minWidth:180}">标题</th>
+                    <th lay-data="{field:'userName',align:'center', minWidth:90}">创建人</th>
                     <th lay-data="{field:'readCount',align:'center', minWidth:90,sort: true}">阅读量</th>
                     <th lay-data="{field:'likeCount',align:'center', minWidth:90, sort: true}">点赞量</th>
                     <th lay-data="{field:'content',align:'center', minWidth:90, sort: true}">评论量</th>
@@ -38,6 +39,7 @@
                     <td>
                         <a th:href="@{'/admin/topics/'+${topic.id}}" th:text="${topic.title}"></a>
                     </td>
+                    <td th:text="${topic.userName}"></td>
                     <td th:text="${topic.readCount}"></td>
                     <td th:text="${topic.likeCount}"></td>
                     <td th:text="${topic.likeCount}"></td>
@@ -52,8 +54,9 @@
                 </tbody>
             </table>
         </div>
+
     </div>
-    <div th:insert="~{admin/layout_footer :: footer}"></div>
+    <div th:insert="~{admin/layout/layout_footer :: footer}"></div>
 </div>
 </body>
 </html>

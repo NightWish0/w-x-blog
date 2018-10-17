@@ -6,16 +6,18 @@
     <title>后台管理</title>
     <link rel="stylesheet" th:href="@{/statics/css/theme.css}">
     <script th:src="@{/statics/layui/layui.js}"></script>
+    <script th:src="@{/statics/js/jquery.min.js}"></script>
     <script th:src="@{/statics/js/index.js}"></script>
+    <script th:src="@{/statics/editormd/editormd.min.js}"></script>
 </head>
 <body class="layui-layout-body">
 <div class="layui-layout layui-layout-admin">
-    <div th:insert="~{admin/layout_header :: header}"></div>
-    <div th:insert="~{admin/layout_menu :: menu(parent='system',child='webManage')}"></div>
+    <div th:insert="~{admin/layout/layout_header :: header}"></div>
+    <div th:insert="~{admin/layout/layout_menu :: menu(parent='system',child='webManage')}"></div>
     <div class="layui-body">
         <iframe id="content_page" th:src="@{/druid/webapp.html}" width="100%" height="99%"  frameborder="no" border="0" marginwidth="0" marginheight=" 0" scrolling="auto" allowtransparency="yes"></iframe>
     </div>
-    <div th:insert="~{admin/layout_footer :: footer}"></div>
+    <div th:insert="~{admin/layout/layout_footer :: footer}"></div>
 </div>
 </body>
 </html>

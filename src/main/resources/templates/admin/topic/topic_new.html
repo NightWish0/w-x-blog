@@ -14,8 +14,8 @@
 </head>
 <body class="layui-layout-body new-topics">
 <div class="layui-layout layui-layout-admin">
-    <div th:insert="~{admin/layout_header :: header}"></div>
-    <div th:insert="~{admin/layout_menu :: menu(parent='topic',child='myTopics')}"></div>
+    <div th:insert="~{admin/layout/layout_header :: header}"></div>
+    <div th:insert="~{admin/layout/layout_menu :: menu(parent='topic',child='myTopics')}"></div>
     <div class="layui-body">
         <form id="topicForm" class="layui-form" th:action="@{/admin/topics/new}" method="post">
             <blockquote class="layui-elem-quote" th:if="${errorMsg}!=''" th:text="${errorMsg}"></blockquote>
@@ -65,7 +65,7 @@
             </div>
         </form>
     </div>
-    <div th:insert="~{admin/layout_footer :: footer}"></div>
+    <div th:insert="~{admin/layout/layout_footer :: footer}"></div>
 </div>
 </body>
 </html>

@@ -2,9 +2,9 @@ package com.wxblog.web.controller.admin;
 
 import com.wxblog.core.bean.Topic;
 import com.wxblog.core.response.ResultJson;
+import com.wxblog.core.util.StatusCode;
 import com.wxblog.web.service.TopicService;
 import com.wxblog.web.service.UserService;
-import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -48,7 +48,7 @@ public class TopicController {
     public String myTopics(Model model){
         userService.initUserInfo(model);
         topicService.myTopics(model);
-        return "admin/topics_my";
+        return "admin/topic/topics_my";
     }
 
     /**
@@ -68,7 +68,7 @@ public class TopicController {
         model.addAttribute("labelId",labelId);
         model.addAttribute("topic",topic);
         model.addAttribute("errorMsg",errorMsg);
-        return "admin/topic_new";
+        return "admin/topic/topic_new";
     }
 
     /**
@@ -96,7 +96,7 @@ public class TopicController {
     public String topicLook(@PathVariable("id") Long id, Model model){
         userService.initUserInfo(model);
         topicService.topic(id,model);
-        return "admin/topic";
+        return "admin/topic/topic";
     }
 
     /**
@@ -111,7 +111,7 @@ public class TopicController {
         userService.initUserInfo(model);
         topicService.topic(id,model);
         model.addAttribute("errorMsg",errorMsg);
-        return "admin/topic_edit";
+        return "admin/topic/topic_edit";
     }
 
     /**
@@ -159,7 +159,7 @@ public class TopicController {
     @DeleteMapping("/deleteAll")
     @ResponseBody
     public ResultJson topicsDelete(){
-        return topicService.deleteTopics(1);
+        return topicService.deleteTopics(StatusCode.TOPIC_PUBLISH_CODE);
     }
 
     /**
@@ -171,7 +171,7 @@ public class TopicController {
     public String draft(Model model){
         userService.initUserInfo(model);
         topicService.draft(model);
-        return "admin/topics_draft";
+        return "admin/topic/topics_draft";
     }
 
     /**
@@ -183,7 +183,7 @@ public class TopicController {
     public String recycle(Model model){
         userService.initUserInfo(model);
         topicService.recycle(model);
-        return "admin/topics_recycle";
+        return "admin/topic/topics_recycle";
     }
 
     /**

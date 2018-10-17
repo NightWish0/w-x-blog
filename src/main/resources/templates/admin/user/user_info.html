@@ -6,12 +6,14 @@
     <title>后台管理</title>
     <link rel="stylesheet" th:href="@{/statics/css/theme.css}">
     <script th:src="@{/statics/layui/layui.js}"></script>
+    <script th:src="@{/statics/js/jquery.min.js}"></script>
     <script th:src="@{/statics/js/index.js}"></script>
+    <script th:src="@{/statics/editormd/editormd.min.js}"></script>
 </head>
 <body class="layui-layout-body user-info-page">
 <div class="layui-layout layui-layout-admin">
-    <div th:insert="~{admin/layout_header :: header}"></div>
-    <div th:insert="~{admin/layout_menu :: menu}"></div>
+    <div th:insert="~{admin/layout/layout_header :: header}"></div>
+    <div th:insert="~{admin/layout/layout_menu :: menu}"></div>
     <div class="layui-body">
         <div class="user-info-box">
             <a class="info-update" th:href="@{/admin/info_update}" title="编辑">
@@ -39,7 +41,7 @@
             </div>
         </div>
     </div>
-    <div th:insert="~{admin/layout_footer :: footer}"></div>
+    <div th:insert="~{admin/layout/layout_footer :: footer}"></div>
 </div>
 </body>
 </html>

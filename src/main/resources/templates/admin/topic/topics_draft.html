@@ -6,21 +6,22 @@
     <title>后台管理</title>
     <link rel="stylesheet" th:href="@{/statics/css/theme.css}">
     <script th:src="@{/statics/layui/layui.js}"></script>
+    <script th:src="@{/statics/js/jquery.min.js}"></script>
     <script th:src="@{/statics/js/index.js}"></script>
+    <script th:src="@{/statics/editormd/editormd.min.js}"></script>
 </head>
-<body class="layui-layout-body topics-my">
+<body class="layui-layout-body">
 <div class="layui-layout layui-layout-admin">
-    <div th:insert="~{admin/layout_header :: header}"></div>
-    <div th:insert="~{admin/layout_menu :: menu(parent='topic',child='myTopics')}"></div>
+    <div th:insert="~{admin/layout/ayout_header :: header}"></div>
+    <div th:insert="~{admin/layout/layout_menu :: menu(parent='topic',child='draft')}"></div>
     <div class="layui-body">
         <div class="body-box">
-        <div class="layui-btn-group demoTable">
-            <a class="layui-btn" th:href="@{/admin/topics/new}">写文章</a>
-            <button class="layui-btn layui-btn-danger">选中删除</button>
-            <button class="layui-btn layui-btn-danger">全部删除</button>
-        </div>
-        <table class="layui-table" lay-data="{page:true}" lay-filter="topicTable">
-            <thead>
+            <div class="layui-btn-group demoTable">
+                <button class="layui-btn layui-btn-danger">选中删除</button>
+                <button class="layui-btn layui-btn-danger">全部删除</button>
+            </div>
+            <table class="layui-table" lay-data="{page:true}">
+                <thead>
                 <tr>
                     <th lay-data="{type:'checkbox',align:'center'}"></th>
                     <th lay-data="{type:'numbers', minWidth:60,align:'center', sort: true}">ID</th>
@@ -31,8 +32,8 @@
                     <th lay-data="{field:'createdAt',align:'center', minWidth:160, sort: true}">创建时间</th>
                     <th lay-data="{field:'operate',align:'center',minWidth:220}">操作</th>
                 </tr>
-            </thead>
-            <tbody>
+                </thead>
+                <tbody>
                 <tr th:each="topic:${topics}">
                     <td></td>
                     <td></td>
@@ -45,16 +46,16 @@
                     <td th:text="${topic.createdAt}"></td>
                     <td>
                         <a class="layui-btn layui-btn-xs" th:href="@{'/admin/topics/'+${topic.id}+'/edit'}" lay-event="edit">编辑</a>
-                        <a class="layui-btn layui-btn-danger layui-btn-xs delete-topic" th:data="${topic.id}" lay-event="del">删除</a>
+                        <a class="layui-btn layui-btn-danger layui-btn-xs" th:href="@{'/admin/topics/'+${topic.id}}" th:method="delete" lay-event="del">删除</a>
                         <a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="detail">导出</a>
                         <a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="detail">打印</a>
                     </td>
                 </tr>
-            </tbody>
-        </table>
+                </tbody>
+            </table>
         </div>
     </div>
-    <div th:insert="~{admin/layout_footer :: footer}"></div>
+    <div th:insert="~{admin/layout/layout_footer :: footer}"></div>
 </div>
 </body>
 </html>
