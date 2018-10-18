@@ -135,7 +135,7 @@ public class TopicController {
      * @param id
      * @return
      */
-    @PostMapping("/{id}")
+    @DeleteMapping("/{id}")
     @ResponseBody
     public ResultJson topicDelete(@PathVariable("id") Long id){
         return topicService.deleteTopic(id);
@@ -146,7 +146,7 @@ public class TopicController {
      * @param ids
      * @return
      */
-    @PostMapping(value = "/deleteSelected")
+    @DeleteMapping("/deleteSelected")
     @ResponseBody
     public ResultJson topicsDelete(@RequestBody List<Long> ids){
         return topicService.deleteTopics(ids);
@@ -156,7 +156,7 @@ public class TopicController {
      * 删除全部<逻辑删除>
      * @return
      */
-    @PostMapping("/deleteAll")
+    @DeleteMapping("/deleteAll")
     @ResponseBody
     public ResultJson topicsDelete(){
         return topicService.deleteTopics(StatusCode.TOPIC_PUBLISH_CODE);
@@ -190,7 +190,7 @@ public class TopicController {
      * 清空回收站/彻底删除单个文章
      * @return
      */
-    @PostMapping("/destroy")
+    @DeleteMapping("/destroy")
     @ResponseBody
     public ResultJson destroy(List<Long> ids){
         return topicService.destroy(ids);

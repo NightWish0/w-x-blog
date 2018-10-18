@@ -45,10 +45,10 @@
                             <button class="layui-btn layui-btn-sm layui-btn-danger topic-del" data-type="selectedDel">选中删除</button>
                             <button class="layui-btn layui-btn-sm layui-btn-danger topic-del" data-type="allDel">全部删除</button>
                         </div>
-                        <table id="topicTable" class="layui-table" lay-data="{page:true,height:'full-10',limits:[10,20,30]}" lay-filter="topicTable">
+                        <table id="topicTable" class="layui-table" lay-data="{id:'topicTable',page:true,height:'full-10',limits:[10,20,30]}" lay-filter="topicTable">
                             <thead>
                             <tr>
-                                <th lay-data="{type:'checkbox',id:'topicCheckbox',align:'center'}"></th>
+                                <th lay-data="{type:'checkbox',align:'center'}"></th>
                                 <th lay-data="{field:'id',type:'numbers', minWidth:60,align:'center', sort: true}">ID</th>
                                 <th lay-data="{field:'title',align:'center', minWidth:180}">标题</th>
                                 <th lay-data="{field:'readCount',align:'center', minWidth:90,sort: true}">阅读量</th>

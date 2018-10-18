@@ -53,8 +53,8 @@
         WHERE t.id=#{id}
     </select>
 
-    <update id="deleteAll" parameterType="int">
-        UPDATE blog_topic SET status=-1 WHERE status=${status};
+    <update id="deleteAll" parameterType="integer">
+        UPDATE blog_topic SET status=-1 WHERE status=#{status};
     </update>
     
     <delete id="destroy" parameterType="list">

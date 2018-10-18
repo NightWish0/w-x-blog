@@ -13,22 +13,37 @@ layui.use(['form','element','upload','layedit','table','layer'],function () {
     // }); th:href="@{'/admin/topics/'+${topic.id}}"
     /*文章管理*/
     table.on('tool(topicTable)', function(obj){
-        var id = $(".delete-topic").attr('data');
+        var id = obj.data.id;
         var layEvent = obj.event;
        if(layEvent === 'del'){
             layer.confirm('确定删除吗？', function(index){
                 //向服务端发送删除指令
-                $.post('/admin/topics/'+id,function (result) {
-                    if (result.status){
-                        obj.del(); //删除对应行（tr）的DOM结构
-                        layer.close(index);
-                    }else{
-                        layer.close(index);
-                        layer.msg("删除失败", {
-                            time: 3000,
-                        });
+                $.ajax({
+                    type:'delete',
+                    url:'/admin/topics/'+id,
+                    success:function (result) {
+                        if (result.status){
+                            obj.del(); //删除对应行（tr）的DOM结构
+                            layer.close(index);
+                        }else{
+                            layer.close(index);
+                            layer.msg("删除失败", {
+                                time: 3000,
+                            });
+                        }
                     }
                 });
+                // $.post('/admin/topics/'+id,function (result) {
+                //     if (result.status){
+                //         obj.del(); //删除对应行（tr）的DOM结构
+                //         layer.close(index);
+                //     }else{
+                //         layer.close(index);
+                //         layer.msg("删除失败", {
+                //             time: 3000,
+                //         });
+                //     }
+                // });
             });
         }
     });
@@ -45,22 +60,22 @@ layui.use(['form','element','upload','layedit','table','layer'],function () {
             $.each(checkData,function (index,value) {
                 ids[index]=parseInt(value.id);
             })
-            console.log(checkData[0]);
             layer.confirm('确定删除吗？', function(index) {
                 $.ajax({
-                    type:'post',
+                    type:'delete',
                     url:'/admin/topics/deleteSelected',
                     dateType:"json",
                     contentType : 'application/json',
                     data:JSON.stringify(ids),
                     success:function (result) {
                         if (result.status){
-                            var tableContainer = $('div[lay-filter="LAY-table-1"]');
-                            tableContainer.find('input[name="layTableCheckbox"]:checked').each(function(){
-                                var trDel = $(this).parents('tr');
-                                $(trDel).del();
-                            })
-                            layer.msg('已删除');
+                            // var tableContainer = $('div[lay-filter="LAY-table-1"]');
+                            // tableContainer.find('input[name="layTableCheckbox"]:checked').each(function(){
+                            //     var trDel = $(this).parents('tr');
+                            //     $(trDel).del();
+                            // })
+                            // layer.msg('已删除');
+                            location.reload();
                         }else{
                             layer.msg("删除失败", {
                                 time: 3000,
@@ -72,7 +87,21 @@ layui.use(['form','element','upload','layedit','table','layer'],function () {
         }
         //全部删除
         ,allDel: function(othis){
-
+            layer.confirm('确定全部删除吗？', function(index) {
+                $.ajax({
+                    type:'delete',
+                    url:'/admin/topics/deleteAll',
+                    success:function (result) {
+                        if (result.status){
+                            location.reload();
+                        }else{
+                            layer.msg("删除失败", {
+                                time: 3000,
+                            });
+                        }
+                    }
+                });
+            });
         }
     };
     $('.layui-btn.topic-del').on('click', function(){

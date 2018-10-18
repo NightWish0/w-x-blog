@@ -1,0 +1,106 @@
+@import "../bootstrap/css/bootstrap.min.css";
+/*导航*/
+.blog-header .navbar-default{
+	background: #fff;
+	margin-bottom: 0;
+}
+.blog-header .navbar-header{
+	margin-left: 60px;
+}
+.blog-header .navbar-right{
+	margin-right: 100px;
+}
+.blog-header .navbar-right a{
+	color: #444 !important;
+	font-size: 16px;
+}
+/*首页*/
+.blog-header .info{
+	height: 300px;
+}
+.blog-header .inf-xx{
+	background: rebeccapurple;
+	height: 100%;
+	width: 50%;
+}
+.blog-header .inf-wzq{
+	background: rebeccapurple;
+	height: 100%;
+	width: 50%;
+}
+/*博文*/
+.blog-topic{
+	font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+	background: #ecf0f5;
+}
+.blog-topic .topic-body{
+	margin: 40px 40px;
+	min-height: 300px;
+}
+.blog-topic .content-box{
+	background: #fff;
+}
+.blog-topic .topic-list{
+	padding: 0;
+	margin: 10px 20px;
+	list-style: none;
+}
+.blog-topic .topic-list li{
+	position: relative;
+	width: 100%;
+	margin: 0 0 15px;
+	padding: 15px 2px 9px 0;
+	border-bottom: 1px solid #f0f0f0;
+	word-wrap: break-word;
+}
+.blog-topic .topic-list .title{
+	margin: -7px 0 4px;
+	display: inherit;
+	font-size: 18px;
+	color: #444;
+	font-weight: 700;
+	line-height: 1.5;
+}
+.blog-topic .topic-list .topic-content{
+	margin: 0 0 18px;
+	font-size: 13px;
+	line-height: 24px;
+	color: #999;
+}
+.blog-topic .topic-list .meta{
+	padding-right: 0;
+	font-size: 12px;
+	font-weight: 400;
+	line-height: 20px;
+}
+.blog-topic .topic-list .meta a{
+
+}
+.blog-topic .topic-list .meta .meta-info{
+	float: right;
+	color: #b4b4b4;
+}
+.blog-topic .topic-list .meta .meta-info label{
+	font-weight: 100;
+}
+.blog-topic .topic-sidebar{
+	float: right;
+	background: #fff;
+}
+.blog-topic .topic-sidebar .user-header{
+	padding: 20px;
+}
+.blog-topic .topic-sidebar .img-circle{
+	width: 65px;
+	height: auto;
+	float: left;
+}
+.blog-topic .topic-sidebar .box-footer .nav-stacked{
+	margin-bottom: 10px;
+}
+.blog-topic .topic-sidebar .box-footer li{
+	border-bottom: 1px solid #f2f2f2;
+}
+.blog-topic .topic-sidebar .box-footer a:hover{
+	background: #fff;
+}
