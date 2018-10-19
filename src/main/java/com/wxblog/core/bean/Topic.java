@@ -6,6 +6,7 @@ import org.apache.ibatis.type.Alias;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
 /**
  * @author: NightWish
@@ -28,4 +29,11 @@ public class Topic implements Serializable {
     private Date createdAt;
     @TableLogic
     private Integer status;
+
+    @TableField(exist = false)
+    private User user;
+    @TableField(exist = false)
+    private Category category;
+    @TableField(exist = false)
+    private List<Label> labels;
 }

@@ -16,6 +16,8 @@ public interface TopicMapper extends BaseMapper<Topic> {
     List<Map<String,String>> topics(@Param("status")Integer status,
                                     @Param("userId")Long userId);
 
+    List<Topic> topicShow();
+
     Map<String,String> topic(@Param("id") Long id);
 
     int updateById(Topic topic);

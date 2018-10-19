@@ -12,6 +12,32 @@
         <result column="avatar" property="userAvatar"></result>
         <result column="user_name" property="userName"></result>
     </resultMap>
+    
+    <resultMap id="topicShowInfo" type="Topic">
+        <id property="id" column="id"></id>
+        <result column="title" property="title"></result>
+        <result column="content" property="content"></result>
+        <result column="read_count" property="readCount"></result>
+        <result column="like_count" property="likeCount"></result>
+        <result column="created_at" property="createdAt"></result>
+        <association property="category" javaType="Category">
+            <id property="id" column="category_id"></id>
+            <result property="name" column="name"></result>
+            <result property="sort" column="sort"></result>
+        </association>
+        <association property="user" javaType="User">
+            <id property="id" column="user_id"></id>
+            <result property="userName" column="user_name"></result>
+        </association>
+        <collection property="labels" column="id" ofType="Label" select="com.wxblog.core.dao.LabelMapper.labels"/>
+    </resultMap>
+
+    <select id="topicShow" resultMap="topicShowInfo">
+        SELECT t.*,u.id,u.user_name,c.id,c.name,c.sort FROM blog_topic t
+        LEFT JOIN blog_user u ON t.user_id=u.id
+        LEFT JOIN blog_user_category c ON t.user_id=c.id
+        WHERE status=1
+    </select>
 
     <sql id="topicWithUser">
         SELECT t.*,u.id,u.avatar,u.user_name FROM blog_topic t

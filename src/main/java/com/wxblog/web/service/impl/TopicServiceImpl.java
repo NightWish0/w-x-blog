@@ -2,7 +2,9 @@ package com.wxblog.web.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.Wrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.wxblog.core.bean.Label;
 import com.wxblog.core.bean.Topic;
+import com.wxblog.core.dao.LabelMapper;
 import com.wxblog.core.dao.TopicMapper;
 import com.wxblog.core.dao.UserMapper;
 import com.wxblog.core.response.ResultJson;
@@ -51,6 +53,12 @@ public class TopicServiceImpl implements TopicService {
             model.addFlashAttribute("errorMsg","发布文章失败");
         }
         return false;
+    }
+
+    @Override
+    public void topicShow(Model model) {
+        List<Topic> topics=topicMapper.topicShow();
+        model.addAttribute("topics",topics);
     }
 
     @Override
