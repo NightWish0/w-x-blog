@@ -3,14 +3,14 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <title>角落</title>
+    <title>OenPiece~代码的宝藏</title>
     <link rel="stylesheet" th:href="@{/statics/css/blogTheme.css}">
     <script th:src="@{/statics/layui/layui.js}"></script>
     <script th:src="@{/statics/js/blog.js}"></script>
 </head>
 <body class="blog-topic">
-    <div th:include="~{ header :: blogHeader(li='blog')}"></div>
-    <div th:insert="~{ superman :: superman}"></div>
+    <div th:include="~{_header :: blogHeader(li='blog')}"></div>
+    <div th:insert="~{_superman :: superman}"></div>
     <div class="row topic-body">
         <div class="col-md-8 content-box">
             <ul class="topic-list" id="topicList">

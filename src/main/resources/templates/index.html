@@ -2,10 +2,31 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>角落</title>
+    <title>OnePiece~代码的宝藏</title>
     <link rel="stylesheet" th:href="@{/statics/css/blogTheme.css}">
 </head>
-<body>
-    <div th:insert="~{header :: blogHeader(li='index')}"></div>
+<body class="blog-index">
+    <div th:insert="~{_header :: blogHeader(li='index')}"></div>
+    <div class="user-box">
+        <div class="user-info-box"  th:each="user:${users}">
+            <img th:src="${user.avatar}?${user.avatar}:@{/statics/image/avatar/default_avatar.png}" class="img-avatar">
+            <div class="info-box">
+                <div>
+                    <label class="info-username">[[${user.userName}]]</label>
+                </div>
+                <div class="bind-platform">
+                    <a href="" th:title="GitHub">
+                        <i class="fa fa-github"></i>
+                    </a>
+                    <a href="" th:title="邮箱">
+                        <i class="fa fa-envelope"></i>
+                    </a>
+                </div>
+                <div class="user-profile">
+                    <label th:text="${user.profile}==null?'神秘的coder':${user.profile}"></label>
+                </div>
+            </div>
+        </div>
+    </div>
 </body>
 </html>

@@ -22,7 +22,7 @@ public interface TopicService {
 
     void recycle(Model model);
 
-    void topic(Long id,Model model);
+    void topic(Long id,Model model,boolean updateReadCount);
 
     boolean edit(Topic topic,String labelId,RedirectAttributes model);
 

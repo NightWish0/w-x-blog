@@ -95,7 +95,7 @@ public class TopicController {
     @GetMapping("/{id}")
     public String topicLook(@PathVariable("id") Long id, Model model){
         userService.initUserInfo(model);
-        topicService.topic(id,model);
+        topicService.topic(id,model,false);
         return "admin/topic/topic";
     }
 
@@ -109,7 +109,7 @@ public class TopicController {
                             @ModelAttribute("errorMsg") String errorMsg,
                             Model model){
         userService.initUserInfo(model);
-        topicService.topic(id,model);
+        topicService.topic(id,model,false);
         model.addAttribute("errorMsg",errorMsg);
         return "admin/topic/topic_edit";
     }

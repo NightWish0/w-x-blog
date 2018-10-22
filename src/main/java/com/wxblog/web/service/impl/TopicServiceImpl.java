@@ -92,8 +92,14 @@ public class TopicServiceImpl implements TopicService {
     }
 
     @Override
-    public void topic(Long id,Model model) {
+    public void topic(Long id,Model model,boolean updateReadCount) {
         Map<String,String> map=topicMapper.topic(id);
+        if (updateReadCount){
+            Topic topic=new Topic();
+            topic.setReadCount(Integer.valueOf(map.get("readCount"))+1);
+            topic.setId(id);
+            topicMapper.updateById(topic);
+        }
         model.addAttribute("topic",map);
     }
 
@@ -139,4 +145,5 @@ public class TopicServiceImpl implements TopicService {
         }
         return  ResultJson.failure();
     }
+
 }

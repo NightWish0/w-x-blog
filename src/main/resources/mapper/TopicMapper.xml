@@ -37,6 +37,7 @@
         LEFT JOIN blog_user u ON t.user_id=u.id
         LEFT JOIN blog_user_category c ON t.user_id=c.id
         WHERE status=1
+        ORDER BY t.created_at DESC
     </sql>
 
     <select id="topicShowByPage" resultMap="topicShowInfo">

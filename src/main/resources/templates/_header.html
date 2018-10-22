@@ -6,10 +6,10 @@
 		<nav class="navbar navbar-default" role="navigation">
 			<div class="container-fluid">
 				<div class="navbar-header">
-					<a class="navbar-brand" href="#">角落</a>
+					<a class="navbar-brand" href="#">OnePiece</a>
 				</div>
 				<ul class="nav navbar-nav navbar-right">
-					<li th:if="${li}!='index'"><a href="#"></span> 首页</a></li>
+					<li th:if="${li}!='index'"><a th:href="@{/}"></span> 首页</a></li>
 					<li th:class="${li}=='blog'?'li-this':''"><a th:href="@{/blog}"></span> 博文</a></li>
 					<li th:class="${li}=='darkHouse'?'li-this':''"><a href="#"></span> 小黑屋</a></li>
 					<li th:class="${li}=='life'?'li-this':''"><a href="#"></span> 生活</a></li>

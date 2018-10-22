@@ -6,6 +6,7 @@
 .blog-header .navbar-default{
 	background: #fff;
 	margin-bottom: 0;
+    border-radius: 0;
 }
 .blog-header .navbar-header{
 	margin-left: 60px;
@@ -24,7 +25,6 @@
 .blog-header li a:hover{
     color: #39cccc !important;
 }
-/*首页*/
 .blog-header .info{
 	height: 300px;
 }
@@ -37,6 +37,65 @@
 	background: rebeccapurple;
 	height: 100%;
 	width: 50%;
+}
+/*首页*/
+.blog-index .user-box{
+    height: 400px;
+    padding-top: 20px;
+    background: url("../image/bg_index.jpeg") no-repeat;
+    background-size: cover;
+}
+.blog-index .user-info-box{
+    height: 360px;
+    width: 360px;
+    margin-left: 200px;
+    margin-bottom: 20px;
+    background: url("../image/bg_info.jpg") no-repeat;
+    background-size: cover;
+}
+.blog-index .user-info-box:nth-of-type(2){
+    float: right;
+    margin-right: 142px;
+    margin-top: -381px;
+}
+.blog-index .user-info-box .img-avatar{
+    width: 330px;
+    height: 189px;
+    margin-top: 75px;
+    margin-left: 15px;
+}
+.blog-index .user-info-box .info-box{
+    text-align: center;
+    margin-top: 20px;
+    background: transparent;
+    box-shadow: unset;
+}
+.blog-index .user-info-box .info-username{
+    color: #323133;
+    margin-bottom: -5px;
+}
+.blog-index .user-info-box .layui-bg-gray{
+    margin-top: 15px;
+}
+.blog-index .user-info-box .layui-circle{
+    width: 100px;
+}
+.blog-index .user-info-box .layui-row{
+    margin-left: 100px;
+    margin-right: 100px;
+}
+.blog-index .user-info-box .bind-platform{
+    float: right;
+    font-size: 20px;
+    margin-top: -15px;
+    margin-right: 38px;
+}
+.blog-index .user-info-box .bind-platform a{
+    color: #0fb17d;
+    margin-right: 7px;
+}
+.blog-index .user-info-box .user-profile{
+    margin-top: 13px;
 }
 /*博文*/
 /*========动画=========*/
@@ -320,6 +379,12 @@
 	font-size: 13px;
 	line-height: 24px;
 	color: #999;
+    padding: 10px 5px 10px 0;
+    overflow : hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
 }
 .blog-topic .topic-list .meta{
 	padding-right: 0;
@@ -369,4 +434,56 @@
     margin-top: 20px;
     color: #fff;
     text-align: center;
+}
+/*文章详情*/
+.topic-info .body-box{
+    background: #fff;
+    margin: 20px 150px 40px;
+}
+.topic-info .author{
+    margin: 30px 0 40px;
+}
+.topic-info .draft-label{
+    float: right;
+    margin-top: -41px;
+    margin-left: 52px;
+    padding: 2px 12px;
+    font-size: 15px;
+    background: #42c02e;
+    color: #fff;
+}
+.topic-info .author .layui-nav-img{
+    width: 48px;
+    height: 48px;
+    vertical-align: middle;
+    display: inline-block;
+}
+.topic-info .author .info {
+    vertical-align: middle;
+    display: inline-block;
+    margin-left: 8px;
+}
+.topic-info .author .name {
+    margin-right: 3px;
+    font-size: 16px;
+    vertical-align: middle;
+}
+.topic-info .author .name a{
+    color: #333;
+}
+.topic-info .author .meta {
+    margin-top: 5px;
+    font-size: 12px;
+    color: #969696;
+}
+.topic-info .author .meta span {
+    padding-right: 5px;
+}
+.topic-info.topic-body {
+    color: #2f2f2f;
+    word-break: break-word!important;
+    word-break: break-all;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 1.7;
 }

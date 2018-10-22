@@ -14,6 +14,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 
 /**
  * @author: NightWish
@@ -26,6 +27,12 @@ public class UserServiceImpl implements UserService {
 
     @Autowired
     private UserMapper userMapper;
+
+    @Override
+    public void users(Model model) {
+        List<User> users=userMapper.selectList(null);
+        model.addAttribute("users",users);
+    }
 
     @Override
     public User initUserInfo(Model model) {

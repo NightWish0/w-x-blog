@@ -20,9 +20,9 @@ layui.use(['flow'],function () {
                                          '<a href="">'+item.category.name+'</a>';
                     }
                     lis.push('<li>' +
-                                '<a class="title" href="">'+item.title+'</a>'+
+                                '<a class="title" href="/blog/'+item.id+'">'+item.title+'</a>'+
                                 '<div class="topic-label">'+labelHtml+'</div>'+
-                                '<span class="topic-content">'+item.content+'</span>'+
+                                '<div class="topic-content">'+item.content.replace(/<[^>]+>/g,"")+'</div>'+
                                 '<div class="meta">' +
                                     '<a href="">'+item.user.userName+'</a>'+
                                     categoryHtml+
