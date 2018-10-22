@@ -11,7 +11,7 @@ import java.util.List;
 
 @Component
 @Mapper
-public interface LabelMapper extends BaseMapper<Topic> {
+public interface LabelMapper extends BaseMapper<Label> {
 
     List<Label> labels(@Param("id") Long id);
 }

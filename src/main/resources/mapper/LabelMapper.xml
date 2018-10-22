@@ -8,4 +8,5 @@
         LEFT JOIN blog_label l ON la.label_id=l.id
         WHERE la.topic_id=#{id}
     </select>
+
 </mapper>

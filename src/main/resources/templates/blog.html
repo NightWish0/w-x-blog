@@ -5,70 +5,22 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <title>角落</title>
     <link rel="stylesheet" th:href="@{/statics/css/blogTheme.css}">
+    <script th:src="@{/statics/layui/layui.js}"></script>
+    <script th:src="@{/statics/js/blog.js}"></script>
 </head>
 <body class="blog-topic">
     <div th:include="~{ header :: blogHeader(li='blog')}"></div>
     <div th:insert="~{ superman :: superman}"></div>
     <div class="row topic-body">
         <div class="col-md-8 content-box">
-            <ul class="topic-list">
-                <li  th:each="topic:${topics}">
-                    <a class="title" href="" th:text="${topic.title}"></a>
-                    <div class="topic-label">
-                            <span th:each="label:${topic.labels}">
-                                <i class="fa fa-tag"></i>
-                                <a href="#" th:text="${label.name}"></a>
-                            </span>
-                    </div>
-                    <span class="topic-content" th:utext="${topic.content}"></span>
-                    <div class="meta">
-                        <a href="" th:text="${topic.user.userName}"></a>
-                        <label th:if="${topic.category.name}!=null">--</label>
-                        <a href="" th:text="${topic.category}!=null?${topic.category.name}:''"></a>
-                        <div class="meta-info">
-                            <label th:text="${topic.createdAt}"></label>
-                            <label>浏览 [[${topic.readCount}]]</label>
-                            <label>点赞 [[${topic.likeCount}]]</label>
-                            <label>评论 20</label>
-                        </div>
-
-                    </div>
-                </li>
-                <!--<li>-->
-                    <!--<a class="title" href="">-->
-                        <!--标题-->
-                    <!--</a>-->
-                    <!--<div class="topic-label">-->
-                            <!--<span>-->
-                                <!--<i class="fa fa-tag"></i>-->
-                                <!--<a href="#">spring</a>-->
-                            <!--</span>-->
-                        <!--<span>-->
-                                <!--<i class="fa fa-tag"></i>-->
-                                <!--<a href="#">springmvc</a>-->
-                            <!--</span>-->
-                    <!--</div>-->
-                    <!--<p class="topic-content">这是内容这是内容这是内容这是内容这是内容这是内容这是内容这是内容</p>-->
-                    <!--<div class="meta">-->
-                        <!--<a href="">NightWish</a>-->
-                        <!--&#45;&#45;-->
-                        <!--<a href="">技术分类</a>-->
-                        <!--<div class="meta-info">-->
-                            <!--<label>2017-10-2</label>-->
-                            <!--<label>浏览 23</label>-->
-                            <!--<label>点赞 10</label>-->
-                            <!--<label>评论 20</label>-->
-                        <!--</div>-->
-
-                    <!--</div>-->
-                <!--</li>-->
+            <ul class="topic-list" id="topicList">
             </ul>
         </div>
         <div class="col-md-3 topic-sidebar">
             <div class="box">
                 <div class="user-header">
                     <div class="user-avatar">
-                        <img class="img-circle" src="../static/statics/image/avatar/default_avatar.png" alt="User Avatar">
+                        <img class="img-circle" th:src="@{/statics/image/avatar/default_avatar.png}" alt="User Avatar">
                     </div>
                     <h3 class="user-username">NightWish</h3>
                 </div>
@@ -85,7 +37,7 @@
             <div class="box">
                 <div class="user-header">
                     <div class="user-avatar">
-                        <img class="img-circle" src="../static/statics/image/avatar/default_avatar.png" alt="User Avatar">
+                        <img class="img-circle" th:src="@{/statics/image/avatar/default_avatar.png}" alt="User Avatar">
                     </div>
                     <h3 class="user-username">WZQ</h3>
                 </div>

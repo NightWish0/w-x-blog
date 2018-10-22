@@ -1,7 +1,10 @@
 package com.wxblog.web.service;
 
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.wxblog.core.bean.Topic;
 import com.wxblog.core.response.ResultJson;
+import javafx.scene.control.Pagination;
 import org.springframework.ui.Model;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -13,8 +16,6 @@ public interface TopicService {
 
     void topics(Model model);
 
-    void topicShow(Model model);
-
     void myTopics(Model model);
 
     void draft(Model model);
@@ -24,6 +25,8 @@ public interface TopicService {
     void topic(Long id,Model model);
 
     boolean edit(Topic topic,String labelId,RedirectAttributes model);
+
+    IPage<Topic> topicShowByPage(Integer currentPage, Integer pageSize);
 
     ResultJson deleteTopic(Long id);
 

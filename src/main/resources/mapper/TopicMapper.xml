@@ -12,7 +12,7 @@
         <result column="avatar" property="userAvatar"></result>
         <result column="user_name" property="userName"></result>
     </resultMap>
-    
+
     <resultMap id="topicShowInfo" type="Topic">
         <id property="id" column="id"></id>
         <result column="title" property="title"></result>
@@ -31,12 +31,16 @@
         </association>
         <collection property="labels" column="id" ofType="Label" select="com.wxblog.core.dao.LabelMapper.labels"/>
     </resultMap>
-
-    <select id="topicShow" resultMap="topicShowInfo">
+    
+    <sql id="topicShowSql">
         SELECT t.*,u.id,u.user_name,c.id,c.name,c.sort FROM blog_topic t
         LEFT JOIN blog_user u ON t.user_id=u.id
         LEFT JOIN blog_user_category c ON t.user_id=c.id
         WHERE status=1
+    </sql>
+
+    <select id="topicShowByPage" resultMap="topicShowInfo">
+        <include refid="topicShowSql"></include>
     </select>
 
     <sql id="topicWithUser">

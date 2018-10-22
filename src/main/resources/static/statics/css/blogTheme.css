@@ -312,6 +312,9 @@
     font-size: 12px;
     color: #59af2d;
 }
+.blog-topic .topic-list .topic-label .fa-tag{
+    margin-right: 3px;
+}
 .blog-topic .topic-list .topic-content{
 	margin: 0 0 18px;
 	font-size: 13px;
@@ -330,6 +333,12 @@
 }
 .blog-topic .topic-list .meta .meta-info label{
 	font-weight: 100;
+    margin-left: 8px;
+}
+.blog-topic .topic-list .layui-flow-more{
+    text-align: center;
+    margin: 25px 0;
+    color: #b4b4b4;
 }
 .blog-topic .topic-sidebar{
 	float: right;

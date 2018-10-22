@@ -1,7 +1,10 @@
 package com.wxblog.core.dao;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.wxblog.core.bean.Topic;
+import javafx.scene.control.Pagination;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Component;
@@ -16,7 +19,9 @@ public interface TopicMapper extends BaseMapper<Topic> {
     List<Map<String,String>> topics(@Param("status")Integer status,
                                     @Param("userId")Long userId);
 
-    List<Topic> topicShow();
+    List<Topic> topicShow(Page page);
+
+    IPage<Topic> topicShowByPage(Page page);
 
     Map<String,String> topic(@Param("id") Long id);
 

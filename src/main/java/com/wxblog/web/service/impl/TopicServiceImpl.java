@@ -2,6 +2,8 @@ package com.wxblog.web.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.Wrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.wxblog.core.bean.Label;
 import com.wxblog.core.bean.Topic;
 import com.wxblog.core.dao.LabelMapper;
@@ -12,6 +14,7 @@ import com.wxblog.core.util.StatusCode;
 import com.wxblog.core.util.UserUtils;
 import com.wxblog.web.service.BaseService;
 import com.wxblog.web.service.TopicService;
+import javafx.scene.control.Pagination;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.UsernamePasswordToken;
@@ -56,9 +59,9 @@ public class TopicServiceImpl implements TopicService {
     }
 
     @Override
-    public void topicShow(Model model) {
-        List<Topic> topics=topicMapper.topicShow();
-        model.addAttribute("topics",topics);
+    public IPage<Topic> topicShowByPage(Integer currentPage, Integer pageSize) {
+        Page<Topic> page=new Page<>(currentPage,pageSize);
+        return topicMapper.topicShowByPage(page);
     }
 
     @Override

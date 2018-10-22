@@ -2,6 +2,7 @@ package com.wxblog.core.bean;
 
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
+import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
 import org.apache.ibatis.type.Alias;
 
@@ -15,6 +16,7 @@ import java.util.Date;
  **/
 @Data
 @Alias("Label")
+@TableName("blog_label")
 public class Label implements Serializable {
 
     @TableId(type = IdType.AUTO)
