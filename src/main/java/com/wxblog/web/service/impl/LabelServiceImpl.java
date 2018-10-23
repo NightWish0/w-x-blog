@@ -1,6 +1,5 @@
 package com.wxblog.web.service.impl;
 
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.wxblog.core.bean.Label;
 import com.wxblog.core.dao.LabelMapper;
 import com.wxblog.web.service.LabelService;
@@ -22,8 +21,12 @@ public class LabelServiceImpl implements LabelService {
     private LabelMapper labelMapper;
 
     @Override
-    public void labels(Model model) {
+    public List<Label> labels(Model model) {
         List<Label> labels=labelMapper.selectList(null);
-        model.addAttribute("labels",labels);
+        if (model!=null){
+            model.addAttribute("labels",labels);
+        }
+        return labels;
     }
+
 }
