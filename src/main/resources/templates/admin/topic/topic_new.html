@@ -7,80 +7,21 @@
     <link rel="stylesheet" th:href="@{/statics/css/theme.css}">
     <link rel="stylesheet" th:href="@{/statics/tools/editormd/css/editormd.css}">
     <link rel="stylesheet" th:href="@{/statics/tools/editormd/lib/codemirror/codemirror.min.css}">
-    <script th:src="@{/statics/tools/layui/layui.js}"></script>
-    <script src="http://cdn.bootcss.com/jquery/3.1.0/jquery.min.js"></script>
-    <script th:src="@{/statics/js/index.js}"></script>
-    <script th:src="@{/statics/tools/editormd/editormd.min.js}"></script>
-    <script src="http://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-    <script src="http://cdn.bootcss.com/bootstrap-tagsinput/0.8.0/bootstrap-tagsinput.min.js"></script>
-    <script src="http://cdn.bootcss.com/typeahead.js/0.11.1/typeahead.bundle.js"></script>
-
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.5/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.5/css/bootstrap-theme.min.css">
     <link rel="stylesheet" href="http://cdn.bootcss.com/bootstrap-tagsinput/0.8.0/bootstrap-tagsinput.css">
-    <style>
-        .bootstrap-tagsinput {
-            width: 100%;
-        }
+    <script src="http://cdn.bootcss.com/jquery/3.1.0/jquery.min.js"></script>
+    <script th:src="@{/statics/tools/layui/layui.js}"></script>
+    <script th:src="@{/statics/tools/editormd/editormd.min.js}"></script>
+    <!--<script src="http://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>-->
+    <!--<script src="http://cdn.bootcss.com/bootstrap-tagsinput/0.8.0/bootstrap-tagsinput.min.js"></script>-->
+    <!--<script src="http://cdn.bootcss.com/typeahead.js/0.11.1/typeahead.bundle.min.js"></script>-->
 
-        .accordion {
-            margin-bottom:-3px;
-        }
-
-        .accordion-group {
-            border: none;
-        }
-
-        .twitter-typeahead .tt-query,
-        .twitter-typeahead .tt-hint {
-            margin-bottom: 0;
-        }
-
-        .twitter-typeahead .tt-hint
-        {
-            display: none;
-        }
-
-        .tt-menu {
-            position: absolute;
-            top: 100%;
-            left: 0;
-            z-index: 1000;
-            display: none;
-            float: left;
-            min-width: 160px;
-            padding: 5px 0;
-            margin: 2px 0 0;
-            list-style: none;
-            font-size: 14px;
-            background-color: #ffffff;
-            border: 1px solid #cccccc;
-            border: 1px solid rgba(0, 0, 0, 0.15);
-            border-radius: 4px;
-            -webkit-box-shadow: 0 6px 12px rgba(0, 0, 0, 0.175);
-            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.175);
-            background-clip: padding-box;
-            cursor: pointer;
-        }
-
-        .tt-suggestion {
-            display: block;
-            padding: 3px 20px;
-            clear: both;
-            font-weight: normal;
-            line-height: 1.428571429;
-            color: #333333;
-            white-space: nowrap;
-        }
-
-        .tt-suggestion:hover,
-        .tt-suggestion:focus {
-            color: #ffffff;
-            text-decoration: none;
-            outline: 0;
-            background-color: #428bca;
-        }
-    </style>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.5/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/typeahead.js/0.11.1/typeahead.bundle.min.js"></script>
+    <script th:src="@{/statics/tools/bootstrap-tagsinput/bootstrap-tagsinput.min.js}"></script>
+    <script th:src="@{/statics/js/lauyiInit.js}"></script>
+    <script th:src="@{/statics/js/labelSelect.js}"></script>
 </head>
 <body class="layui-layout-body new-topics">
 <div class="layui-layout layui-layout-admin">
@@ -104,14 +45,7 @@
             <div class="layui-inline">
                 <label class="layui-form-label">添加标签</label>
                 <div class="layui-input-block" style="width: 100%;">
-                    <input name="labels" id="labels" value="Amsterdam,Washington,Sydney,Beijing,Cairo" data-role="tagsinput" placeholder="添加标签" style="width: 400px;"/>
-                    <!--<select name="label_id" lay-search="" th:value="${labelId}">-->
-                        <!--<option value=0 selected >暂无标签</option>-->
-                        <!--<option value=1 th:selected="${labelId}==1?true:false">layer</option>-->
-                        <!--<option value=2 th:selected="${labelId}==2?true:false">form</option>-->
-                        <!--<option value=3 th:selected="${labelId}==3?true:false">layim</option>-->
-                        <!--<option value=4 th:selected="${labelId}==4?true:false">element</option>-->
-                    <!--</select>-->
+                    <input name="label" id="labels" placeholder="添加标签"/>
                 </div>
             </div>
             <div class="layui-form-item">

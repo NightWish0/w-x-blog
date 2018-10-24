@@ -23,10 +23,12 @@ public class LabelServiceImpl implements LabelService {
     @Override
     public List<Label> labels(Model model) {
         List<Label> labels=labelMapper.selectList(null);
-        if (model!=null){
-            model.addAttribute("labels",labels);
-        }
+        model.addAttribute("labels",labels);
         return labels;
     }
 
+    @Override
+    public List<String> namesOfLabel() {
+        return labelMapper.names();
+    }
 }

@@ -22,13 +22,11 @@ import org.apache.shiro.session.Session;
 import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * @author: NightWish
@@ -40,15 +38,51 @@ public class TopicServiceImpl implements TopicService {
 
     @Autowired
     private TopicMapper topicMapper;
+    @Autowired
+    private LabelMapper labelMapper;
 
+    @Transactional
     @Override
-    public boolean createTopic(Topic topic, String labelId, RedirectAttributes model) {
+    public boolean createTopic(Topic topic, String labelNames, RedirectAttributes model) {
+        List<Label> labels=labelMapper.selectList(null);
+        Map<Long,String> map=new HashMap<>();
+        for (Label label:labels){
+            map.put(label.getId(),label.getName());
+        }
+        String[] nameArr=labelNames.split(",");
+        List<String> nameList=Arrays.asList(nameArr);
+        /**
+         * 1、新的标签插入标签库，并返回id
+         * 2、关联文章和标签id
+         */
+        //插入标签
+        List<String> nameListTemp=new ArrayList<>();
+        nameListTemp.addAll(nameList);
+        List<Long> ids=new ArrayList<>();
+        for (Map.Entry<Long,String > entry:map.entrySet()){
+            if (nameList.contains(entry.getValue())){
+                ids.add(entry.getKey());
+                nameListTemp.remove(entry.getValue());
+            }
+        }
+        List<Label> labelList=new ArrayList<>();
+        for (String name:nameListTemp){
+            Label label=new Label();
+            label.setName(name);
+            label.setCreatedAt(new Date());
+            labelList.add(label);
+        }
+        ids.addAll(labelMapper.insertBatch(labelList));
+        //插入文章
         topic.setCreatedAt(new Date());
         topic.setUserId(UserUtils.currentUser().getId());
-        if (topicMapper.insert(topic)==1){
+        Long topicId=(long)topicMapper.insert(topic);
+        //文章标签关联
+        int cloumn=labelMapper.insertTidAndLidBatch(topicId,ids);
+        if (cloumn==ids.size()){
             return true;
         }
-        model.addFlashAttribute("labelId",labelId);
+        model.addFlashAttribute("labelId",labelNames);
         model.addFlashAttribute("topic",topic);
         if (topic.getStatus()==0){
             model.addFlashAttribute("errorMsg","保存为草稿失败");

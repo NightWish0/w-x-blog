@@ -1,6 +1,5 @@
 package com.wxblog.web.controller.admin;
 
-import com.wxblog.core.bean.Label;
 import com.wxblog.web.service.LabelService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -24,7 +23,7 @@ public class LabelController {
 
     @GetMapping("/labels")
     @ResponseBody
-    public List<Label> labels(){
-        return labelService.labels(null);
+    public List<String> labels(){
+        return labelService.namesOfLabel();
     }
 }

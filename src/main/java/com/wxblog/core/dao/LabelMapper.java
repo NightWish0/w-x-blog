@@ -14,4 +14,11 @@ import java.util.List;
 public interface LabelMapper extends BaseMapper<Label> {
 
     List<Label> labels(@Param("id") Long id);
+
+    List<String> names();
+
+    List<Long> insertBatch(List<Label> names);
+
+    int insertTidAndLidBatch(@Param("topicId") Long topicId,
+                             @Param("ids")List<Long> ids);
 }

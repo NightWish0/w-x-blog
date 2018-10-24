@@ -74,13 +74,13 @@ public class TopicController {
     /**
      * 创建文章
      * @param topic
-     * @param label_id
+     * @param label 标签名称，用,分割
      * @param model
      * @return
      */
     @PostMapping("/new")
-    public String topicNew(Topic topic,String label_id, RedirectAttributes model){
-        boolean isSuccess=topicService.createTopic(topic,label_id,model);
+    public String topicNew(Topic topic,String label, RedirectAttributes model){
+        boolean isSuccess=topicService.createTopic(topic,label,model);
         if (isSuccess){
             return "redirect:/admin/topics/my";
         }

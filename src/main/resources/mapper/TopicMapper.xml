@@ -61,7 +61,7 @@
         ORDER BY t.created_at DESC
     </sql>
     
-    <insert id="insert" parameterType="Topic">
+    <insert id="insert" parameterType="Topic" useGeneratedKeys="true" keyProperty="id">
         INSERT INTO blog_topic(id,title,content,user_id,category_id,created_at,status)
         VALUES (#{id},#{title},#{content},#{userId},#{categoryId},#{createdAt},#{status})
     </insert>

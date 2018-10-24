@@ -10,4 +10,6 @@ public interface LabelService {
 
     List<Label> labels(Model model);
 
+    List<String> namesOfLabel();
+
 }
