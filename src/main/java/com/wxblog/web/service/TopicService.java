@@ -2,6 +2,7 @@ package com.wxblog.web.service;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.wxblog.core.bean.Category;
 import com.wxblog.core.bean.Topic;
 import com.wxblog.core.response.ResultJson;
 import javafx.scene.control.Pagination;
@@ -35,4 +36,12 @@ public interface TopicService {
     ResultJson deleteTopics(List<Long> ids);
 
     ResultJson destroy(List<Long> ids);
+
+    void categories(Model model);
+
+    ResultJson addCategory(String name);
+
+    ResultJson updateCategory(Long id,String name);
+
+    ResultJson deleteCategory(Long categoryId);
 }

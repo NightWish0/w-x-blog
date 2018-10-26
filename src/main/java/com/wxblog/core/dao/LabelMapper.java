@@ -17,7 +17,7 @@ public interface LabelMapper extends BaseMapper<Label> {
 
     List<String> names();
 
-    List<Long> insertBatch(List<Label> names);
+    int insertBatch(List<Label> labels);
 
     int insertTidAndLidBatch(@Param("topicId") Long topicId,
                              @Param("ids")List<Long> ids);

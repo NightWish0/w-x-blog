@@ -1,5 +1,6 @@
 package com.wxblog.web.service.impl;
 
+import com.wxblog.core.bean.Category;
 import com.wxblog.core.bean.User;
 import com.wxblog.core.dao.UserMapper;
 import com.wxblog.core.response.ResultJson;
@@ -89,4 +90,5 @@ public class UserServiceImpl implements UserService {
         User user=UserUtils.currentUser();
         userMapper.updateLastLogin(user.getId(),new Date());
     }
+
 }

@@ -1,25 +1,19 @@
 package com.wxblog.web.service.impl;
 
-import com.baomidou.mybatisplus.core.conditions.Wrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.wxblog.core.bean.Category;
 import com.wxblog.core.bean.Label;
 import com.wxblog.core.bean.Topic;
+import com.wxblog.core.bean.User;
+import com.wxblog.core.dao.CategoryMapper;
 import com.wxblog.core.dao.LabelMapper;
 import com.wxblog.core.dao.TopicMapper;
-import com.wxblog.core.dao.UserMapper;
 import com.wxblog.core.response.ResultJson;
 import com.wxblog.core.util.StatusCode;
 import com.wxblog.core.util.UserUtils;
-import com.wxblog.web.service.BaseService;
 import com.wxblog.web.service.TopicService;
-import javafx.scene.control.Pagination;
-import org.apache.shiro.SecurityUtils;
-import org.apache.shiro.authc.AuthenticationException;
-import org.apache.shiro.authc.UsernamePasswordToken;
-import org.apache.shiro.session.Session;
-import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -40,23 +34,30 @@ public class TopicServiceImpl implements TopicService {
     private TopicMapper topicMapper;
     @Autowired
     private LabelMapper labelMapper;
+    @Autowired
+    private CategoryMapper categoryMapper;
 
     @Transactional
     @Override
     public boolean createTopic(Topic topic, String labelNames, RedirectAttributes model) {
+        String[] nameArr=labelNames.split(",");
+        List<String> nameList=new ArrayList<>();
+        for (String name:nameArr){
+            if (name.trim().length()>0){
+                nameList.add(name);
+            }
+        }
+        /**
+         * 1、过滤新标签
+         * 2、新标签插入标签库，并返回id
+         * 3、关联文章和标签id
+         */
         List<Label> labels=labelMapper.selectList(null);
         Map<Long,String> map=new HashMap<>();
         for (Label label:labels){
             map.put(label.getId(),label.getName());
         }
-        String[] nameArr=labelNames.split(",");
-        List<String> nameList=Arrays.asList(nameArr);
-        /**
-         * 1、新的标签插入标签库，并返回id
-         * 2、关联文章和标签id
-         */
-        //插入标签
-        List<String> nameListTemp=new ArrayList<>();
+        Set<String> nameListTemp=new HashSet<>();
         nameListTemp.addAll(nameList);
         List<Long> ids=new ArrayList<>();
         for (Map.Entry<Long,String > entry:map.entrySet()){
@@ -72,24 +73,33 @@ public class TopicServiceImpl implements TopicService {
             label.setCreatedAt(new Date());
             labelList.add(label);
         }
-        ids.addAll(labelMapper.insertBatch(labelList));
-        //插入文章
-        topic.setCreatedAt(new Date());
-        topic.setUserId(UserUtils.currentUser().getId());
-        Long topicId=(long)topicMapper.insert(topic);
-        //文章标签关联
-        int cloumn=labelMapper.insertTidAndLidBatch(topicId,ids);
-        if (cloumn==ids.size()){
+        try {
+            if (labelList.size()>0){
+                //批量插入标签
+                labelMapper.insertBatch(labelList);
+                for (Label label:labelList){
+                    ids.add(label.getId());
+                }
+            }
+            //插入文章
+            topic.setCreatedAt(new Date());
+            topic.setUserId(UserUtils.currentUser().getId());
+            topicMapper.insert(topic);
+            if (ids.size()>0){
+                //文章标签关联
+                labelMapper.insertTidAndLidBatch(topic.getId(),ids);
+            }
             return true;
+        }catch (Exception e){
+            model.addFlashAttribute("labelId",labelNames);
+            model.addFlashAttribute("topic",topic);
+            if (topic.getStatus()==0){
+                model.addFlashAttribute("errorMsg","保存为草稿失败");
+            }else{
+                model.addFlashAttribute("errorMsg","发布文章失败");
+            }
+            return false;
         }
-        model.addFlashAttribute("labelId",labelNames);
-        model.addFlashAttribute("topic",topic);
-        if (topic.getStatus()==0){
-            model.addFlashAttribute("errorMsg","保存为草稿失败");
-        }else{
-            model.addFlashAttribute("errorMsg","发布文章失败");
-        }
-        return false;
     }
 
     @Override
@@ -180,4 +190,42 @@ public class TopicServiceImpl implements TopicService {
         return  ResultJson.failure();
     }
 
+    @Override
+    public void categories(Model model) {
+        List<Category> categories=categoryMapper.selectByUserId(UserUtils.currentUser().getId());
+        model.addAttribute("categories",categories);
+    }
+
+    @Override
+    public ResultJson addCategory(String name) {
+        Integer sort=categoryMapper.maxSort()+1;
+        Category category=new Category();
+        category.setName(name);
+        category.setUserId(UserUtils.currentUser().getId());
+        category.setSort(sort);
+        category.setCreatedAt(new Date());
+        if (categoryMapper.insert(category)==1){
+            return ResultJson.success();
+        }
+        return ResultJson.failure();
+    }
+
+    @Override
+    public ResultJson updateCategory(Long id,String name) {
+        Category category=new Category();
+        category.setId(id);
+        category.setName(name);
+        if (categoryMapper.updateById(category)==1){
+            return ResultJson.success();
+        }
+        return ResultJson.failure();
+    }
+
+    @Override
+    public ResultJson deleteCategory(Long categoryId) {
+        if (categoryMapper.delete(new QueryWrapper<Category>().eq("id",categoryId))==1){
+            return ResultJson.success();
+        }
+        return ResultJson.failure();
+    }
 }

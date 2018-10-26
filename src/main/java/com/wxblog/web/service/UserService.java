@@ -1,5 +1,6 @@
 package com.wxblog.web.service;
 
+import com.wxblog.core.bean.Category;
 import com.wxblog.core.bean.User;
 import com.wxblog.core.response.ResultJson;
 import org.springframework.ui.Model;
@@ -20,4 +21,5 @@ public interface UserService {
     int checkUserIsExist();
 
     void updateLastLogin();
+
 }

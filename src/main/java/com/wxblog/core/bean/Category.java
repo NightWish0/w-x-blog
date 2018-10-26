@@ -16,7 +16,7 @@ import java.util.Date;
  **/
 @Data
 @Alias("Category")
-@TableName("blog_category")
+@TableName("blog_user_category")
 public class Category implements Serializable {
     @TableId(type = IdType.AUTO)
     private Long id;
@@ -24,4 +24,5 @@ public class Category implements Serializable {
     private Integer sort;
     private Long userId;
     private Date createdAt;
+
 }

@@ -1,3 +1,11 @@
+// $(function(){
+//     $("form").keypress(function (e) {
+//         var keyCode = e.keyCode ? e.keyCode : e.which ? e.which : e.charCode;
+//         if (keyCode == 13) {
+//             return false;
+//         }
+//     });
+// });
 layui.use(['flow'],function () {
     var flow = layui.flow;
     var $ = layui.jquery;

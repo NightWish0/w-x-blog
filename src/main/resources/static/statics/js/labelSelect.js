@@ -63,9 +63,9 @@ $(function () {
             //传入的q是键盘输入的字符，传入的cb一个处理数组的函数
             var matches, substringRegex;
             matches = [];
-            substrRegex = new RegExp(q);
+            substrRegex = new RegExp(q.toLowerCase());
             $.each(strs, function(i, str) {
-                if (substrRegex.test(str.name)){
+                if (substrRegex.test(str.name.toLowerCase())){
                     matches.push({"name" : str.name});
                 }
             });
@@ -79,6 +79,7 @@ $(function () {
         $("#labels").tagsinput({
             maxTags: 5,
             maxChars: 50,
+            confirmKeys: [],
             typeaheadjs : {
                 name : 'labels',
                 displayKey : 'name',
@@ -86,10 +87,28 @@ $(function () {
                 source : substringMatcher(data)
             }
         });
-        $('.tt-input').on('blur',function () {
+        var addLabel=function(){
             var label=$.trim($(".tt-input").val());
             if (label.length>0){
-                $('#labels').tagsinput('add',label);
+                var flag=true;
+                $.each(data, function(i, name) {
+                    if (label.toLowerCase()==name.name.toLowerCase()){
+                        $('#labels').tagsinput('add',name.name);
+                        flag=false;
+                    }
+                });
+                if (flag){
+                    $('#labels').tagsinput('add',label);
+                }
+            }
+        }
+        $('.tt-input').on('blur',function (event) {
+            addLabel();
+        })
+        $('.tt-input').on('keydown',function (event) {
+            if (event.keyCode==13) {
+                addLabel();
+                return false;
             }
         })
     }, "json");

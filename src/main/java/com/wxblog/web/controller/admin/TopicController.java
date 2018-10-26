@@ -52,6 +52,36 @@ public class TopicController {
     }
 
     /**
+     * 我的分类
+     * @param model
+     * @return
+     */
+    @GetMapping("/category")
+    public String category(Model model){
+        userService.initUserInfo(model);
+        topicService.categories(model);
+        return "admin/topic/topics_category";
+    }
+
+    @PostMapping("/category")
+    @ResponseBody
+    public ResultJson category(String name){
+        return topicService.addCategory(name);
+    }
+
+    @PostMapping("/category/{id}")
+    @ResponseBody
+    public ResultJson category(@PathVariable("id") Long id,String name){
+        return topicService.updateCategory(id,name);
+    }
+
+    @DeleteMapping("/category/{id}")
+    @ResponseBody
+    public ResultJson delete(@PathVariable("id") Long id){
+        return topicService.deleteCategory(id);
+    }
+
+    /**
      * 写文章
      * @param topic
      * @param labelId
@@ -65,6 +95,7 @@ public class TopicController {
                            @ModelAttribute("errorMsg") String errorMsg,
                            Model model){
         userService.initUserInfo(model);
+        topicService.categories(model);
         model.addAttribute("labelId",labelId);
         model.addAttribute("topic",topic);
         model.addAttribute("errorMsg",errorMsg);

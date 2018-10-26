@@ -5,12 +5,6 @@ layui.use(['form','element','upload','layedit','table','layer'],function () {
     var table= layui.table;
     var layer= layui.layer;
     $=layui.jquery;
-    // element.on('nav(menu-nav)',function (elem) {
-    //     var dataUrl=$(elem).data('url');
-    //     if (dataUrl!=null){
-    //         $('#content_page').attr('src',dataUrl);
-    //     }
-    // }); th:href="@{'/admin/topics/'+${topic.id}}"
     /*文章管理*/
     table.on('tool(topicTable)', function(obj){
         var id = obj.data.id;
@@ -107,6 +101,33 @@ layui.use(['form','element','upload','layedit','table','layer'],function () {
     $('.layui-btn.topic-del').on('click', function(){
         var type = $(this).data('type');
         active[type] ? active[type].call(this) : '';
+    });
+
+    /*我的分类*/
+    $('.add-category').on('click',function () {
+       layer.open({
+           id:'addCategory',
+           title:'新增分类',
+           content:'<label class="layui-form-label category-name-label">名称</label>'+
+                       '<div class="layui-input-block category-name-box">'+
+                         '<input type="text" id="categoryName" autocomplete="off" required class="layui-input"/>'+
+                    '</div>',
+           resize:false,
+           area: ['300px', '180px'],
+           yes: function(index, layero){
+               //do something
+               var name=$('#categoryName').val();
+               $.post('/admin/topics/category',{name:name},function (result) {
+                  if (result.status) {
+                      location.reload();
+                  }else{
+                      layer.msg("新增失败", {
+                          time: 3000,
+                      });
+                  }
+               });
+           }
+       });
     });
 
     //创建一个编辑器

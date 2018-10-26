@@ -12,7 +12,7 @@
         SELECT name FROM blog_label
     </select>
     
-    <insert id="insertBatch" parameterType="List" useGeneratedKeys="true" keyProperty="id" keyColumn="id">
+    <insert id="insertBatch" useGeneratedKeys="true" keyProperty="id">
         INSERT INTO blog_label(name,created_at) VALUES
         <foreach collection="list" item="label" separator=",">
             (#{label.name},#{label.createdAt})
@@ -20,9 +20,9 @@
     </insert>
     
     <insert id="insertTidAndLidBatch">
-        INSERT INTO blog_label_association(topic_id,label_id) VALUES
+        INSERT INTO blog_label_association(topic_id,label_id,created_at) VALUES
         <foreach collection="ids" item="id" separator=",">
-            (#{topicId},id)
+            (#{topicId},#{id},now())
         </foreach>
     </insert>
 
