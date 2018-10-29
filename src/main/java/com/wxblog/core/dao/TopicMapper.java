@@ -21,9 +21,11 @@ public interface TopicMapper extends BaseMapper<Topic> {
 
     IPage<Topic> topicShowByPage(Page page);
 
-    Map<String,String> topic(@Param("id") Long id);
+    Topic topic(@Param("id") Long id);
 
     int updateById(Topic topic);
+
+    int updateReadCount(@Param("readCount") Integer readCount,@Param("id")Long id);
 
     void deleteAll(Integer status);
 

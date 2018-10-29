@@ -38,25 +38,16 @@
             </div>
             <div class="layui-inline">
                 <label class="layui-form-label">添加标签</label>
-                <div class="layui-input-inline">
-                    <select name="label_id" lay-search="" th:value="${labelId}">
-                        <option value=0 selected >暂无标签</option>
-                        <option value=1 th:selected="${labelId}==1?true:false">layer</option>
-                        <option value=2 th:selected="${labelId}==2?true:false">form</option>
-                        <option value=3 th:selected="${labelId}==3?true:false">layim</option>
-                        <option value=4 th:selected="${labelId}==4?true:false">element</option>
-                    </select>
+                <div class="layui-input-block" style="min-width: 193px;">
+                    <input name="label" id="labels" th:value="${labels}" placeholder="最多添加5个标签"/>
                 </div>
             </div>
             <div class="layui-form-item">
                 <label class="layui-form-label">选择分类</label>
                 <div class="layui-input-block">
-                    <select name="category_id" th:each="category:${categories}">
+                    <select name="categoryId">
                         <option value=0 selected>暂不分类</option>
-                        <option value=1 th:selected="${topic.categoryId}==1?true:false">阅读</option>
-                        <option value=2 th:selected="${topic.categoryId}==2?true:false">游戏</option>
-                        <option value=3 th:selected="${topic.categoryId}==3?true:false">音乐</option>
-                        <option value=4 th:selected="${topic.categoryId}==4?true:false">旅行</option>
+                        <option th:each="category:${categories}" th:selected="${topic.categoryId}==${category.id}?true:false" th:value="${category.id}" th:text="${category.name}"></option>
                     </select>
                 </div>
             </div>

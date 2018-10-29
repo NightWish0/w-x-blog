@@ -25,7 +25,7 @@ public interface TopicService {
 
     void topic(Long id,Model model,boolean updateReadCount);
 
-    boolean edit(Topic topic,String labelId,RedirectAttributes model);
+    boolean edit(Topic topic,String label,RedirectAttributes model);
 
     IPage<Topic> topicShowByPage(Integer currentPage, Integer pageSize);
 
@@ -37,11 +37,4 @@ public interface TopicService {
 
     ResultJson destroy(List<Long> ids);
 
-    void categories(Model model);
-
-    ResultJson addCategory(String name);
-
-    ResultJson updateCategory(Long id,String name);
-
-    ResultJson deleteCategory(Long categoryId);
 }

@@ -7,8 +7,8 @@ layui.use(['form','element','upload','layedit','table','layer'],function () {
     $=layui.jquery;
     /*文章管理*/
     table.on('tool(topicTable)', function(obj){
-        var id = obj.data.id;
-        var layEvent = obj.event;
+       var id = obj.data.id;
+       var layEvent = obj.event;
        if(layEvent === 'del'){
             layer.confirm('确定删除吗？', function(index){
                 //向服务端发送删除指令
@@ -128,6 +128,53 @@ layui.use(['form','element','upload','layedit','table','layer'],function () {
                });
            }
        });
+    });
+    table.on('tool(categoryTable)', function(obj){
+        var id = obj.data.id;
+        var layEvent = obj.event;
+        if(layEvent === 'del'){
+            layer.confirm('确定删除吗？', function(index){
+                $.ajax({
+                    type:'delete',
+                    url:'/admin/topics/category/'+id,
+                    success:function (result) {
+                        if (result.status){
+                            obj.del(); //删除对应行（tr）的DOM结构
+                            layer.close(index);
+                        }else{
+                            layer.close(index);
+                            layer.msg("删除失败", {
+                                time: 3000,
+                            });
+                        }
+                    }
+                });
+            });
+        }
+        if(layEvent === 'edit'){
+            $(obj.tr).find('td[data-field="name"] .layui-table-cell').click();
+        }
+    });
+    var initNameValue='';
+    table.on('row(categoryTable)', function(obj){
+        initNameValue=obj.data.name;
+    });
+    table.on('edit(categoryTable)', function(obj){
+        var id = obj.data.id;
+        var value = obj.value;
+        $.ajax({
+            type:'post',
+            url:'/admin/topics/category/'+id,
+            data:{name:value},
+            success:function (result) {
+                if (!result.status){
+                    layer.msg("编辑失败", {
+                        time: 3000,
+                    });
+                    obj.value=initNameValue;
+                }
+            }
+        });
     });
 
     //创建一个编辑器

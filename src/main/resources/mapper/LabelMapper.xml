@@ -25,5 +25,10 @@
             (#{topicId},#{id},now())
         </foreach>
     </insert>
+    
+    <delete id="deleteAssociationOfTopic" parameterType="long">
+        DELETE FROM blog_label_association
+        WHERE topic_id=#{topicId}
+    </delete>
 
 </mapper>

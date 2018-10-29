@@ -20,6 +20,8 @@
         <result column="read_count" property="readCount"></result>
         <result column="like_count" property="likeCount"></result>
         <result column="created_at" property="createdAt"></result>
+        <result column="status" property="status"></result>
+        <result column="category_id" property="categoryId"></result>
         <association property="category" javaType="Category">
             <id property="id" column="category_id"></id>
             <result property="name" column="name"></result>
@@ -32,17 +34,26 @@
         <collection property="labels" column="id" ofType="Label" select="com.wxblog.core.dao.LabelMapper.labels"/>
     </resultMap>
     
-    <sql id="topicShowSql">
+    <sql id="topicsShowSql">
         SELECT t.*,u.id,u.user_name,c.id,c.name,c.sort FROM blog_topic t
         LEFT JOIN blog_user u ON t.user_id=u.id
-        LEFT JOIN blog_user_category c ON t.user_id=c.id
-        WHERE status=1
+        LEFT JOIN blog_user_category c ON t.category_id=c.id
+        WHERE t.status=1
         ORDER BY t.created_at DESC
     </sql>
 
-    <select id="topicShowByPage" resultMap="topicShowInfo">
-        <include refid="topicShowSql"></include>
-    </select>
+    <sql id="topicShowSql">
+        SELECT t.*,u.id,u.user_name,c.id,c.name,c.sort FROM blog_topic t
+        LEFT JOIN blog_user u ON t.user_id=u.id
+        LEFT JOIN blog_user_category c ON t.category_id=c.id
+        <where>
+            t.status=1
+            <if test="id!=null">
+                AND t.id=#{id}
+            </if>
+        </where>
+        ORDER BY t.created_at DESC
+    </sql>
 
     <sql id="topicWithUser">
         SELECT t.*,u.id,u.avatar,u.user_name FROM blog_topic t
@@ -55,12 +66,16 @@
                 t.status=#{status}
             </if>
             <if test="userId!=null">
-                AND t.user_id=#{userId}
+               AND t.user_id=#{userId}
             </if>
         </where>
         ORDER BY t.created_at DESC
     </sql>
-    
+
+    <select id="topicShowByPage" resultMap="topicShowInfo">
+        <include refid="topicsShowSql"></include>
+    </select>
+
     <insert id="insert" parameterType="Topic" useGeneratedKeys="true" keyProperty="id">
         INSERT INTO blog_topic(id,title,content,user_id,category_id,created_at,status)
         VALUES (#{id},#{title},#{content},#{userId},#{categoryId},#{createdAt},#{status})
@@ -68,6 +83,11 @@
     
     <update id="updateById" parameterType="Topic">
         UPDATE blog_topic SET title=#{title},content=#{content},category_id=#{categoryId},status=#{status}
+        WHERE id=#{id}
+    </update>
+    
+    <update id="updateReadCount">
+        UPDATE blog_topic SET read_count=#{readCount}
         WHERE id=#{id}
     </update>
     
@@ -79,9 +99,10 @@
         </include>
     </select>
 
-    <select id="topic" resultMap="topicMap" parameterType="long">
-        <include refid="topicWithUser"></include>
-        WHERE t.id=#{id}
+    <select id="topic" resultMap="topicShowInfo" parameterType="long">
+        <include refid="topicShowSql">
+            <property name="id" value="id"></property>
+        </include>
     </select>
 
     <update id="deleteAll" parameterType="integer">

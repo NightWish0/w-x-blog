@@ -2,6 +2,10 @@
 /*noinspection CssUnknownTarget*/
 @import url("//netdna.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css");
 
+
+a:hover{
+    text-decoration: none;
+}
 /*导航*/
 .blog-header .navbar-default{
 	background: #fff;
@@ -479,7 +483,16 @@
 .topic-info .author .meta span {
     padding-right: 5px;
 }
-.topic-info.topic-body {
+.topic-info .label-box{
+    display: inherit;
+    margin-left: 20px;
+    font-size: 13px;
+}
+.topic-info .author .name .topic-label{
+    margin-right: 5px;
+    color: #42c02e;
+}
+.topic-info .topic-body {
     color: #2f2f2f;
     word-break: break-word!important;
     word-break: break-all;

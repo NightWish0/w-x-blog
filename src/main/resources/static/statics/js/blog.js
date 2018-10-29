@@ -23,8 +23,8 @@ layui.use(['flow'],function () {
                             '</span>';
                     })
                     var categoryHtml=''
-                    if (item.categoryId!=null){
-                        categoryHtml='<label>--</label>'+
+                    if (item.category.name!=null){
+                        categoryHtml='<label>—</label>'+
                                          '<a href="">'+item.category.name+'</a>';
                     }
                     lis.push('<li>' +

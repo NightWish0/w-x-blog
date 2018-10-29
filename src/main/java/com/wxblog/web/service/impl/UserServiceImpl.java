@@ -91,4 +91,10 @@ public class UserServiceImpl implements UserService {
         userMapper.updateLastLogin(user.getId(),new Date());
     }
 
+    @Override
+    public void userWithCategories(Model model) {
+        List<User> users=userMapper.userWithCategories();
+        model.addAttribute("users",users);
+    }
+
 }

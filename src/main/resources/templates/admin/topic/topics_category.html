@@ -28,23 +28,23 @@
                     <div class="layui-form layui-card-header">
                         <div class="layui-form-item">
                             <div class="layui-inline">
-                                <button class="layui-btn add-category" >添加</button>
+                                <button class="layui-btn add-category" >添加分类</button>
                             </div>
                         </div>
                     </div>
                     <div class="layui-card-body">
-                        <table class="layui-table" id="categoryTable" lay-data="{height: 'full-10'}">
+                        <table class="layui-table" id="categoryTable" lay-data="{id:'categoryTable'}" lay-filter="categoryTable">
                             <thead>
                             <tr>
-                                <th lay-data="{type:'numbers', minWidth:100,align:'center', sort: true}">ID</th>
-                                <th lay-data="{field:'name',align:'center', minWidth:180}">名称</th>
+                                <th lay-data="{field:'id',type:'numbers', minWidth:100,align:'center', sort: true}">ID</th>
+                                <th lay-data="{field:'name',align:'center', minWidth:180,edit: 'text'}">名称</th>
                                 <th lay-data="{field:'topicCount',align:'center', minWidth:100, sort: true}">文章数</th>
                                 <th lay-data="{field:'operate',align:'center',minWidth:220}">操作</th>
                             </tr>
                             </thead>
                             <tbody>
                             <tr th:each="category:${categories}" th:data="${category.id}">
-                                <td></td>
+                                <td th:text="${category.id}"></td>
                                 <td th:text="${category.name}"></td>
                                 <td>32</td>
                                 <td>

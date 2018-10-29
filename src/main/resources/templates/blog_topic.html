@@ -17,13 +17,23 @@
                 <h1 th:text="${topic.title}"></h1>
                 <div class="author">
                     <a href="javascript:;">
-                        <img th:src="${topic.userAvatar}?${topic.userAvatar}:@{/statics/image/avatar/default_avatar.png}" class="layui-nav-img">
+                        <img th:src="${topic.user.avatar}?${topic.user.avatar}:@{/statics/image/avatar/default_avatar.png}" class="layui-nav-img">
                     </a>
                     <div class="info">
                     <span class="name">
-                        <a href="javascript;" th:text="${topic.userName}"></a>
+                        <a href="javascript;" th:text="${topic.user.userName}"></a>
+                        <div class="label-box">
+                            <a class="topic-label" href="" th:each="label : ${topic.labels}">
+                                <i class="fa fa-tag"></i>
+                                [[${label.name}]]
+                            </a>
+                        </div>
                     </span>
                         <div class="meta">
+                            <span>
+                                分类 :
+                                <a href="" th:text="${topic.category.name}"></a>
+                            </span>
                             <span th:text="'发布时间 : '+${#calendars.format(topic.createdAt,'yyyy-MM-dd HH:mm:ss')}"></span>
                             <span th:text="'阅读 '+${topic.readCount}"></span>
                             <span th:text="'点赞 '+${topic.likeCount}"></span>

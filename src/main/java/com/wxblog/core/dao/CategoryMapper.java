@@ -3,6 +3,7 @@ package com.wxblog.core.dao;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.wxblog.core.bean.Category;
+import com.wxblog.core.bean.User;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Component;

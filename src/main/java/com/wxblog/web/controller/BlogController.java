@@ -36,6 +36,7 @@ public class BlogController {
     @GetMapping("/blog")
     public String blog(Model model){
         labelService.labels(model);
+        userService.userWithCategories(model);
         return "blog";
     }
 

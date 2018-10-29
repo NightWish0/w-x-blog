@@ -3,6 +3,7 @@ package com.wxblog.web.controller.admin;
 import com.wxblog.core.bean.Topic;
 import com.wxblog.core.response.ResultJson;
 import com.wxblog.core.util.StatusCode;
+import com.wxblog.web.service.CategoryService;
 import com.wxblog.web.service.TopicService;
 import com.wxblog.web.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,6 +27,8 @@ public class TopicController {
     private UserService userService;
     @Autowired
     private TopicService topicService;
+    @Autowired
+    private CategoryService categoryService;
 
     /**
      * 所有文章
@@ -59,26 +62,26 @@ public class TopicController {
     @GetMapping("/category")
     public String category(Model model){
         userService.initUserInfo(model);
-        topicService.categories(model);
+        categoryService.categories(model);
         return "admin/topic/topics_category";
     }
 
     @PostMapping("/category")
     @ResponseBody
     public ResultJson category(String name){
-        return topicService.addCategory(name);
+        return categoryService.addCategory(name);
     }
 
     @PostMapping("/category/{id}")
     @ResponseBody
     public ResultJson category(@PathVariable("id") Long id,String name){
-        return topicService.updateCategory(id,name);
+        return categoryService.updateCategory(id,name);
     }
 
     @DeleteMapping("/category/{id}")
     @ResponseBody
     public ResultJson delete(@PathVariable("id") Long id){
-        return topicService.deleteCategory(id);
+        return categoryService.deleteCategory(id);
     }
 
     /**
@@ -95,7 +98,7 @@ public class TopicController {
                            @ModelAttribute("errorMsg") String errorMsg,
                            Model model){
         userService.initUserInfo(model);
-        topicService.categories(model);
+        categoryService.categories(model);
         model.addAttribute("labelId",labelId);
         model.addAttribute("topic",topic);
         model.addAttribute("errorMsg",errorMsg);
@@ -141,6 +144,7 @@ public class TopicController {
                             Model model){
         userService.initUserInfo(model);
         topicService.topic(id,model,false);
+        categoryService.categories(model);
         model.addAttribute("errorMsg",errorMsg);
         return "admin/topic/topic_edit";
     }
@@ -148,13 +152,12 @@ public class TopicController {
     /**
      * 更新文章
      * @param topic
-     * @param label_id
      * @param model
      * @return
      */
     @PostMapping("/{id}/edit")
-    public String topicEdit(Topic topic,String label_id, RedirectAttributes model){
-        boolean isSuccess=topicService.edit(topic,label_id,model);
+    public String topicEdit(Topic topic,String label, RedirectAttributes model){
+        boolean isSuccess=topicService.edit(topic,label,model);
         if (isSuccess){
             return "redirect:/admin/topics/"+topic.getId();
         }

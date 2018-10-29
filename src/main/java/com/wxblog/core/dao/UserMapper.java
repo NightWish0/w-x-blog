@@ -7,6 +7,7 @@ import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Component;
 
 import java.util.Date;
+import java.util.List;
 
 /**
  * @author: NightWish
@@ -25,4 +26,6 @@ public interface UserMapper extends BaseMapper<User> {
                    @Param("avatar")String avatar,@Param("profile")String profile);
 
     int updateLastLogin(@Param("id")Long id,@Param("lastLoginAt")Date lastLoginAt);
+
+    List<User> userWithCategories();
 }

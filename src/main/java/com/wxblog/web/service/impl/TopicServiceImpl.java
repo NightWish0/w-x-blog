@@ -6,7 +6,6 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.wxblog.core.bean.Category;
 import com.wxblog.core.bean.Label;
 import com.wxblog.core.bean.Topic;
-import com.wxblog.core.bean.User;
 import com.wxblog.core.dao.CategoryMapper;
 import com.wxblog.core.dao.LabelMapper;
 import com.wxblog.core.dao.TopicMapper;
@@ -36,71 +35,6 @@ public class TopicServiceImpl implements TopicService {
     private LabelMapper labelMapper;
     @Autowired
     private CategoryMapper categoryMapper;
-
-    @Transactional
-    @Override
-    public boolean createTopic(Topic topic, String labelNames, RedirectAttributes model) {
-        String[] nameArr=labelNames.split(",");
-        List<String> nameList=new ArrayList<>();
-        for (String name:nameArr){
-            if (name.trim().length()>0){
-                nameList.add(name);
-            }
-        }
-        /**
-         * 1、过滤新标签
-         * 2、新标签插入标签库，并返回id
-         * 3、关联文章和标签id
-         */
-        List<Label> labels=labelMapper.selectList(null);
-        Map<Long,String> map=new HashMap<>();
-        for (Label label:labels){
-            map.put(label.getId(),label.getName());
-        }
-        Set<String> nameListTemp=new HashSet<>();
-        nameListTemp.addAll(nameList);
-        List<Long> ids=new ArrayList<>();
-        for (Map.Entry<Long,String > entry:map.entrySet()){
-            if (nameList.contains(entry.getValue())){
-                ids.add(entry.getKey());
-                nameListTemp.remove(entry.getValue());
-            }
-        }
-        List<Label> labelList=new ArrayList<>();
-        for (String name:nameListTemp){
-            Label label=new Label();
-            label.setName(name);
-            label.setCreatedAt(new Date());
-            labelList.add(label);
-        }
-        try {
-            if (labelList.size()>0){
-                //批量插入标签
-                labelMapper.insertBatch(labelList);
-                for (Label label:labelList){
-                    ids.add(label.getId());
-                }
-            }
-            //插入文章
-            topic.setCreatedAt(new Date());
-            topic.setUserId(UserUtils.currentUser().getId());
-            topicMapper.insert(topic);
-            if (ids.size()>0){
-                //文章标签关联
-                labelMapper.insertTidAndLidBatch(topic.getId(),ids);
-            }
-            return true;
-        }catch (Exception e){
-            model.addFlashAttribute("labelId",labelNames);
-            model.addFlashAttribute("topic",topic);
-            if (topic.getStatus()==0){
-                model.addFlashAttribute("errorMsg","保存为草稿失败");
-            }else{
-                model.addFlashAttribute("errorMsg","发布文章失败");
-            }
-            return false;
-        }
-    }
 
     @Override
     public IPage<Topic> topicShowByPage(Integer currentPage, Integer pageSize) {
@@ -137,27 +71,66 @@ public class TopicServiceImpl implements TopicService {
 
     @Override
     public void topic(Long id,Model model,boolean updateReadCount) {
-        Map<String,String> map=topicMapper.topic(id);
-        if (updateReadCount){
-            Topic topic=new Topic();
-            topic.setReadCount(Integer.valueOf(map.get("readCount"))+1);
-            topic.setId(id);
-            topicMapper.updateById(topic);
+        Topic topic=topicMapper.topic(id);
+        StringBuffer stringBuffer=new StringBuffer();
+        for(Label label:topic.getLabels()){
+            stringBuffer.append(label.getName()+",");
         }
-        model.addAttribute("topic",map);
+        if (stringBuffer.length()>0){
+            stringBuffer.deleteCharAt(stringBuffer.length()-1);
+        }
+        if (updateReadCount){
+            Integer readCount=topic.getReadCount()+1;
+            topicMapper.updateReadCount(readCount,id);
+        }
+        model.addAttribute("topic",topic);
+        model.addAttribute("labels",stringBuffer.toString());
     }
 
+    @Transactional
     @Override
-    public boolean edit(Topic topic, String labelId, RedirectAttributes model) {
-        if (topicMapper.updateById(topic)==1){
+    public boolean createTopic(Topic topic, String labelNames, RedirectAttributes model) {
+        try {
+            labelHandle(topic,labelNames);
+            //插入文章
+            topic.setCreatedAt(new Date());
+            topic.setUserId(UserUtils.currentUser().getId());
+            topicMapper.insert(topic);
             return true;
+        }catch (Exception e){
+            model.addFlashAttribute("labelId",labelNames);
+            model.addFlashAttribute("topic",topic);
+            if (topic.getStatus()==0){
+                model.addFlashAttribute("errorMsg","保存为草稿失败");
+            }else{
+                model.addFlashAttribute("errorMsg","发布文章失败");
+            }
+            return false;
         }
-        if (topic.getStatus()==0){
-            model.addFlashAttribute("errorMsg","保存为草稿失败");
-        }else{
-            model.addFlashAttribute("errorMsg","发布文章失败");
+    }
+
+    @Transactional
+    @Override
+    public boolean edit(Topic topic,String labelNames, RedirectAttributes model) {
+        /**
+         * 1、删除该文章下标签关联
+         * 2、过滤新标签
+         * 3、新标签插入标签库，并返回id
+         * 4、关联文章和标签id
+         */
+        labelMapper.deleteAssociationOfTopic(topic.getId());
+        try {
+            labelHandle(topic,labelNames);
+            topicMapper.updateById(topic);
+            return true;
+        }catch (Exception e){
+            if (topic.getStatus()==0){
+                model.addFlashAttribute("errorMsg","保存为草稿失败");
+            }else{
+                model.addFlashAttribute("errorMsg","发布文章失败");
+            }
+            return false;
         }
-        return false;
     }
 
     @Override
@@ -190,42 +163,44 @@ public class TopicServiceImpl implements TopicService {
         return  ResultJson.failure();
     }
 
-    @Override
-    public void categories(Model model) {
-        List<Category> categories=categoryMapper.selectByUserId(UserUtils.currentUser().getId());
-        model.addAttribute("categories",categories);
-    }
-
-    @Override
-    public ResultJson addCategory(String name) {
-        Integer sort=categoryMapper.maxSort()+1;
-        Category category=new Category();
-        category.setName(name);
-        category.setUserId(UserUtils.currentUser().getId());
-        category.setSort(sort);
-        category.setCreatedAt(new Date());
-        if (categoryMapper.insert(category)==1){
-            return ResultJson.success();
+    private void labelHandle(Topic topic,String labelNames){
+        String[] nameArr=labelNames.split(",");
+        List<String> nameList=new ArrayList<>();
+        for (String name:nameArr){
+            if (name.trim().length()>0){
+                nameList.add(name);
+            }
         }
-        return ResultJson.failure();
-    }
-
-    @Override
-    public ResultJson updateCategory(Long id,String name) {
-        Category category=new Category();
-        category.setId(id);
-        category.setName(name);
-        if (categoryMapper.updateById(category)==1){
-            return ResultJson.success();
+        List<Label> labels=labelMapper.selectList(null);
+        Map<String,Long> map=new HashMap<>();
+        for (Label label:labels){
+            map.put(label.getName(),label.getId());
         }
-        return ResultJson.failure();
-    }
-
-    @Override
-    public ResultJson deleteCategory(Long categoryId) {
-        if (categoryMapper.delete(new QueryWrapper<Category>().eq("id",categoryId))==1){
-            return ResultJson.success();
+        Set<String> nameListTemp=new HashSet<>();
+        nameListTemp.addAll(nameList);
+        List<Long> ids=new ArrayList<>();
+        for (String name:nameList){
+            if (map.containsKey(name)){
+                ids.add(map.get(name));
+                nameListTemp.remove(name);
+            }
         }
-        return ResultJson.failure();
+        List<Label> labelList=new ArrayList<>();
+        for (String name:nameListTemp){
+            Label label=new Label();
+            label.setName(name);
+            label.setCreatedAt(new Date());
+            labelList.add(label);
+        }
+        if (labelList.size()>0){
+            labelMapper.insertBatch(labelList);
+            for (Label label:labelList){
+                ids.add(label.getId());
+            }
+        }
+        if (ids.size()>0){
+            //文章标签关联
+            labelMapper.insertTidAndLidBatch(topic.getId(),ids);
+        }
     }
 }

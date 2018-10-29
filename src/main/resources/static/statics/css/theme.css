@@ -4,6 +4,9 @@
 @import url("//netdna.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css");
 @import "admin/login.css";
 
+a:hover{
+    text-decoration: none;
+}
 .layui-layout-admin .layui-body{
     overflow: auto;
 }
@@ -151,6 +154,15 @@
 }
 .topic-info .author{
     margin: 30px 0 40px;
+}
+.topic-info .label-box{
+    display: inherit;
+    margin-left: 20px;
+    font-size: 13px;
+}
+.topic-info .author .name .topic-label{
+    margin-right: 5px;
+    color: #42c02e;
 }
 .topic-info .draft-label{
     float: right;

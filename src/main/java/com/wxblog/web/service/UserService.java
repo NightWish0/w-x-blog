@@ -22,4 +22,5 @@ public interface UserService {
 
     void updateLastLogin();
 
+    void userWithCategories(Model model);
 }
