@@ -506,4 +506,110 @@ a:hover{
     font-size: 16px;
     font-weight: 400;
     line-height: 1.7;
+    padding-bottom: 40px;
+    border-bottom: 1px solid #f2f2f2;
 }
+/*=========评论动画===============*/
+.topic-info .reply-body .wrapper {
+    width: 700px;
+    -ms-flex-negative: 0;
+    flex-shrink: 0;
+    background: white;
+    overflow: hidden;
+    height: 364px;
+    border-radius: 8px;
+    box-shadow: 0 1.5px 4px rgba(0, 0, 0, 0.24), 0 1.5px 6px rgba(0, 0, 0, 0.12);
+}
+
+.topic-info .reply-body .card-wrap {
+    width: 260px;
+    float: right;
+    background: #665aa7;
+    padding: 50px;
+    -webkit-transform: scale(1.5) rotate(20deg);
+    transform: scale(1.5) rotate(20deg);
+}
+
+.topic-info .reply-body .card {
+    -webkit-transform: scale(0.75) rotate(-20deg);
+    transform: scale(0.75) rotate(-20deg);
+}
+
+.topic-info .reply-body svg {
+    width: 150%;
+    position: relative;
+    right: 130px;
+    top: 10px;
+    overflow: visible;
+}
+.topic-info .reply-body svg:not(:root) {
+    overflow: visible;
+}
+
+.topic-info .reply-body #sunglasses {
+    -webkit-transition: -webkit-transform .15s;
+    transition: -webkit-transform .15s;
+    transition: transform .15s;
+    transition: transform .15s, -webkit-transform .15s;
+}
+.topic-info .reply-body .checkout:hover ~ .card-wrap #sunglasses {
+    -webkit-transform: translateY(-40px);
+    transform: translateY(-40px);
+}
+
+.topic-info .reply-body #right_eye_wink {
+    display: none;
+}
+.topic-info .reply-body .checkout:active ~ .card-wrap #right_eye {
+    display: none;
+}
+.topic-info .reply-body .checkout:active ~ .card-wrap #right_eye_wink {
+    display: block;
+}
+
+.topic-info .reply-body #mouth {
+    -webkit-transition: -webkit-transform .15s;
+    transition: -webkit-transform .15s;
+    transition: transform .15s;
+    transition: transform .15s, -webkit-transform .15s;
+}
+.topic-info .reply-body .checkout:hover ~ .card-wrap #mouth {
+    -webkit-transform: translateY(-10px);
+    transform: translateY(-10px);
+}
+
+.topic-info .reply-body #front_hand, #back_hand {
+    -webkit-transition: -webkit-transform .03s;
+    transition: -webkit-transform .03s;
+    transition: transform .03s;
+    transition: transform .03s, -webkit-transform .03s;
+}
+.topic-info .reply-body .checkout:active ~ .card-wrap #front_hand, .checkout:active ~ .card-wrap #back_hand {
+    -webkit-transform: translateX(10px);
+    transform: translateX(10px);
+}
+
+.topic-info .reply-body .checkout {
+    outline: none;
+    background: #665aa7;
+    border: 0;
+    color: white;
+    position: relative;
+    top: 50%;
+    left: 15%;
+    -webkit-transform: translateY(-50%);
+    transform: translateY(-50%);
+    padding: 12px 16px;
+    font-family: "Montserrat";
+    text-transform: uppercase;
+    font-size: 1.1em;
+    letter-spacing: .1em;
+    border-radius: 4px;
+    -webkit-transition: all .1s ease-out;
+    transition: all .1s ease-out;
+    box-shadow: 0 1.5px 4px rgba(0, 0, 0, 0.24), 0 1.5px 6px rgba(0, 0, 0, 0.12);
+}
+.topic-info .reply-body .checkout:hover:not(:active) {
+    background: #857bb9;
+}
+/*=========评论动画===============*/
