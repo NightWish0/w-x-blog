@@ -2,10 +2,24 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.wxblog.core.dao.LabelMapper">
 
+    <resultMap id="labelsMap" type="Label">
+        <id column="id" property="id"></id>
+        <result column="name" property="name"></result>
+        <result column="created_at" property="createdAt"></result>
+        <result column="total" property="topicTotal"></result>
+    </resultMap>
+
     <select id="labels" parameterType="long" resultType="Label">
         SELECT l.* FROM blog_label_association la
         LEFT JOIN blog_label l ON la.label_id=l.id
         WHERE la.topic_id=#{id}
+    </select>
+    
+    <select id="labelsWithTopicTotal" resultMap="labelsMap">
+        SELECT l.*,count(t.id) AS 'total' FROM blog_label l
+        LEFT JOIN blog_label_association la ON la.label_id=l.id
+        LEFT JOIN blog_topic t ON la.topic_id=t.id
+        GROUP BY l.id
     </select>
     
     <select id="names" resultType="string">

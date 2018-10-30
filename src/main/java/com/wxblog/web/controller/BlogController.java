@@ -35,7 +35,7 @@ public class BlogController {
 
     @GetMapping("/blog")
     public String blog(Model model){
-        labelService.labels(model);
+        labelService.labels(false,model);
         userService.userWithCategories(model);
         return "blog";
     }

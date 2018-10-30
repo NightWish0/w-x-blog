@@ -4,6 +4,7 @@ import com.wxblog.core.bean.Topic;
 import com.wxblog.core.response.ResultJson;
 import com.wxblog.core.util.StatusCode;
 import com.wxblog.web.service.CategoryService;
+import com.wxblog.web.service.LabelService;
 import com.wxblog.web.service.TopicService;
 import com.wxblog.web.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,6 +30,8 @@ public class TopicController {
     private TopicService topicService;
     @Autowired
     private CategoryService categoryService;
+    @Autowired
+    private LabelService labelService;
 
     /**
      * 所有文章
@@ -80,9 +83,40 @@ public class TopicController {
 
     @DeleteMapping("/category/{id}")
     @ResponseBody
-    public ResultJson delete(@PathVariable("id") Long id){
+    public ResultJson deleteCategory(@PathVariable("id") Long id){
         return categoryService.deleteCategory(id);
     }
+
+    /**
+     * 标签管理
+     * @param model
+     * @return
+     */
+    @GetMapping("/label")
+    public String label(Model model){
+        userService.initUserInfo(model);
+        labelService.labels(true,model);
+        return "admin/topic/topics_label";
+    }
+
+    @PostMapping("/label")
+    @ResponseBody
+    public ResultJson label(String name){
+        return labelService.addLabel(name);
+    }
+
+    @PostMapping("/label/{id}")
+    @ResponseBody
+    public ResultJson label(@PathVariable("id") Long id,String name){
+        return labelService.updateLabel(id,name);
+    }
+
+    @DeleteMapping("/label/{id}")
+    @ResponseBody
+    public ResultJson deleteLabel(@PathVariable("id") Long id){
+        return labelService.deleteLabel(id);
+    }
+
 
     /**
      * 写文章

@@ -30,4 +30,6 @@ public interface TopicMapper extends BaseMapper<Topic> {
     void deleteAll(Integer status);
 
     int destroy(List<Long> ids);
+
+    int deleteTopicCategory(@Param("categoryId") Long categoryId);
 }

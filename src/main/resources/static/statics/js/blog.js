@@ -1,16 +1,9 @@
-// $(function(){
-//     $("form").keypress(function (e) {
-//         var keyCode = e.keyCode ? e.keyCode : e.which ? e.which : e.charCode;
-//         if (keyCode == 13) {
-//             return false;
-//         }
-//     });
-// });
 layui.use(['flow'],function () {
     var flow = layui.flow;
     var $ = layui.jquery;
     flow.load({
         elem: '#topicList',
+        end: '差不多就行了吧，我不要底线的啊',
         done:function(page,next){
             var lis = [];
             $.get('/blogByPage?currentSize='+page,function (res) {

@@ -103,21 +103,21 @@ layui.use(['form','element','upload','layedit','table','layer'],function () {
         active[type] ? active[type].call(this) : '';
     });
 
-    /*我的分类*/
-    $('.add-category').on('click',function () {
+    /*标签管理*/
+    $('.add-label').on('click',function () {
        layer.open({
-           id:'addCategory',
-           title:'新增分类',
+           id:'addLabel',
+           title:'新增标签',
            content:'<label class="layui-form-label category-name-label">名称</label>'+
                        '<div class="layui-input-block category-name-box">'+
-                         '<input type="text" id="categoryName" autocomplete="off" required class="layui-input"/>'+
+                         '<input type="text" id="labelName" autocomplete="off" required class="layui-input"/>'+
                     '</div>',
            resize:false,
            area: ['300px', '180px'],
            yes: function(index, layero){
                //do something
-               var name=$('#categoryName').val();
-               $.post('/admin/topics/category',{name:name},function (result) {
+               var name=$('#labelName').val();
+               $.post('/admin/topics/label',{name:name},function (result) {
                   if (result.status) {
                       location.reload();
                   }else{
@@ -128,6 +128,80 @@ layui.use(['form','element','upload','layedit','table','layer'],function () {
                });
            }
        });
+    });
+    table.on('tool(labelTable)', function(obj){
+        var id = obj.data.id;
+        var layEvent = obj.event;
+        if(layEvent === 'del'){
+            layer.confirm('确定删除吗？', function(index){
+                $.ajax({
+                    type:'delete',
+                    url:'/admin/topics/label/'+id,
+                    success:function (result) {
+                        if (result.status){
+                            obj.del(); //删除对应行（tr）的DOM结构
+                            layer.close(index);
+                        }else{
+                            layer.close(index);
+                            layer.msg("删除失败", {
+                                time: 3000,
+                            });
+                        }
+                    }
+                });
+            });
+        }
+        if(layEvent === 'edit'){
+            $(obj.tr).find('td[data-field="name"] .layui-table-cell').click();
+        }
+    });
+    var initLabelNameValue='';
+    table.on('row(labelTable)', function(obj){
+        initLabelNameValue=obj.data.name;
+    });
+    table.on('edit(labelTable)', function(obj){
+        var id = obj.data.id;
+        var value = obj.value;
+        $.ajax({
+            type:'post',
+            url:'/admin/topics/label/'+id,
+            data:{name:value},
+            success:function (result) {
+                if (!result.status){
+                    layer.msg("编辑失败", {
+                        time: 3000,
+                    });
+                    obj.value=initLabelNameValue;
+                }
+            }
+        });
+    });
+
+    /*我的分类*/
+    $('.add-category').on('click',function () {
+        layer.open({
+            id:'addCategory',
+            title:'新增分类',
+            content:'<label class="layui-form-label category-name-label">名称</label>'+
+            '<div class="layui-input-block category-name-box">'+
+            '<input type="text" id="categoryName" autocomplete="off" required class="layui-input"/>'+
+            '</div>',
+            resize:false,
+            area: ['300px', '180px'],
+            yes: function(index, layero){
+                //do something
+                var name=$('#categoryName').val();
+                $.post('/admin/topics/category',{name:name},function (result) {
+                    if (result.status) {
+                        location.reload();
+                    }else{
+                        layer.msg("新增失败", {
+                            time: 3000,
+                        });
+                    }
+                });
+            }
+        });
     });
     table.on('tool(categoryTable)', function(obj){
         var id = obj.data.id;

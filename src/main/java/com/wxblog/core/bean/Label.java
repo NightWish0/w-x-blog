@@ -1,6 +1,7 @@
 package com.wxblog.core.bean;
 
 import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
@@ -23,4 +24,7 @@ public class Label implements Serializable {
     private Long id;
     private String name;
     private Date createdAt;
+
+    @TableField(exist = false)
+    private Integer topicTotal;
 }

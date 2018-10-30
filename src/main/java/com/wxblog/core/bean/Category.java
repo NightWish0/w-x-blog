@@ -27,5 +27,5 @@ public class Category implements Serializable {
     private Date createdAt;
 
     @TableField(exist = false)
-    private Integer topicToal;
+    private Integer topicTotal;
 }

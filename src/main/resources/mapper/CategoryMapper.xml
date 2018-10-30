@@ -8,18 +8,30 @@
         <result column="user_id" property="userId"></result>
         <result column="sort" property="sort"></result>
         <result column="created_at" property="createdAt"></result>
-        <result column="total" property="topicToal"></result>
+        <result column="total" property="topicTotal"></result>
+    </resultMap>
+    
+    <resultMap id="notCategoryMap" type="map">
+        <result column="user_id" property="userId"></result>
+        <result column="total" property="total"></result>
     </resultMap>
     
     <select id="selectByUserId" parameterType="long" resultMap="categoryMap">
         SELECT c.*,count(t.id)  as 'total' FROM blog_user_category c
         LEFT JOIN blog_topic t ON c.id=t.category_id
 		GROUP BY c.id
-        HAVING c.user_id=1
+        HAVING c.user_id=#{userId}
         ORDER BY c.sort ASC
+    </select>
+    
+    <select id="notCategoty" resultMap="notCategoryMap">
+        SELECT user_id,COUNT(id) AS 'total' FROM blog_topic
+        WHERE ISNULL(category_id)
+        GROUP BY user_id
     </select>
     
     <select id="maxSort" resultType="integer">
         SELECT max(sort) FROM blog_user_category
     </select>
+    
 </mapper>

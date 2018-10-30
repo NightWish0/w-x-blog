@@ -15,6 +15,8 @@ public interface LabelMapper extends BaseMapper<Label> {
 
     List<Label> labels(@Param("id") Long id);
 
+    List<Label> labelsWithTopicTotal();
+
     List<String> names();
 
     int insertBatch(List<Label> labels);
@@ -23,4 +25,5 @@ public interface LabelMapper extends BaseMapper<Label> {
                              @Param("ids")List<Long> ids);
 
     int deleteAssociationOfTopic(@Param("topicId") Long topicId);
+
 }

@@ -1,3 +1,4 @@
+@import "../tools/layui/css/layui.css";
 @import "../tools/bootstrap/css/bootstrap.min.css";
 /*noinspection CssUnknownTarget*/
 @import url("//netdna.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css");
@@ -335,7 +336,7 @@ a:hover{
         transform: translateX(-100%);
     }
 }
-/*=================*/
+/*========动画结束=========*/
 
 .blog-topic{
 	font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
@@ -430,6 +431,12 @@ a:hover{
 }
 .blog-topic .topic-sidebar .box-footer a:hover{
 	background: #fff;
+}
+.blog-topic .topic-sidebar .badge{
+    background-color: #59af2d;
+}
+.blog-topic .topic-sidebar .lazy-tip{
+    margin: 10px 15px 10px 15px;
 }
 .blog-topic .topic-sidebar .split-line{
     height: 35px;

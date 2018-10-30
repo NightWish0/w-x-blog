@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.wxblog.core.bean.Category;
 import com.wxblog.core.bean.User;
 import com.wxblog.core.dao.CategoryMapper;
+import com.wxblog.core.dao.TopicMapper;
 import com.wxblog.core.response.ResultJson;
 import com.wxblog.core.util.UserUtils;
 import com.wxblog.web.service.CategoryService;
@@ -24,6 +25,8 @@ public class CategoryServiceImpl implements CategoryService {
 
     @Autowired
     private CategoryMapper categoryMapper;
+    @Autowired
+    private TopicMapper topicMapper;
 
     @Override
     public void categories(Model model) {
@@ -59,6 +62,7 @@ public class CategoryServiceImpl implements CategoryService {
     @Override
     public ResultJson deleteCategory(Long categoryId) {
         if (categoryMapper.delete(new QueryWrapper<Category>().eq("id",categoryId))==1){
+            topicMapper.deleteTopicCategory(categoryId);
             return ResultJson.success();
         }
         return ResultJson.failure();

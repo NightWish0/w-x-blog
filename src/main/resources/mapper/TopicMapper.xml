@@ -115,5 +115,9 @@
           #{id}
         </foreach>
     </delete>
+
+    <update id="deleteTopicCategory" parameterType="long">
+        UPDATE blog_topic SET category_id=null WHERE category_id=#{categoryId}
+    </update>
     
 </mapper>

@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <title>OenPiece~代码的宝藏</title>
+    <title>OenPiece~码出一个人生</title>
     <link rel="stylesheet" th:href="@{/statics/css/blogTheme.css}">
     <script th:src="@{/statics/tools/layui/layui.js}"></script>
     <script th:src="@{/statics/js/blog.js}"></script>
@@ -17,8 +17,7 @@
             </ul>
         </div>
         <div class="col-md-3 topic-sidebar">
-            <div th:each="user : ${users}">
-                <div class="box">
+                <div class="box" th:each="user : ${users}">
                     <div class="user-header">
                         <div class="user-avatar">
                             <img class="img-circle" th:src="${user.avatar}?${user.avatar}:@{/statics/image/avatar/default_avatar.png}">
@@ -33,11 +32,13 @@
                                     <span class="pull-right badge bg-blue" th:text="${category.topicTotal}"></span>
                                 </a>
                             </li>
+                            <li class="lazy-tip" th:if="${#lists.isEmpty(user.categories)}">
+                                <span>他很懒，到现在没发过一篇文章，怎么好意思的</span>
+                            </li>
                         </ul>
                     </div>
                 </div>
-                <div class="split-line" th:if="${users}">假装很华丽的分界线</div>
-            </div>
+                <!--<div class="split-line">假装很华丽的分界线</div>-->
         </div>
     </div>
 </body>
