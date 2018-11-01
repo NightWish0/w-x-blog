@@ -14,6 +14,8 @@
                     <dl class="layui-nav-child">
                         <dd><a th:href="@{/admin/topics}" th:class="${child}=='topics'?'layui-this':''">所有文章</a></dd>
                         <dd><a th:href="@{/admin/topics/my}" th:class="${child}=='myTopics'?'layui-this':''">我的文章</a></dd>
+                        <dd><a th:href="@{/admin/topics/category}" th:class="${child}=='category'?'layui-this':''">我的分类</a></dd>
+                        <dd><a th:href="@{/admin/topics/label}" th:class="${child}=='label'?'layui-this':''">标签管理</a></dd>
                         <dd><a th:href="@{/admin/topics/draft}" th:class="${child}=='draft'?'layui-this':''">草稿箱</a></dd>
                         <dd><a th:href="@{/admin/topics/recycle}" th:class="${child}=='recycle'?'layui-this':''">回收站</a></dd>
                     </dl>

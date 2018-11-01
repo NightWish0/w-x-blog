@@ -5,10 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <title>后台管理</title>
     <link rel="stylesheet" th:href="@{/statics/css/theme.css}">
-    <script th:src="@{/statics/layui/layui.js}"></script>
+    <script th:src="@{/statics/tools/layui/layui.js}"></script>
     <script th:src="@{/statics/js/jquery.min.js}"></script>
-    <script th:src="@{/statics/js/index.js}"></script>
-    <script th:src="@{/statics/editormd/editormd.min.js}"></script>
+    <script th:src="@{/statics/js/lauyiInit.js}"></script>
+    <script th:src="@{/statics/tools/editormd/editormd.min.js}"></script>
 </head>
 <body class="layui-layout-body">
 <div class="layui-layout layui-layout-admin topic-all">
@@ -19,6 +19,7 @@
             <div class="layui-card layadmin-header">
                 <span class="layui-breadcrumb">
                   <a href="">首页</a>
+                  <a><cite>文章管理</cite></a>
                   <a><cite>所有文章</cite></a>
                 </span>
             </div>
@@ -44,7 +45,7 @@
                             <!--<button class="layui-btn layui-btn-sm layui-btn-danger" data-type="selectedDel">选中删除</button>-->
                             <!--<button class="layui-btn layui-btn-sm layui-btn-danger" data-type="allDel">全部删除</button>-->
                         <!--</div>-->
-                        <table class="layui-table" id="topicTable" lay-data="{page:true,height: 'full-10',limits:[10,20,30]}">
+                        <table class="layui-table" id="topicTable" lay-data="{page:true,limits:[10,20,30]}">
                             <thead>
                             <tr>
                                 <th lay-data="{type:'checkbox',align:'center'}"></th>

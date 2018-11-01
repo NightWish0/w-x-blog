@@ -5,10 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <title>后台管理</title>
     <link rel="stylesheet" th:href="@{/statics/css/theme.css}">
-    <script th:src="@{/statics/layui/layui.js}"></script>
+    <script th:src="@{/statics/tools/layui/layui.js}"></script>
     <script th:src="@{/statics/js/jquery.min.js}"></script>
-    <script th:src="@{/statics/js/index.js}"></script>
-    <script th:src="@{/statics/editormd/editormd.min.js}"></script>
+    <script th:src="@{/statics/js/lauyiInit.js}"></script>
+    <script th:src="@{/statics/tools/editormd/editormd.min.js}"></script>
 </head>
 <body class="layui-layout-body">
 <div class="layui-layout layui-layout-admin">
@@ -17,8 +17,8 @@
     <div class="layui-body">
         <div class="body-box">
             <div class="layui-btn-group demoTable">
-                <button class="layui-btn layui-btn-danger">选中删除</button>
-                <button class="layui-btn layui-btn-danger">全部删除</button>
+                <button class="layui-btn layui-btn-danger">全部还原</button>
+                <button class="layui-btn layui-btn-danger">清空回收站</button>
             </div>
             <table class="layui-table" lay-data="{page:true}">
                 <thead>

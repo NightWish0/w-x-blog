@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.wxblog.core.dao.LabelMapper">
+
+    <resultMap id="labelsMap" type="Label">
+        <id column="id" property="id"></id>
+        <result column="name" property="name"></result>
+        <result column="created_at" property="createdAt"></result>
+        <result column="total" property="topicTotal"></result>
+    </resultMap>
+
+    <select id="labels" parameterType="long" resultType="Label">
+        SELECT l.* FROM blog_label_association la
+        LEFT JOIN blog_label l ON la.label_id=l.id
+        WHERE la.topic_id=#{id}
+    </select>
+    
+    <select id="labelsWithTopicTotal" resultMap="labelsMap">
+        SELECT l.*,count(t.id) AS 'total' FROM blog_label l
+        LEFT JOIN blog_label_association la ON la.label_id=l.id
+        LEFT JOIN blog_topic t ON la.topic_id=t.id
+        GROUP BY l.id
+    </select>
+    
+    <select id="names" resultType="string">
+        SELECT name FROM blog_label
+    </select>
+    
+    <insert id="insertBatch" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO blog_label(name,created_at) VALUES
+        <foreach collection="list" item="label" separator=",">
+            (#{label.name},#{label.createdAt})
+        </foreach>
+    </insert>
+    
+    <insert id="insertTidAndLidBatch">
+        INSERT INTO blog_label_association(topic_id,label_id,created_at) VALUES
+        <foreach collection="ids" item="id" separator=",">
+            (#{topicId},#{id},now())
+        </foreach>
+    </insert>
+    
+    <delete id="deleteAssociationOfTopic" parameterType="long">
+        DELETE FROM blog_label_association
+        WHERE topic_id=#{topicId}
+    </delete>
+
+</mapper>

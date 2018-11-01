@@ -1,6 +1,8 @@
 package com.wxblog.web.service.impl;
 
+import com.wxblog.core.bean.Category;
 import com.wxblog.core.bean.User;
+import com.wxblog.core.dao.CategoryMapper;
 import com.wxblog.core.dao.UserMapper;
 import com.wxblog.core.response.ResultJson;
 import com.wxblog.core.util.MD5Util;
@@ -14,6 +16,8 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
+import java.util.Map;
 
 /**
  * @author: NightWish
@@ -26,6 +30,14 @@ public class UserServiceImpl implements UserService {
 
     @Autowired
     private UserMapper userMapper;
+    @Autowired
+    private CategoryMapper categoryMapper;
+
+    @Override
+    public void users(Model model) {
+        List<User> users=userMapper.selectList(null);
+        model.addAttribute("users",users);
+    }
 
     @Override
     public User initUserInfo(Model model) {
@@ -82,4 +94,22 @@ public class UserServiceImpl implements UserService {
         User user=UserUtils.currentUser();
         userMapper.updateLastLogin(user.getId(),new Date());
     }
+
+    @Override
+    public void userWithCategories(Model model) {
+        List<User> users=userMapper.userWithCategories();
+        List<Map<String,Object>> list=categoryMapper.notCategoty();
+        for (Map<String,Object> map:list){
+            for (User user:users){
+                if ((long)map.get("userId")==user.getId()){
+                    Category category=new Category();
+                    category.setName("其他");
+                    category.setTopicTotal(Integer.valueOf(map.get("total").toString()));
+                    user.getCategories().add(category);
+                }
+            }
+        }
+        model.addAttribute("users",users);
+    }
+
 }

@@ -3,38 +3,34 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <title>后台管理</title>
-    <link rel="stylesheet" th:href="@{/statics/css/theme.css}">
+    <title>OenPiece~码出一个人生</title>
+    <link rel="stylesheet" th:href="@{/statics/css/blogTheme.css}">
     <script th:src="@{/statics/tools/layui/layui.js}"></script>
-    <script th:src="@{/statics/js/jquery.min.js}"></script>
-    <script th:src="@{/statics/js/lauyiInit.js}"></script>
-    <script th:src="@{/statics/tools/editormd/editormd.min.js}"></script>
+    <script th:src="@{/statics/js/blog.js}"></script>
 </head>
 <body class="layui-layout-body topic-info">
 <div class="layui-layout layui-layout-admin">
-    <div th:insert="~{admin/layout/layout_header :: header}"></div>
-    <div th:insert="~{admin/layout/layout_menu :: menu(parent='topic',child='myTopics')}"></div>
-    <div class="layui-body">
+    <div th:include="~{_header :: blogHeader(li='blog')}"></div>
+    <div >
         <div class="body-box">
             <div class="topic-header">
                 <h1 th:text="${topic.title}"></h1>
-                <label th:if="${topic.status==0}" class="draft-label">草稿</label>
                 <div class="author">
                     <a href="javascript:;">
                         <img th:src="${topic.user.avatar}?${topic.user.avatar}:@{/statics/image/avatar/default_avatar.png}" class="layui-nav-img">
                     </a>
                     <div class="info">
-                    <span class="name">
-                        <a href="javascript;" th:text="${topic.user.userName}"></a>
-                        <div class="label-box">
-                            <a class="topic-label" href="" th:each="label : ${topic.labels}">
-                                <i class="fa fa-tag"></i>
-                                [[${label.name}]]
-                            </a>
-                        </div>
-                    </span>
+                        <span class="name">
+                            <a href="javascript;" th:text="${topic.user.userName}"></a>
+                            <div class="label-box">
+                                <a class="topic-label" href="" th:each="label : ${topic.labels}">
+                                    <i class="fa fa-tag"></i>
+                                    [[${label.name}]]
+                                </a>
+                            </div>
+                        </span>
                         <div class="meta">
-                            <span th:if="${topic.categoryId!=null}">
+                            <span>
                                 分类 :
                                 <a href="" th:text="${topic.category.name}"></a>
                             </span>
@@ -47,12 +43,20 @@
                 </div>
             </div>
             <hr class="layui-bg-gray">
-            <div class="topic-body" th:utext="${topic.content}">
+            <div class="topic-body" th:utext="${topic.content}"></div>
+            <div class="reply-body">
+                <!--<img class="layui-nav-img" th:src="@{/statics/image/avatar/default_avatar.png}">-->
+                <!--<div class="comment-push">-->
+                    <!--<textarea class="" placeholder="Press enter to post comment"></textarea>-->
+                    <!--<button type="button">评论</button>-->
+                <!--</div>-->
+                <div th:include="~{_comment :: comment}"></div>
+            </div>
+            <div class="comment-body">
 
             </div>
         </div>
     </div>
-    <div th:insert="~{admin/layout/layout_footer :: footer}"></div>
 </div>
 </body>
 </html>

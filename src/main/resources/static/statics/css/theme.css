@@ -1,9 +1,12 @@
-@import "../layui/css/layui.css";
-@import "../bootstrap/css/bootstrap.min.css";
-@import "../bootstrap/css/AdminLTE.min.css";
+@import "../tools/layui/css/layui.css";
+@import "../tools/bootstrap/css/bootstrap.min.css";
+@import "../tools/bootstrap/css/AdminLTE.min.css";
 @import url("//netdna.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css");
 @import "admin/login.css";
 
+a:hover{
+    text-decoration: none;
+}
 .layui-layout-admin .layui-body{
     overflow: auto;
 }
@@ -21,6 +24,13 @@
     height: 50px;
     line-height: 50px;
     border-radius: 0;
+}
+.layui-layout-admin .layui-header .publish-topic{
+    margin-left: 200px;
+    margin-top: 12px;
+    width: 130px;
+    font-size: 16px;
+    background: #3ab92a;
 }
 .layui-layout-admin .layadmin-header .layui-breadcrumb{
     padding: 0 15px;
@@ -67,6 +77,76 @@
     color: red;
     border-left: 5px solid red;
 }
+.new-topics .bootstrap-tagsinput {
+    width: 100%;
+    height: 38px;
+    box-shadow:unset;
+    border-radius:0;
+    padding-top: 6px;
+}
+.new-topics .bootstrap-tagsinput input{
+    width: 121px;
+    padding: 1px 6px;
+}
+.new-topics .bootstrap-tagsinput .tag{
+    border-radius: 0;
+    padding: 7px;
+}
+.new-topics .accordion {
+    margin-bottom:-3px;
+}
+
+.new-topics .accordion-group {
+    border: none;
+}
+
+.new-topics .twitter-typeahead .tt-query,
+.new-topics .twitter-typeahead .tt-hint {
+    margin-bottom: 0;
+}
+
+.new-topics .twitter-typeahead .tt-hint
+{
+    display: none;
+}
+
+.new-topics .tt-menu {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    z-index: 1000;
+    display: none;
+    float: left;
+    min-width: 160px;
+    padding: 2px 0;
+    margin: 2px 0 0;
+    list-style: none;
+    font-size: 14px;
+    background-color: #ffffff;
+    border-radius: 0px;
+    -webkit-box-shadow: 0 6px 12px rgba(0, 0, 0, 0.175);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.175);
+    background-clip: padding-box;
+    cursor: pointer;
+}
+
+.new-topics .tt-suggestion {
+    display: block;
+    padding: 3px 20px;
+    clear: both;
+    font-weight: normal;
+    line-height: 1.428571429;
+    color: #333333;
+    white-space: nowrap;
+}
+
+.new-topics .tt-suggestion:hover,
+.new-topics .tt-suggestion:focus {
+    color: #ffffff;
+    text-decoration: none;
+    outline: 0;
+    background-color: #00c0ef;
+}
 /*文章详情*/
 .topic-info .body-box{
     background: #fff;
@@ -74,6 +154,15 @@
 }
 .topic-info .author{
     margin: 30px 0 40px;
+}
+.topic-info .label-box{
+    display: inherit;
+    margin-left: 20px;
+    font-size: 13px;
+}
+.topic-info .author .name .topic-label{
+    margin-right: 5px;
+    color: #42c02e;
 }
 .topic-info .draft-label{
     float: right;
@@ -118,6 +207,13 @@
     font-size: 16px;
     font-weight: 400;
     line-height: 1.7;
+}
+/*我的分类*/
+#addCategory .category-name-label{
+    width: 60px;
+}
+#addCategory .category-name-box{
+    margin-left: 60px;
 }
 /*基本资料*/
 .user-info-page .layui-body{

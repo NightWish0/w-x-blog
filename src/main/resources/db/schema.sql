@@ -67,8 +67,8 @@ create table blog_topic
    content              text,
    user_id              bigint,
    category_id          bigint,
-   read_count           int,
-   like_count           int,
+   read_count           int default 0,
+   like_count           int default 0,
    created_at           datetime,
    status               int comment '1-正常；
             0-草稿；
