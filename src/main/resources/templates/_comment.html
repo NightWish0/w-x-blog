@@ -3,7 +3,11 @@
 <body>
 	<div th:fragment="comment">
 		<div class="wrapper">
-			<button class="checkout">Checkout</button>
+            <img class="layui-nav-img" th:src="@{/statics/image/avatar/default_avatar.png}">
+            <div class="comment-push">
+                <textarea class="comment-content" placeholder="评论越多,加班越少"></textarea>
+            </div>
+            <button class="checkout">评论</button>
 			<div class="card-wrap">
 				<div class="card">
 					<?xml version="1.0" encoding="utf-8"?>
@@ -251,6 +255,50 @@
 				</div>
 			</div>
 		</div>
+        <hr class="layui-bg-gray">
+        <div>
+            <div class="comment-box" th:each="comment,item : ${comments}">
+                <img class="layui-nav-img" th:src="@{/statics/image/avatar/default_avatar.png}">
+                <div class="comment-user">
+                    <a class="user-name" th:text="${comment.name}"></a>
+                    <p>
+                        <img th:if="${item.first}" class="first_blood" th:src="@{/statics/image/first_blood.jpg}">
+                        <span th:if="!${item.first}" th:text="${item.index}+'楼'"></span>
+                        -
+                        <span th:text="${#calendars.format(comment.createdAt,'yyyy-MM-dd HH:mm:ss')}"></span>
+                    </p>
+                </div>
+                <div class="comment-info">
+                    <p class="comment-content" th:text="${comment.content}"></p>
+                    <div>
+                        <a class="comment-a" href="">
+                            <i class="fa fa-fw fa-paper-plane-o"></i>
+                            回复
+                        </a>
+                    </div>
+                </div>
+                <div class="comment-list" >
+                    <div class="comment-info" th:each="child : ${comment.childComments}" th:if="${child.parentId}">
+                        <p>
+                            <a class="user-name" th:text="${child.name}"></a>
+                            :
+                            <a class="user-name" th:text="'@'+${child.receiverName}"></a>
+                            <span th:text="${child.content}"></span>
+                        </p>
+                        <div class="comment-child-tool">
+                            <span class="comment-date" th:text="${#calendars.format(child.createdAt,'yyyy-MM-dd HH:mm:ss')}"></span>
+                            <a class="comment-a" href="">
+                                <i class="fa fa-fw fa-paper-plane-o"></i>
+                                回复
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div th:if="${comments[0].id}">
+                快来拿下你的FirstBlood!
+            </div>
+        </div>
 	</div>
 </body>
 </html>
