@@ -4,9 +4,11 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.wxblog.core.bean.Category;
+import com.wxblog.core.bean.Comment;
 import com.wxblog.core.bean.Label;
 import com.wxblog.core.bean.Topic;
 import com.wxblog.core.dao.CategoryMapper;
+import com.wxblog.core.dao.CommentMapper;
 import com.wxblog.core.dao.LabelMapper;
 import com.wxblog.core.dao.TopicMapper;
 import com.wxblog.core.response.ResultJson;
@@ -34,7 +36,7 @@ public class TopicServiceImpl implements TopicService {
     @Autowired
     private LabelMapper labelMapper;
     @Autowired
-    private CategoryMapper categoryMapper;
+    private CommentMapper commentMapper;
 
     @Override
     public IPage<Topic> topicShowByPage(Integer currentPage, Integer pageSize) {
@@ -83,7 +85,9 @@ public class TopicServiceImpl implements TopicService {
             Integer readCount=topic.getReadCount()+1;
             topicMapper.updateReadCount(readCount,id);
         }
+        List<Comment> comments=commentMapper.commentsOfTopic(id);
         model.addAttribute("topic",topic);
+        model.addAttribute("comments",comments);
         model.addAttribute("labels",stringBuffer.toString());
     }
 

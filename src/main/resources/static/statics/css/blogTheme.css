@@ -511,21 +511,57 @@ a:hover{
 }
 /*=========评论动画===============*/
 .topic-info .reply-body .wrapper {
+    padding: 10px;
+    height: 120px;
+    border-radius: 0;
+    margin-bottom: 30px;
+    margin-top: 30px;
     width: 700px;
     -ms-flex-negative: 0;
     flex-shrink: 0;
     background: white;
     overflow: hidden;
-    height: 364px;
-    border-radius: 8px;
-    box-shadow: 0 1.5px 4px rgba(0, 0, 0, 0.24), 0 1.5px 6px rgba(0, 0, 0, 0.12);
+    box-shadow: 0 0px 0px rgba(0, 0, 0, 0.24), 0 0.5px 8px rgba(0, 0, 0, 0.12);
 }
-
+.topic-info .reply-body .wrapper .layui-nav-img{
+    width: 48px;
+    height: 48px;
+    margin-right: 10px;
+    border-radius: 0;
+}
+.topic-info .reply-body .wrapper .comment-push{
+    margin-left: 60px;
+    margin-top: -48px;
+}
+.topic-info .reply-body .wrapper .comment-content{
+    width: 468px;
+    height: 65px;
+    border: 1px solid #bdc9cf;
+    padding: 5px;
+    resize:none;
+}
+.topic-info .reply-body .wrapper .comment-content:focus{
+    border: 1px solid #f9c441;
+}
+.topic-info .reply-body .wrapper .comment-content::-webkit-input-placeholder { /* WebKit*/
+    color: #bdc9cf;
+}
+.topic-info .reply-body .wrapper .comment-content:-moz-placeholder { /* Mozilla Firefox 4 to 18 */
+    color: #bdc9cf;
+}
+.topic-info .reply-body .wrapper .comment-content::-moz-placeholder { /* Mozilla Firefox 19+ */
+    color: #bdc9cf;
+}
+.topic-info .reply-body .wrapper .comment-content:-ms-input-placeholder { /* IE 10+ */
+    color: #bdc9cf;
+}
 .topic-info .reply-body .card-wrap {
-    width: 260px;
+    margin-right: -106px;
+    height: 285px;
+    width: 220px;
     float: right;
-    background: #665aa7;
-    padding: 50px;
+    background: #39cccc;
+    padding: 52px;
     -webkit-transform: scale(1.5) rotate(20deg);
     transform: scale(1.5) rotate(20deg);
 }
@@ -536,10 +572,10 @@ a:hover{
 }
 
 .topic-info .reply-body svg {
-    width: 150%;
+    width: 70%;
     position: relative;
-    right: 130px;
-    top: 10px;
+    right: 47px;
+    top: -83px;
     overflow: visible;
 }
 .topic-info .reply-body svg:not(:root) {
@@ -590,8 +626,13 @@ a:hover{
 }
 
 .topic-info .reply-body .checkout {
+    width: 96px;
+    padding: 7px 0px;
+    margin-left: 330px;
+    margin-top: 18px;
+    border-radius: 0;
     outline: none;
-    background: #665aa7;
+    background: #ed912f;
     border: 0;
     color: white;
     position: relative;
@@ -599,17 +640,70 @@ a:hover{
     left: 15%;
     -webkit-transform: translateY(-50%);
     transform: translateY(-50%);
-    padding: 12px 16px;
     font-family: "Montserrat";
     text-transform: uppercase;
     font-size: 1.1em;
     letter-spacing: .1em;
-    border-radius: 4px;
     -webkit-transition: all .1s ease-out;
     transition: all .1s ease-out;
-    box-shadow: 0 1.5px 4px rgba(0, 0, 0, 0.24), 0 1.5px 6px rgba(0, 0, 0, 0.12);
+    box-shadow: 0 0.5px 1px rgba(0, 0, 0, 0.24), 0 0.5px 6px rgba(0, 0, 0, 0.12);
 }
 .topic-info .reply-body .checkout:hover:not(:active) {
-    background: #857bb9;
+    background: #f7b648;
+}
+.topic-info .reply-body .comment-box{
+    padding-left: 10px;
+    padding-bottom: 15px;
+    border-bottom: 1px solid #f2f2f2;
+    padding-top: 15px;
+}
+.topic-info .reply-body .comment-box .comment-a{
+    color: #42c02e;
+}
+.topic-info .reply-body .comment-box .user-name{
+    color: #39cccc;
+}
+.topic-info .reply-body .comment-box .layui-nav-img{
+    width: 48px;
+    height: 48px;
+    margin-right: 10px;
+    border-radius:0;
+}
+.topic-info .reply-body .comment-box .comment-user{
+    vertical-align: top;
+    display: inline-block;
+    margin-left: 8px;
+    margin-bottom: 15px;
+}
+.topic-info .reply-body .comment-box .comment-info .comment-content{
+    font-size: 16px;
+}
+.topic-info .reply-body .comment-box .comment-list{
+    margin-top: 20px;
+    padding-left: 20px;
+    border-left: 2px solid #d9d9d9;
+}
+.topic-info .reply-body .comment-box .comment-list .comment-info{
+    margin-bottom: 15px;
+    padding-top: 5px;
+    padding-bottom: 10px;
+    border-bottom: 1px dashed #f0f0f0;
+}
+.topic-info .reply-body .comment-box .comment-list .comment-info p{
+    margin: 0 0 5px;
+    font-size: 14px;
+    line-height: 1.5;
+}
+.topic-info .reply-body .comment-box .comment-list .comment-child-tool{
+    font-size: 12px;
+    color: #969696;
+}
+.topic-info .reply-body .comment-box .comment-list .comment-date{
+    margin-right: 15px;
+}
+.first_blood{
+    width: 80px;
+    margin-top: -4px;
+    margin-left: -12px;
 }
 /*=========评论动画===============*/
