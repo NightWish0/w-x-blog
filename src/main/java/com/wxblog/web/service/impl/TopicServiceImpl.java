@@ -211,6 +211,7 @@ public class TopicServiceImpl implements TopicService {
     @Override
     public ResultJson commentPublish(Comment comment) {
         if (commentMapper.insert(comment)==1){
+            comment.setCommentCount(commentMapper.commentCountOfTopic(comment.getTopicId()));
             return ResultJson.success(comment);
         }
         return ResultJson.failure();

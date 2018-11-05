@@ -13,4 +13,6 @@ import java.util.List;
 public interface CommentMapper extends BaseMapper<Comment> {
 
     List<Comment> commentsOfTopic(@Param("topicId")Long topicId);
+
+    int commentCountOfTopic(@Param("topicId")Long topicId);
 }

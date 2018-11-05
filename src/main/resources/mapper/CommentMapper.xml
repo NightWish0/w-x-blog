@@ -30,5 +30,8 @@
         WHERE c.topic_id=#{topicId} AND ISNULL(c.parent_id)
         ORDER BY c.created_at DESC
     </select>
+    <select id="commentCountOfTopic" parameterType="long" resultType="int">
+        SELECT count(*) FROM blog_comment WHERE topic_id=#{topicId}
+    </select>
 
 </mapper>
