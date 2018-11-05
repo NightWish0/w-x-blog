@@ -207,4 +207,12 @@ public class TopicServiceImpl implements TopicService {
             labelMapper.insertTidAndLidBatch(topic.getId(),ids);
         }
     }
+
+    @Override
+    public ResultJson commentPublish(Comment comment) {
+        if (commentMapper.insert(comment)==1){
+            return ResultJson.success(comment);
+        }
+        return ResultJson.failure();
+    }
 }

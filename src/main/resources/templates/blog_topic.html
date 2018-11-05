@@ -45,11 +45,6 @@
             <hr class="layui-bg-gray">
             <div class="topic-body" th:utext="${topic.content}"></div>
             <div class="reply-body">
-                <!--<img class="layui-nav-img" th:src="@{/statics/image/avatar/default_avatar.png}">-->
-                <!--<div class="comment-push">-->
-                    <!--<textarea class="" placeholder="Press enter to post comment"></textarea>-->
-                    <!--<button type="button">评论</button>-->
-                <!--</div>-->
                 <div th:include="~{_comment :: comment}"></div>
             </div>
             <div class="comment-body">

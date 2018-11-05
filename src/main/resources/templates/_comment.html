@@ -5,9 +5,9 @@
 		<div class="wrapper">
             <img class="layui-nav-img" th:src="@{/statics/image/avatar/default_avatar.png}">
             <div class="comment-push">
-                <textarea class="comment-content" placeholder="评论越多,加班越少"></textarea>
+                <textarea id="comment_content" class="comment-content" placeholder="评论越多,加班越少"></textarea>
             </div>
-            <button class="checkout">评论</button>
+            <button id="comment_publish" th:data="${topic.id}" class="checkout">评论</button>
 			<div class="card-wrap">
 				<div class="card">
 					<?xml version="1.0" encoding="utf-8"?>
@@ -256,14 +256,14 @@
 			</div>
 		</div>
         <hr class="layui-bg-gray">
-        <div>
+        <div id="commentBox">
             <div class="comment-box" th:each="comment,item : ${comments}">
                 <img class="layui-nav-img" th:src="@{/statics/image/avatar/default_avatar.png}">
                 <div class="comment-user">
                     <a class="user-name" th:text="${comment.name}"></a>
                     <p>
-                        <img th:if="${item.first}" class="first_blood" th:src="@{/statics/image/first_blood.jpg}">
-                        <span th:if="!${item.first}" th:text="${item.index}+'楼'"></span>
+                        <img th:if="${item.last}" class="first_blood" th:src="@{/statics/image/first_blood.jpg}">
+                        <span th:if="!${item.last}" th:text="${item.size-item.index}+'楼'"></span>
                         -
                         <span th:text="${#calendars.format(comment.createdAt,'yyyy-MM-dd HH:mm:ss')}"></span>
                     </p>
@@ -295,7 +295,7 @@
                     </div>
                 </div>
             </div>
-            <div th:if="${comments[0].id}">
+            <div class="first-blood-tip" th:if="${#lists.isEmpty(comments)}">
                 快来拿下你的FirstBlood!
             </div>
         </div>
