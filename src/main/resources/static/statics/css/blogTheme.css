@@ -655,7 +655,7 @@ a:hover{
     padding-left: 10px;
     padding-bottom: 15px;
     border-bottom: 1px solid #f2f2f2;
-    padding-top: 15px;
+    padding-top: 10px;
 }
 .topic-info .reply-body .comment-box .comment-a{
     color: #42c02e;
@@ -701,9 +701,25 @@ a:hover{
 .topic-info .reply-body .comment-box .comment-list .comment-date{
     margin-right: 15px;
 }
+.topic-info .reply-body .first-blood-tip{
+    text-align: center;
+    color: #b1afaf;
+}
 .first_blood{
     width: 80px;
-    margin-top: -4px;
+    margin-top: 0;
     margin-left: -12px;
+}
+.topic-info .layui-layer-content{
+    padding: 0px !important;
+}
+.topic-info .comment-user-info{
+    margin-top: 12px;
+}
+.topic-info .comment-user-info .layui-input-block{
+    margin-left: 80px;
+}
+.topic-info .comment-user-info .layui-input-block .layui-input{
+    width: auto;
 }
 /*=========评论动画===============*/

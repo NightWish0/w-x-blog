@@ -28,6 +28,7 @@
         LEFT JOIN blog_comment c2 ON c.id=c2.parent_id
         LEFT JOIN blog_comment c3 ON c2.receiver_id=c3.id
         WHERE c.topic_id=#{topicId} AND ISNULL(c.parent_id)
+        ORDER BY c.created_at DESC
     </select>
 
 </mapper>
