@@ -82,8 +82,7 @@ public class TopicServiceImpl implements TopicService {
             stringBuffer.deleteCharAt(stringBuffer.length()-1);
         }
         if (updateReadCount){
-            Integer readCount=topic.getReadCount()+1;
-            topicMapper.updateReadCount(readCount,id);
+            topicMapper.updateReadCount(id);
         }
         List<Comment> comments=commentMapper.commentsOfTopic(id);
         model.addAttribute("topic",topic);
@@ -213,6 +212,14 @@ public class TopicServiceImpl implements TopicService {
         if (commentMapper.insert(comment)==1){
             comment.setCommentCount(commentMapper.commentCountOfTopic(comment.getTopicId()));
             return ResultJson.success(comment);
+        }
+        return ResultJson.failure();
+    }
+
+    @Override
+    public ResultJson updateLikeCount(Long id) {
+        if(topicMapper.updateLikeCount(id)==1){
+            return ResultJson.success();
         }
         return ResultJson.failure();
     }

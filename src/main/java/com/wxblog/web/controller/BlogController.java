@@ -63,4 +63,10 @@ public class BlogController {
         comment.setCreatedAt(new Date());
         return topicService.commentPublish(comment);
     }
+
+    @PostMapping("/blog/{topicId}/like")
+    @ResponseBody
+    public ResultJson commentLike(@PathVariable("topicId") Long topicId){
+        return topicService.updateLikeCount(topicId);
+    }
 }

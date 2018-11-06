@@ -22,6 +22,7 @@
         <result column="created_at" property="createdAt"></result>
         <result column="status" property="status"></result>
         <result column="category_id" property="categoryId"></result>
+        <result column="comment_count" property="commentCount"></result>
         <association property="category" javaType="Category">
             <id property="id" column="category_id"></id>
             <result property="name" column="name"></result>
@@ -35,23 +36,27 @@
     </resultMap>
     
     <sql id="topicsShowSql">
-        SELECT t.*,u.id,u.user_name,c.id,c.name,c.sort FROM blog_topic t
+        SELECT t.*,u.user_name,c.name,c.sort,count(com.id) AS 'comment_count' FROM blog_topic t
         LEFT JOIN blog_user u ON t.user_id=u.id
         LEFT JOIN blog_user_category c ON t.category_id=c.id
+        LEFT JOIN blog_comment com ON com.topic_id=t.id
         WHERE t.status=1
+        GROUP BY t.id
         ORDER BY t.created_at DESC
     </sql>
 
     <sql id="topicShowSql">
-        SELECT t.*,u.id,u.user_name,c.id,c.name,c.sort FROM blog_topic t
+        SELECT t.*,u.user_name,c.name,c.sort,count(com.id) AS 'comment_count' FROM blog_topic t
         LEFT JOIN blog_user u ON t.user_id=u.id
         LEFT JOIN blog_user_category c ON t.category_id=c.id
+        LEFT JOIN blog_comment com ON com.topic_id=t.id
         <where>
             t.status=1
             <if test="id!=null">
                 AND t.id=#{id}
             </if>
         </where>
+        GROUP BY t.id
         ORDER BY t.created_at DESC
     </sql>
 
@@ -87,7 +92,12 @@
     </update>
     
     <update id="updateReadCount">
-        UPDATE blog_topic SET read_count=#{readCount}
+        UPDATE blog_topic SET read_count=read_count+1
+        WHERE id=#{id}
+    </update>
+
+    <update id="updateLikeCount">
+        UPDATE blog_topic SET like_count=like_count+1
         WHERE id=#{id}
     </update>
     

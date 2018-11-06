@@ -25,7 +25,9 @@ public interface TopicMapper extends BaseMapper<Topic> {
 
     int updateById(Topic topic);
 
-    int updateReadCount(@Param("readCount") Integer readCount,@Param("id")Long id);
+    int updateReadCount(@Param("id")Long id);
+
+    int updateLikeCount(@Param("id")Long id);
 
     void deleteAll(Integer status);
 

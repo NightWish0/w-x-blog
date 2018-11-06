@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <title>OenPiece~身未动，心已远</title>
+    <title>OnePiece-┊-身未动,心已远</title>
     <link rel="stylesheet" th:href="@{/statics/css/blogTheme.css}">
     <script th:src="@{/statics/tools/layui/layui.js}"></script>
     <script th:src="@{/statics/js/blog.js}"></script>
@@ -37,13 +37,20 @@
                             <span th:text="'发布时间 : '+${#calendars.format(topic.createdAt,'yyyy-MM-dd HH:mm:ss')}"></span>
                             <span th:text="'阅读 '+${topic.readCount}"></span>
                             <span th:text="'点赞 '+${topic.likeCount}"></span>
-                            <span th:text="'评论 '+0"></span>
+                            <span th:text="'评论 '+${topic.commentCount}"></span>
                         </div>
                     </div>
                 </div>
             </div>
             <hr class="layui-bg-gray">
             <div class="topic-body" th:utext="${topic.content}"></div>
+            <div class="like-body">
+                <p>您的点赞是我分享的动力</p>
+                <button class="like-btn" th:data="${topic.id}">
+                    <i class="fa fa-fw fa-heartbeat"></i>
+                    喜欢
+                </button>
+            </div>
             <div class="reply-body">
                 <div th:include="~{_comment :: comment}"></div>
             </div>

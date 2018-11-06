@@ -4,7 +4,8 @@
 @import url("//netdna.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css");
 
 
-a:hover{
+a:hover,
+a:focus{
     text-decoration: none;
 }
 /*导航*/
@@ -507,7 +508,29 @@ a:hover{
     font-weight: 400;
     line-height: 1.7;
     padding-bottom: 40px;
+}
+.topic-info .like-body{
+    text-align: center;
+    margin-top: 40px;
+    padding-bottom: 40px;
     border-bottom: 1px solid #f2f2f2;
+}
+.topic-info .like-body p{
+    font-size: 14px;
+    font-weight: 600;
+    color: #969696;
+}
+.topic-info .like-body .like-btn{
+    width: 82px;
+    height: 30px;
+    font-size: 14px;
+    color: #fff;
+    background-color: #ea6f5a;
+    border-radius: 20px;
+    border: 0;
+}
+.topic-info .like-body .like-btn:hover{
+    background-color: #ec6149;
 }
 /*=========评论动画===============*/
 .topic-info .reply-body .wrapper {
@@ -679,12 +702,12 @@ a:hover{
     font-size: 16px;
 }
 .topic-info .reply-body .comment-box .comment-list{
-    margin-top: 20px;
+    margin-top: 15px;
     padding-left: 20px;
     border-left: 2px solid #d9d9d9;
 }
 .topic-info .reply-body .comment-box .comment-list .comment-info{
-    margin-bottom: 15px;
+    margin-bottom: 5px;
     padding-top: 5px;
     padding-bottom: 10px;
     border-bottom: 1px dashed #f0f0f0;
@@ -700,6 +723,47 @@ a:hover{
 }
 .topic-info .reply-body .comment-box .comment-list .comment-date{
     margin-right: 15px;
+}
+.topic-info .reply-body .comment-box .comment-list .reply-box{
+    padding-top: 10px;
+}
+.topic-info .reply-body .comment-box .comment-list .comment-content{
+    width: 468px;
+    height: 65px;
+    border: 1px solid #bdc9cf;
+    padding: 5px;
+    resize: none;
+}
+.topic-info .reply-body .comment-box .comment-list .comment-content:focus{
+    border: 1px solid #f9c441;
+}
+.topic-info .reply-body .comment-box .comment-list .btn-div{
+    width: 468px;
+    height: 20px;
+}
+.topic-info .reply-body .comment-box .comment-list .cancel{
+    margin-left: 360px;
+    color: #969696;
+}
+.topic-info .reply-body .comment-box .comment-list .cancel:hover{
+    color: #2f2f2f;
+}
+.topic-info .reply-body .comment-box .comment-list .btn-send{
+    width: 66px;
+    padding: 2px 0px;
+    margin-left: 10px;
+    outline: none;
+    background: #ed912f;
+    border: 0;
+    color: white;
+    font-family: "Montserrat";
+    text-transform: uppercase;
+    font-size: 1.1em;
+    letter-spacing: .1em;
+    box-shadow: 0 0.5px 1px rgba(0, 0, 0, 0.24), 0 0.5px 6px rgba(0, 0, 0, 0.12);
+}
+.topic-info .reply-body .comment-box .comment-list .btn-send:hover{
+    background: #f7b648;
 }
 .topic-info .reply-body .first-blood-tip{
     text-align: center;

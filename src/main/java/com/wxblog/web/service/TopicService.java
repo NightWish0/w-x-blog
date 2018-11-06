@@ -40,4 +40,5 @@ public interface TopicService {
 
     ResultJson commentPublish(Comment comment);
 
+    ResultJson updateLikeCount(Long id);
 }

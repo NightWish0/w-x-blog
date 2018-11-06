@@ -36,6 +36,8 @@ public class Topic implements Serializable {
     @TableField(exist = false)
     private User user;
     @TableField(exist = false)
+    private Integer commentCount;
+    @TableField(exist = false)
     private Category category;
     @TableField(exist = false)
     private List<Label> labels;

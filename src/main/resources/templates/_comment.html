@@ -260,7 +260,7 @@
             <div class="comment-box" th:each="comment,item : ${comments}">
                 <img class="layui-nav-img" th:src="@{/statics/image/avatar/default_avatar.png}">
                 <div class="comment-user">
-                    <a class="user-name" th:text="${comment.name}"></a>
+                    <a class="user-name publish-name" th:text="${comment.name}"></a>
                     <p>
                         <img th:if="${item.last}" class="first_blood" th:src="@{/statics/image/first_blood.jpg}">
                         <span th:if="!${item.last}" th:text="${item.size-item.index}+'楼'"></span>
@@ -271,26 +271,33 @@
                 <div class="comment-info">
                     <p class="comment-content" th:text="${comment.content}"></p>
                     <div>
-                        <a class="comment-a" href="">
+                        <a class="comment-a parent-comment" th:data="${comment.id}" href="javascript:;">
                             <i class="fa fa-fw fa-paper-plane-o"></i>
                             回复
                         </a>
                     </div>
                 </div>
-                <div class="comment-list" >
+                <div class="comment-list">
                     <div class="comment-info" th:each="child : ${comment.childComments}" th:if="${child.parentId}">
                         <p>
-                            <a class="user-name" th:text="${child.name}"></a>
+                            <a class="user-name publish-name" th:text="${child.name}"></a>
                             :
-                            <a class="user-name" th:text="'@'+${child.receiverName}"></a>
+                            <a class="user-name recevier-name" th:text="'@'+${child.receiverName}"></a>
                             <span th:text="${child.content}"></span>
                         </p>
                         <div class="comment-child-tool">
                             <span class="comment-date" th:text="${#calendars.format(child.createdAt,'yyyy-MM-dd HH:mm:ss')}"></span>
-                            <a class="comment-a" href="">
+                            <a class="comment-a child-comment" th:data="${child.id}" href="javascript:;">
                                 <i class="fa fa-fw fa-paper-plane-o"></i>
                                 回复
                             </a>
+                        </div>
+                    </div>
+                    <div class="reply-box" style="display: none">
+                        <textarea class="comment-content" placeholder="请留下您的思维火花"></textarea>
+                        <div class="btn-div">
+                            <a href="javascript:;" class="cancel">取消</a>
+                            <button class="btn-send" th:data-parent-id="${comment.id}" th:data-id="${topic.id}">发送</button>
                         </div>
                     </div>
                 </div>
