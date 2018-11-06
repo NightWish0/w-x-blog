@@ -22,7 +22,7 @@ import java.util.List;
  **/
 @Controller
 @RequestMapping("/admin/topics")
-public class TopicController {
+public class  TopicController {
 
     @Autowired
     private UserService userService;
@@ -274,6 +274,18 @@ public class TopicController {
         userService.initUserInfo(model);
         topicService.comments(model);
         return "admin/comment/comments";
+    }
+
+    @GetMapping("/{id}/comment")
+    public String commentPreview(@PathVariable("id")Long id,Model model){
+        topicService.topic(id,model,false);
+        return "admin/comment/topic";
+    }
+
+    @DeleteMapping("/comments/{id}")
+    @ResponseBody
+    public ResultJson destroy(List<Long> ids){
+        return topicService.destroy(ids);
     }
 
     /**
