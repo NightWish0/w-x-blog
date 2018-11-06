@@ -208,6 +208,61 @@ a:hover{
     font-weight: 400;
     line-height: 1.7;
 }
+.topic-info .reply-body{
+    border-top: 1px solid #eeeeee;
+    margin-top: 50px;
+}
+.topic-info .reply-body .comment-box{
+    padding-left: 10px;
+    padding-bottom: 15px;
+    border-bottom: 1px solid #f2f2f2;
+    padding-top: 10px;
+    margin-top: 20px;
+}
+.topic-info .reply-body .comment-box .comment-a{
+    color: #42c02e;
+}
+.topic-info .reply-body .comment-box .user-name{
+    color: #39cccc;
+}
+.topic-info .reply-body .comment-box .layui-nav-img{
+    width: 48px;
+    height: 48px;
+    margin-right: 10px;
+    border-radius:0;
+}
+.topic-info .reply-body .comment-box .comment-user{
+    vertical-align: top;
+    display: inline-block;
+    margin-left: 8px;
+    margin-bottom: 15px;
+}
+.topic-info .reply-body .comment-box .comment-info .comment-content{
+    font-size: 16px;
+}
+.topic-info .reply-body .comment-box .comment-list{
+    margin-top: 15px;
+    padding-left: 20px;
+    border-left: 2px solid #d9d9d9;
+}
+.topic-info .reply-body .comment-box .comment-list .comment-info{
+    margin-bottom: 5px;
+    padding-top: 5px;
+    padding-bottom: 10px;
+    border-bottom: 1px dashed #f0f0f0;
+}
+.topic-info .reply-body .comment-box .comment-list .comment-info p{
+    margin: 0 0 5px;
+    font-size: 14px;
+    line-height: 1.5;
+}
+.topic-info .reply-body .comment-box .comment-list .comment-child-tool{
+    font-size: 12px;
+    color: #969696;
+}
+.topic-info .reply-body .comment-box .comment-list .comment-date{
+    margin-right: 15px;
+}
 /*我的分类*/
 #addCategory .category-name-label{
     width: 60px;

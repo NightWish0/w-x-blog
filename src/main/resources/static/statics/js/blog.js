@@ -18,7 +18,7 @@ layui.use(['flow','layer'],function () {
                     })
                     var categoryHtml=''
                     if (item.category.name!=null){
-                        categoryHtml='<label>—</label>'+
+                        categoryHtml='<label> - </label>'+
                                          '<a href="">'+item.category.name+'</a>';
                     }
                     lis.push('<li>' +

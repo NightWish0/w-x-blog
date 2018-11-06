@@ -264,4 +264,27 @@ public class TopicController {
         return topicService.destroy(ids);
     }
 
+    /**
+     * 所有评论
+     * @param model
+     * @return
+     */
+    @GetMapping("/comments")
+    public String comments(Model model){
+        userService.initUserInfo(model);
+        topicService.comments(model);
+        return "admin/comment/comments";
+    }
+
+    /**
+     * 我的评论
+     * @param model
+     * @return
+     */
+    @GetMapping("/my_comments")
+    public String myComments(Model model){
+        userService.initUserInfo(model);
+        return "admin/comment/comments_my";
+    }
+
 }

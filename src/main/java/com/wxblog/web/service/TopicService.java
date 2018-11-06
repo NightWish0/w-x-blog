@@ -28,6 +28,8 @@ public interface TopicService {
 
     boolean edit(Topic topic,String label,RedirectAttributes model);
 
+    void comments(Model model);
+
     IPage<Topic> topicShowByPage(Integer currentPage, Integer pageSize);
 
     ResultJson deleteTopic(Long id);

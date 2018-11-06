@@ -34,6 +34,8 @@ public class Comment implements Serializable {
     private Date createdAt;
 
     @TableField(exist = false)
+    private Topic topic;
+    @TableField(exist = false)
     private Integer commentCount;
     @TableField(exist = false)
     private String receiverName;

@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.wxblog.core.dao.CommentMapper">
     
-    <resultMap id="commentsMap" type="Comment">
+    <resultMap id="commentsOfTopicMap" type="Comment">
         <id column="id" property="id"></id>
         <result column="name" property="name"></result>
         <result column="email" property="email"></result>
@@ -22,7 +22,28 @@
         </collection>
     </resultMap>
     
-    <select id="commentsOfTopic" resultMap="commentsMap">
+    <resultMap id="commentsMap" type="Comment">
+        <id column="id" property="id"></id>
+        <result column="name" property="name"></result>
+        <result column="email" property="email"></result>
+        <result column="receiver_id" property="receiverId"></result>
+        <result column="topic_id" property="topicId"></result>
+        <result column="content" property="content"></result>
+        <result column="created_at" property="createdAt"></result>
+        <association property="topic" javaType="Topic">
+            <id column="topic_id" property="id"></id>
+            <result column="title" property="title"></result>
+        </association>
+    </resultMap>
+
+    <select id="comments" resultMap="commentsMap">
+        SELECT c.*,t.id,t.title FROM blog_comment c
+        LEFT JOIN blog_topic t ON c.topic_id=t.id
+        WHERE t.status=1
+        ORDER BY c.created_at DESC 
+    </select>
+    
+    <select id="commentsOfTopic" resultMap="commentsOfTopicMap">
         SELECT c.*,c2.id AS 'child_id',c2.name AS 'child_name',c2.email AS 'child_email',
         c2.topic_id AS 'child_topic_id',c2.parent_id AS 'child_parent_id',c2.content AS 'child_content',c2.created_at AS 'child_created_at',c3.name AS 'child_receiver_name' FROM blog_comment c
         LEFT JOIN blog_comment c2 ON c.id=c2.parent_id

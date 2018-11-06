@@ -23,8 +23,8 @@
                 <li th:class="${parent}=='comment'?'layui-nav-item layui-nav-itemed':'layui-nav-item'">
                     <a href="javascript:;">评论管理</a>
                     <dl class="layui-nav-child">
-                        <dd><a href="javascript:;" th:class="${child}=='comments'?'layui-this':''">所有评论</a></dd>
-                        <dd><a href="javascript:;" th:class="${child}=='myComments'?'layui-this':''">我的评论</a></dd>
+                        <dd><a th:href="@{/admin/topics/comments}" th:class="${child}=='comments'?'layui-this':''">所有评论</a></dd>
+                        <dd><a th:href="@{/admin/topics/my_comments}" th:class="${child}=='myComments'?'layui-this':''">我的评论</a></dd>
                     </dl>
                 </li>
                 <li th:class="${parent}=='academy'?'layui-nav-item layui-nav-itemed':'layui-nav-item'">

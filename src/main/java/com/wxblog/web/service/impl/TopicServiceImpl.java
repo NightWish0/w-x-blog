@@ -208,6 +208,12 @@ public class TopicServiceImpl implements TopicService {
     }
 
     @Override
+    public void comments(Model model) {
+        List<Comment> commentList=commentMapper.comments();
+        model.addAttribute("comments",commentList);
+    }
+
+    @Override
     public ResultJson commentPublish(Comment comment) {
         if (commentMapper.insert(comment)==1){
             comment.setCommentCount(commentMapper.commentCountOfTopic(comment.getTopicId()));
