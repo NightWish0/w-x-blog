@@ -7,7 +7,7 @@
     <link rel="stylesheet" th:href="@{/statics/css/theme.css}">
 </head>
 <body class="layui-layout-body topic-info">
-<div class="layui-layout layui-layout-admin">
+<div class="layui-layout">
     <div class="layui-body">
         <div class="body-box">
             <div class="topic-header">
@@ -47,7 +47,7 @@
                     <div class="comment-box" th:each="comment,item : ${comments}">
                         <img class="layui-nav-img" th:src="@{/statics/image/avatar/default_avatar.png}">
                         <div class="comment-user">
-                            <a class="user-name publish-name" th:text="${comment.name}"></a>
+                            <a class="user-name publish-name" th:text="${comment.name}?${comment.name}:'未知用户'"></a>
                             <p>
                                 <img th:if="${item.last}" class="first_blood" th:src="@{/statics/image/first_blood.jpg}">
                                 <span th:if="!${item.last}" th:text="${item.size-item.index}+'楼'"></span>
@@ -63,7 +63,7 @@
                                 <p>
                                     <a class="user-name publish-name" th:text="${child.name}"></a>
                                     :
-                                    <a class="user-name recevier-name" th:text="'@'+${child.receiverName}"></a>
+                                    <a class="user-name recevier-name" th:text="'@'+${child.receiverName}?${child.receiverName}:'未知用户'"></a>
                                     <span th:text="${child.content}"></span>
                                 </p>
                                 <div class="comment-child-tool">

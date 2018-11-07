@@ -10,6 +10,7 @@
         <result column="topic_id" property="topicId"></result>
         <result column="content" property="content"></result>
         <result column="created_at" property="createdAt"></result>
+        <result column="author_id" property="authorId"></result>
         <collection property="childComments" ofType="Comment" >
             <id column="child_id" property="id"></id>
             <result column="child_name" property="name"></result>
@@ -30,17 +31,26 @@
         <result column="topic_id" property="topicId"></result>
         <result column="content" property="content"></result>
         <result column="created_at" property="createdAt"></result>
+        <result column="author_id" property="authorId"></result>
         <association property="topic" javaType="Topic">
             <id column="topic_id" property="id"></id>
             <result column="title" property="title"></result>
+            <result column="user_id" property="userId"></result>
         </association>
     </resultMap>
 
     <select id="comments" resultMap="commentsMap">
-        SELECT c.*,t.id,t.title FROM blog_comment c
+        SELECT c.*,t.id,t.title,t.user_id FROM blog_comment c
         LEFT JOIN blog_topic t ON c.topic_id=t.id
         WHERE t.status=1
         ORDER BY c.created_at DESC 
+    </select>
+    
+    <select id="myComments" parameterType="long" resultMap="commentsMap">
+        SELECT c.*,t.id,t.title,t.user_id FROM blog_comment c
+        LEFT JOIN blog_topic t ON c.topic_id=t.id
+        WHERE t.status=1 AND c.author_id=#{authorId}
+        ORDER BY c.created_at DESC
     </select>
     
     <select id="commentsOfTopic" resultMap="commentsOfTopicMap">
@@ -51,8 +61,27 @@
         WHERE c.topic_id=#{topicId} AND ISNULL(c.parent_id)
         ORDER BY c.created_at DESC
     </select>
+    
+    <select id="comment" parameterType="long" resultMap="commentsMap">
+        SELECT c.*,t.id,t.title,t.user_id FROM blog_comment c
+        LEFT JOIN blog_topic t ON c.topic_id=t.id
+        WHERE c.id=#{id}
+    </select>
+    
     <select id="commentCountOfTopic" parameterType="long" resultType="int">
         SELECT count(*) FROM blog_comment WHERE topic_id=#{topicId}
     </select>
+    
+    <delete id="deleteAll">
+        DELETE FROM blog_comment
+    </delete>
+    
+    <update id="updateCommentAuthorName">
+        UPDATE blog_comment SET name=#{name} WHERE user_id=#{userId}
+    </update>
+
+    <update id="updateContent">
+        UPDATE blog_comment SET content=#{content} WHERE id=#{id}
+    </update>
 
 </mapper>

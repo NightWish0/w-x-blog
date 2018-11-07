@@ -8,7 +8,6 @@
     <script th:src="@{/statics/tools/layui/layui.js}"></script>
     <script th:src="@{/statics/js/jquery.min.js}"></script>
     <script th:src="@{/statics/js/lauyiInit.js}"></script>
-    <script th:src="@{/statics/tools/editormd/editormd.min.js}"></script>
 </head>
 <body class="layui-layout-body topics-my">
 <div class="layui-layout layui-layout-admin">
@@ -19,8 +18,8 @@
             <div class="layui-card layadmin-header">
                 <span class="layui-breadcrumb">
                   <a href="">首页</a>
-                  <a><cite>文章管理</cite></a>
-                  <a><cite>我的文章</cite></a>
+                  <a><cite>评论管理</cite></a>
+                  <a><cite>所有评论</cite></a>
                 </span>
             </div>
             <div class="layui-fluid">
@@ -42,42 +41,32 @@
                     </div>
                     <div class="layui-card-body">
                         <div class="layui-btn-container" >
-                            <button class="layui-btn layui-btn-sm layui-btn-danger topic-del" data-type="selectedDel">选中删除</button>
-                            <button class="layui-btn layui-btn-sm layui-btn-danger topic-del" data-type="allDel">全部删除</button>
+                            <button class="layui-btn layui-btn-sm layui-btn-danger comment-del" data-type="selectedDel">选中删除</button>
+                            <button class="layui-btn layui-btn-sm layui-btn-danger comment-del" data-type="allDel">全部删除</button>
                         </div>
-                        <table id="topicTable" class="layui-table" lay-data="{id:'topicTable',page:true,limits:[10,20,30]}" lay-filter="topicTable">
+                        <table id="commentTable" class="layui-table" lay-data="{id:'commentTable',page:true,limits:[10,20,30]}" lay-filter="commentTable">
                             <thead>
                             <tr>
                                 <th lay-data="{type:'checkbox',align:'center'}"></th>
                                 <th lay-data="{field:'id',type:'numbers', minWidth:60,align:'center', sort: true}">ID</th>
-                                <th lay-data="{field:'title',align:'center', minWidth:180}">标题</th>
-                                <th lay-data="{field:'readCount',align:'center', minWidth:90,sort: true}">阅读量</th>
-                                <th lay-data="{field:'likeCount',align:'center', minWidth:90, sort: true}">点赞量</th>
-                                <th lay-data="{field:'comment',align:'center', minWidth:90, sort: true}">评论量</th>
-                                <th lay-data="{field:'createdAt',align:'center', minWidth:160, sort: true}">创建时间</th>
-                                <th lay-data="{field:'status',align:'center', minWidth:80}">状态</th>
-                                <th lay-data="{field:'operate',align:'center',minWidth:220}">操作</th>
+                                <th lay-data="{field:'content',align:'center', minWidth:200}">评论内容</th>
+                                <th lay-data="{field:'topicTitle',align:'center', minWidth:180}">所属文章</th>
+                                <th lay-data="{field:'createdAt',align:'center', minWidth:150, sort: true}">创建时间</th>
+                                <th lay-data="{field:'operate',align:'center',minWidth:120}">操作</th>
                             </tr>
                             </thead>
                             <tbody>
-                            <tr th:each="topic:${topics}">
+                            <tr th:each="comment:${comments}" th:data="${comment.id}">
                                 <td></td>
-                                <td th:text="${topic.id}"></td>
+                                <td th:text="${comment.id}"></td>
+                                <td th:text="${comment.content}"></td>
                                 <td>
-                                    <a th:href="@{'/admin/topics/'+${topic.id}}" th:text="${topic.title}"></a>
+                                    <a class="comment-topic" th:data="${comment.topic.id}" href="javascript:;" th:text="${comment.topic.title}"></a>
                                 </td>
-                                <td th:text="${topic.readCount}"></td>
-                                <td th:text="${topic.likeCount}"></td>
-                                <td th:text="${topic.likeCount}"></td>
-                                <td th:text="${topic.createdAt}"></td>
+                                <td th:text="${#calendars.format(comment.createdAt,'yyyy-MM-dd HH:mm:ss')}"></td>
                                 <td>
-                                    <button th:if="${topic.status}==1" class="layui-btn layui-btn-xs" style="background: #22961a">已发布</button>
-                                </td>
-                                <td>
-                                    <a class="layui-btn layui-btn-xs" th:href="@{'/admin/topics/'+${topic.id}+'/edit'}" lay-event="edit">编辑</a>
-                                    <a class="layui-btn layui-btn-danger layui-btn-xs delete-topic" th:data="${topic.id}" lay-event="del">删除</a>
-                                    <a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="detail">导出</a>
-                                    <a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="detail">打印</a>
+                                    <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
+                                    <a class="layui-btn layui-btn-danger layui-btn-xs delete-topic" th:data="${comment.id}" lay-event="del">删除</a>
                                 </td>
                             </tr>
                             </tbody>

@@ -3,6 +3,7 @@ package com.wxblog.web.service.impl;
 import com.wxblog.core.bean.Category;
 import com.wxblog.core.bean.User;
 import com.wxblog.core.dao.CategoryMapper;
+import com.wxblog.core.dao.CommentMapper;
 import com.wxblog.core.dao.UserMapper;
 import com.wxblog.core.response.ResultJson;
 import com.wxblog.core.util.MD5Util;
@@ -32,6 +33,8 @@ public class UserServiceImpl implements UserService {
     private UserMapper userMapper;
     @Autowired
     private CategoryMapper categoryMapper;
+    @Autowired
+    private CommentMapper commentMapper;
 
     @Override
     public void users(Model model) {
@@ -49,6 +52,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public boolean updateUserInfo(MultipartFile file, String userName, String profile,Model model) {
         User user=initUserInfo(model);
+        String userNameOld=user.getUserName();
         String avatarName=null;
         if (file!=null&&!file.isEmpty()){
             String oldName=user.getAvatar();
@@ -56,6 +60,9 @@ public class UserServiceImpl implements UserService {
             UploadUtil.deleteAvatar(oldName);
         }
         if(userMapper.updateInfo(user.getId(),userName,avatarName,profile)==1){
+            if (!userNameOld.equals(userName)){
+                commentMapper.updateCommentAuthorName(userName,user.getId());
+            }
             user.setAvatar(avatarName);
             user.setUserName(userName);
             user.setProfile(profile);

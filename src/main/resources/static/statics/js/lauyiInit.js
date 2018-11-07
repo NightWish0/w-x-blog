@@ -252,26 +252,70 @@ layui.use(['form','element','upload','layedit','table','layer'],function () {
     });
     
     /*所有评论*/
-    $('.comment-topic').on('click',function () {
-        var id=$(this).attr('data');
-        var title=$(this).text();
-        layer.open({
-            type:2,
-            title:title,
-            content:'/admin/topics/'+id+'/comment',
-            // offset: ['60px', '200px'],
-            area: ['100%', '100%'],
-            move: false
-        })
+    //选中、全部删除
+    var active = {
+        selectedDel: function(){
+            var checkStatus = table.checkStatus('commentTable')
+                ,checkData = checkStatus.data; //得到选中的数据
+            if(checkData.length === 0){
+                return layer.msg('请选择数据');
+            }
+            var ids=[];
+            $.each(checkData,function (index,value) {
+                ids[index]=parseInt(value.id);
+            })
+            layer.confirm('确定删除吗？', function(index) {
+                $.ajax({
+                    type:'delete',
+                    url:'/admin/comments/deleteSelected',
+                    dateType:"json",
+                    contentType : 'application/json',
+                    data:JSON.stringify(ids),
+                    success:function (result) {
+                        if (result.status){
+                            location.reload();
+                        }else{
+                            layer.msg("删除失败", {
+                                time: 3000,
+                            });
+                        }
+                    }
+                });
+            });
+        }
+        //全部删除
+        ,allDel: function(othis){
+            layer.confirm('确定全部删除吗？', function(index) {
+                $.ajax({
+                    type:'delete',
+                    url:'/admin/comments/deleteAll',
+                    success:function (result) {
+                        if (result.status){
+                            location.reload();
+                        }else{
+                            layer.msg("删除失败", {
+                                time: 3000,
+                            });
+                        }
+                    }
+                });
+            });
+        }
+    };
+    $('.layui-btn.comment-del').on('click', function(){
+        var type = $(this).data('type');
+        active[type] ? active[type].call(this) : '';
     });
+    var flag=true;
     table.on('tool(commentTable)', function(obj){
         var id = obj.data.id;
         var layEvent = obj.event;
+        flag=false;
         if(layEvent === 'del'){
             layer.confirm('确定删除吗？', function(index){
                 $.ajax({
                     type:'delete',
-                    url:'/admin/topics/comment/'+id,
+                    url:'/admin/comments/'+id,
                     success:function (result) {
                         if (result.status){
                             obj.del(); //删除对应行（tr）的DOM结构
@@ -287,8 +331,96 @@ layui.use(['form','element','upload','layedit','table','layer'],function () {
             });
         }
         if(layEvent === 'reply'){
-            $(obj.tr).find('td[data-field="name"] .layui-table-cell').click();
+            layer.open({
+                title:'评论回复',
+                area: ['500px', '330px'],
+                resize:false,
+                content:'<div class="layui-card" style="box-shadow: 0px 0px 0px 1px rgba(0,0,0,.05);">' +
+                            '<div class="layui-card-header" style="padding-top: 0px;">'+
+                                '<label style="color: #29821d;font-weight: normal;">'+obj.data.name+'</label>'+
+                                '<label style="margin-left: 26px;color: #29821d;font-weight: normal;">'+obj.data.email+'</label>'+
+                            '</div>'+
+                            '<div class="layui-card-body">'+obj.data.content+'</div>' +
+                        '</div>'+
+                        '<div>' +
+                            '<textarea class="reply-content" placeholder="快点回复他吧" style="width:100%;height:80px;padding:5px 0 0 5px;resize:none;"></textarea>'+
+                        '</div>',
+                move: false,
+                yes:function(index, layero) {
+                    var content=$('.reply-content').val();
+                    if (content=='' || $.trim(content)==''){
+                        $('.reply-content').focus();
+                        return;
+                    }else{
+                        $.ajax({
+                            type:'post',
+                            url:'/admin/comments/'+obj.data.id+'/reply',
+                            data:{content:content},
+                            success:function (result) {
+                                if (result.status){
+                                    layer.close(index);
+                                    location.reload();
+                                }else{
+                                    layer.msg("回复失败", {
+                                        time: 3000,
+                                    });
+                                }
+                            }
+                        })
+                    }
+                }
+            })
         }
+        if(layEvent === 'edit'){
+            layer.open({
+                title:'编辑评论',
+                area: ['350px', '220px'],
+                resize:false,
+                content:'<div>' +
+                            '<textarea class="edit-content" style="width:100%;height:80px;padding:5px 0 0 5px;resize:none;">'+obj.data.content+'</textarea>'+
+                        '</div>',
+                move: false,
+                yes:function(index, layero) {
+                    var content=$('.edit-content').val();
+                    if (content=='' || $.trim(content)==''){
+                        $('.edit-content').focus();
+                        return;
+                    }else{
+                        $.ajax({
+                            type:'post',
+                            url:'/admin/comments/'+obj.data.id,
+                            data:{content:content},
+                            success:function (result) {
+                                if (result.status){
+                                    $(obj.tr).find('td[data-field="content"] .layui-table-cell').text(content);
+                                    layer.close(index);
+                                }else{
+                                    layer.msg("修改失败", {
+                                        time: 3000,
+                                    });
+                                }
+                            }
+                        })
+                    }
+                }
+            })
+        }
+    });
+    table.on('row(commentTable)', function(obj){
+        var data = obj.data;
+        var id=data.topicId;
+        var title=data.topicTitle;
+        if (flag){
+            layer.open({
+                type:2,
+                title:title,
+                content:'/admin/comments/'+id+'/topic',
+                // offset: ['60px', '200px'],
+                area: ['100%', '100%'],
+                move: false
+            })
+        }
+        flag=true;
     });
 
     //创建一个编辑器

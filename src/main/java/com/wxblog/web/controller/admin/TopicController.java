@@ -264,39 +264,4 @@ public class  TopicController {
         return topicService.destroy(ids);
     }
 
-    /**
-     * 所有评论
-     * @param model
-     * @return
-     */
-    @GetMapping("/comments")
-    public String comments(Model model){
-        userService.initUserInfo(model);
-        topicService.comments(model);
-        return "admin/comment/comments";
-    }
-
-    @GetMapping("/{id}/comment")
-    public String commentPreview(@PathVariable("id")Long id,Model model){
-        topicService.topic(id,model,false);
-        return "admin/comment/topic";
-    }
-
-    @DeleteMapping("/comments/{id}")
-    @ResponseBody
-    public ResultJson destroy(List<Long> ids){
-        return topicService.destroy(ids);
-    }
-
-    /**
-     * 我的评论
-     * @param model
-     * @return
-     */
-    @GetMapping("/my_comments")
-    public String myComments(Model model){
-        userService.initUserInfo(model);
-        return "admin/comment/comments_my";
-    }
-
 }

@@ -3,10 +3,7 @@ package com.wxblog.web.service.impl;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.wxblog.core.bean.Category;
-import com.wxblog.core.bean.Comment;
-import com.wxblog.core.bean.Label;
-import com.wxblog.core.bean.Topic;
+import com.wxblog.core.bean.*;
 import com.wxblog.core.dao.CategoryMapper;
 import com.wxblog.core.dao.CommentMapper;
 import com.wxblog.core.dao.LabelMapper;
@@ -214,12 +211,72 @@ public class TopicServiceImpl implements TopicService {
     }
 
     @Override
+    public void myComments(Model model) {
+        List<Comment> commentList=commentMapper.myComments(UserUtils.currentUser().getId());
+        model.addAttribute("comments",commentList);
+    }
+
+    @Override
+    public ResultJson deleteComment(Long id) {
+        commentMapper.delete(new QueryWrapper<Comment>().eq("id",id)
+        .or(wrapper -> wrapper.eq("parent_id",id)));
+        return ResultJson.success();
+    }
+
+    @Override
+    public ResultJson replyComment(Long receiverId,String content) {
+        User user=UserUtils.currentUser();
+        Comment comment=commentMapper.comment(receiverId);
+        Comment newComment=new Comment();
+        newComment.setContent(content);
+        newComment.setName(user.getUserName());
+        newComment.setReceiverId(receiverId);
+        if (comment.getParentId()==null){
+            newComment.setParentId(receiverId);
+        }else{
+            newComment.setParentId(comment.getParentId());
+        }
+        newComment.setTopicId(comment.getTopicId());
+        newComment.setCreatedAt(new Date());
+        if (comment.getTopic().getUserId()==user.getId()){
+            newComment.setAuthorId(user.getId());
+        }
+        if (commentMapper.insert(newComment)==1){
+            return ResultJson.success();
+        }
+        return ResultJson.failure();
+    }
+
+    @Override
+    public ResultJson updateComment(Long id, String content) {
+        if (commentMapper.updateContent(content,id)==1){
+            return ResultJson.success();
+        }
+        return ResultJson.failure();
+    }
+
+    @Override
     public ResultJson commentPublish(Comment comment) {
         if (commentMapper.insert(comment)==1){
             comment.setCommentCount(commentMapper.commentCountOfTopic(comment.getTopicId()));
             return ResultJson.success(comment);
         }
         return ResultJson.failure();
+    }
+
+    @Override
+    public ResultJson deleteComments() {
+        commentMapper.deleteAll();
+        return ResultJson.success();
+    }
+
+    @Override
+    public ResultJson deleteComments(List<Long> ids) {
+        QueryWrapper<Comment> wrapper=new QueryWrapper<>();
+        wrapper.in("id",ids);
+        wrapper.or(w->w.in("parent_id",ids));
+        commentMapper.delete(wrapper);
+        return ResultJson.success();
     }
 
     @Override

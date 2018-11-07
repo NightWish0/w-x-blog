@@ -270,6 +270,13 @@ a:hover{
 #addCategory .category-name-box{
     margin-left: 60px;
 }
+/*评论管理*/
+.topics-my .author-label{
+    height: 17px;
+    line-height: 17px;
+    padding: 0px 5px;
+    cursor: unset;
+}
 /*基本资料*/
 .user-info-page .layui-body{
     background: #eddbc3;

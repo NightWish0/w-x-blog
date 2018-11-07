@@ -1,6 +1,6 @@
 .login-page{
     background: url("../../image/bg_login.jpg") no-repeat;
-    background-size: cover;
+    /*background-size: cover;*/
     overflow: hidden;
 }
 .login-page .layui-container{

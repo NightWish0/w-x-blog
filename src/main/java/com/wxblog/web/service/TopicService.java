@@ -30,6 +30,18 @@ public interface TopicService {
 
     void comments(Model model);
 
+    void myComments(Model model);
+
+    ResultJson deleteComment(Long id);
+
+    ResultJson updateComment(Long id,String content);
+
+    ResultJson deleteComments();
+
+    ResultJson deleteComments(List<Long> ids);
+
+    ResultJson replyComment(Long receiverId,String content);
+
     IPage<Topic> topicShowByPage(Integer currentPage, Integer pageSize);
 
     ResultJson deleteTopic(Long id);
