@@ -4,29 +4,66 @@
     <meta charset="UTF-8">
     <title>OnePiece-身未动,心已远</title>
     <link rel="stylesheet" th:href="@{/statics/css/blogTheme.css}">
+    <script th:src="@{/statics/js/jquery.min.js}"></script>
 </head>
 <body class="blog-index">
     <div th:insert="~{_header :: blogHeader(li='index')}"></div>
-    <div class="user-box">
-        <div class="user-info-box"  th:each="user:${users}">
-            <img th:src="${user.avatar}?${user.avatar}:@{/statics/image/avatar/default_avatar.png}" class="img-avatar">
-            <div class="info-box">
-                <div>
-                    <label class="info-username">[[${user.userName}]]</label>
-                </div>
-                <div class="bind-platform">
-                    <a href="javascript:;" th:title="GitHub">
+    <div class="user-body">
+        <div class="user-box">
+            <div data-offset="5" class="user-1 poster">
+                <div class="shine"></div>
+                <div class="layer-1"></div>
+                <div data-offset="-5" class="layer-2">[[${users[0].userName}]]</div>
+                <div data-offset="-10" class="layer-3">
+                    <a class="a-github" target="_blank" href="https://github.com/NightWish0" th:title="GitHub">
                         <i class="fa fa-github"></i>
                     </a>
-                    <a href="javascript:;" th:title="邮箱">
+                    <a class="a-email" href="javascript:;" title="18156816237@163.com">
                         <i class="fa fa-envelope"></i>
                     </a>
                 </div>
-                <div class="user-profile">
-                    <label th:text="${user.profile}==null?'神秘的coder':${user.profile}"></label>
+                <div data-offset="-10" class="layer-4">
+                    [[${users[0].profile}]]
+                    专攻后端的Coder
                 </div>
+                <div data-offset="-5" class="layer-5"></div>
+            </div>
+            <div data-offset="5" class="user-2 poster">
+                <div class="shine"></div>
+                <div class="layer-1"></div>
+                <div data-offset="-5" class="layer-2">[[${users[1].userName}]]</div>
+                <div data-offset="-10" class="layer-3">
+                    <a href="https://github.com/wglzqx" th:title="GitHub">
+                        <i class="fa fa-github"></i>
+                    </a>
+                    <a href="" th:title="邮箱" title="">
+                        <i class="fa fa-envelope"></i>
+                    </a>
+                </div>
+                <div data-offset="-10" class="layer-4">
+                    [[${users[1].profile}]]
+                </div>
+                <div data-offset="-5" class="layer-5"></div>
             </div>
         </div>
     </div>
+    <div class="wxblog-body">
+        <div>
+            <label class="wx-title">架构演化尝试源项目</label>
+            <div class="wx-info">
+                博客项目开源在
+                <a class="a-github" href="https://github.com/NightWish0/w-x-blog">GitHub</a>
+            </div>
+            <div class="wx-detail">
+                基于
+                <img class="springboot-img" th:src="@{/statics/image/spring_boot.png}">
+                强力构建
+
+            </div>
+
+        </div>
+    </div>
+
+    <script th:src="@{/statics/js/index_effect.js}"></script>
 </body>
 </html>
