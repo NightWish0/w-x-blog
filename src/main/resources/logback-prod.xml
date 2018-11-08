@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+
+    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+        <!-- encoder 默认配置为PatternLayoutEncoder -->
+        <encoder>
+            <pattern>[guns]  %d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} - %msg%n</pattern>
+            <charset>utf-8</charset>
+        </encoder>
+    </appender>
+
+    <!-- 日志记录器，日期滚动记录 -->
+    <appender name="FILEERROR"
+              class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <!-- 正在记录的日志文件的路径及文件名 -->
+        <file>/var/log/wxblog-error.log</file>
+
+        <!-- 日志记录器的滚动策略，按日期，按大小记录:这里是每天产生一个文件   -->
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+
+            <!-- 归档的日志文件的路径，例如今天是2013-12-21日志，当前写的日志文件路径为file节点指定，可以将此文件与file指定文件路径设置为不同路径，从而将当前日志文件或归档日志文件置不同的目录。
+                而2013-12-21的日志文件在由fileNamePattern指定。%d{yyyy-MM-dd}指定日期格式，%i指定索引 -->
+            <!--设置日志命名模式-->
+            <fileNamePattern>/var/log/wxblog-error-%d{yyyy-MM-dd}.%i.log
+            </fileNamePattern>
+
+            <!-- 除按日志记录之外，还配置了日志文件不能超过3M，若超过3M，日志文件会以索引0开始， 命名日志文件，例如log-error-2013-12-21.0.log -->
+            <timeBasedFileNamingAndTriggeringPolicy
+                    class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+                <maxFileSize>100MB</maxFileSize>
+            </timeBasedFileNamingAndTriggeringPolicy>
+
+            <!--最多保留30天log-->
+            <maxHistory>30</maxHistory>
+
+        </rollingPolicy>
+        <!-- 追加方式记录日志 -->
+        <append>true</append>
+        <!-- 日志文件的格式 -->
+        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+            <pattern>[guns]  %d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} - %msg%n</pattern>
+            <charset>utf-8</charset>
+        </encoder>
+        <!-- 此日志文件只记录error级别的 -->
+        <filter class="ch.qos.logback.classic.filter.LevelFilter">
+            <level>error</level>
+            <onMatch>ACCEPT</onMatch>
+            <onMismatch>DENY</onMismatch>
+        </filter>
+    </appender>
+
+    <!-- 日志记录器，日期滚动记录 -->
+    <appender name="FILWARN"
+              class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <!-- 正在记录的日志文件的路径及文件名 -->
+        <file>/var/log/wxblog-warn.log</file>
+
+        <!-- 日志记录器的滚动策略，按日期，按大小记录:这里是每天产生一个文件   -->
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+
+            <!-- 归档的日志文件的路径，例如今天是2013-12-21日志，当前写的日志文件路径为file节点指定，可以将此文件与file指定文件路径设置为不同路径，从而将当前日志文件或归档日志文件置不同的目录。
+                而2013-12-21的日志文件在由fileNamePattern指定。%d{yyyy-MM-dd}指定日期格式，%i指定索引 -->
+            <!--设置日志命名模式-->
+            <fileNamePattern>/var/log/wxblog-warn-%d{yyyy-MM-dd}.%i.log
+            </fileNamePattern>
+
+            <!-- 除按日志记录之外，还配置了日志文件不能超过3M，若超过3M，日志文件会以索引0开始， 命名日志文件，例如log-error-2013-12-21.0.log -->
+            <timeBasedFileNamingAndTriggeringPolicy
+                    class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+                <maxFileSize>100MB</maxFileSize>
+            </timeBasedFileNamingAndTriggeringPolicy>
+
+            <!--最多保留30天log-->
+            <maxHistory>30</maxHistory>
+
+        </rollingPolicy>
+        <!-- 追加方式记录日志 -->
+        <append>true</append>
+        <!-- 日志文件的格式 -->
+        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+            <pattern>[guns]  %d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} - %msg%n</pattern>
+            <charset>utf-8</charset>
+        </encoder>
+        <!-- 此日志文件只记录error级别的 -->
+        <filter class="ch.qos.logback.classic.filter.LevelFilter">
+            <level>warn</level>
+            <onMatch>ACCEPT</onMatch>
+            <onMismatch>DENY</onMismatch>
+        </filter>
+    </appender>
+
+    <!-- logger 的 level 代表 记录 大于或者等于当前级别的信息  -->
+    <!-- additivity属性为false，表示此loger的打印信息不再向上级传递,即比如 root ,就不会记录该级别的信息了
+         默认是true 将信息给上级比如 root  -->
+
+    <!-- 这里将请求的地址等信息打印到控制台 -->
+    <logger name="org.springframework.web.servlet.DispatcherServlet"
+            level="DEBUG" additivity="true">
+        <appender-ref ref="STDOUT"/>
+
+    </logger>
+
+    <!--将项目开发的中的日志记录警告以上的也显示在控制台上，
+        可是不能改为debug,info 因为改了之后会把 简单的 sql语句也一起打印了出来了.
+        这种方式没有 mybatis-plus 配置文件的log-impl那种好  -->
+    <logger name="com.stylefeng.guns"
+            level="WARN" additivity="true">
+        <appender-ref ref="STDOUT"/>
+    </logger>
+
+    <!--下面是为了控制将异常也给打印到控制台  -->
+    <logger name="org.mybatis"
+            level="WARN" additivity="true">
+        <appender-ref ref="STDOUT"/>
+
+    </logger>
+
+    <logger name="java.sql"
+            level="WARN" additivity="true">
+        <appender-ref ref="STDOUT"/>
+
+    </logger>
+
+    <logger name="org.apache"
+            level="WARN" additivity="true">
+        <appender-ref ref="STDOUT"/>
+
+    </logger>
+
+    <logger name="org.springframework"
+            level="WARN" additivity="true">
+        <appender-ref ref="STDOUT"/>
+
+    </logger>
+
+    <logger name="org.apache"
+            level="WARN" additivity="true">
+        <appender-ref ref="STDOUT"/>
+
+    </logger>
+
+    <root level="WARN">
+        <!--
+            为了不让控制台显示那么多 无用的 debug 代码所以 注释掉
+         <appender-ref ref="STDOUT" />    -->
+        <appender-ref ref="FILEERROR" />
+        <appender-ref ref="FILWARN" />
+
+    </root>
+</configuration>

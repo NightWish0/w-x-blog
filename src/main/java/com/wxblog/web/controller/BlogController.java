@@ -32,12 +32,22 @@ public class BlogController {
     @Autowired
     private UserService userService;
 
+    /**
+     * 首页
+     * @param model
+     * @return
+     */
     @GetMapping("/")
     public String index(Model model){
         userService.users(model);
         return "index";
     }
 
+    /**
+     * 博文
+     * @param model
+     * @return
+     */
     @GetMapping("/blog")
     public String blog(Model model){
         labelService.labels(false,model);
@@ -68,5 +78,35 @@ public class BlogController {
     @ResponseBody
     public ResultJson commentLike(@PathVariable("topicId") Long topicId){
         return topicService.updateLikeCount(topicId);
+    }
+
+    /**
+     * 小黑屋
+     * @param model
+     * @return
+     */
+    @GetMapping("/darkHouse")
+    public String darkHouse(Model model){
+        return "dark_house";
+    }
+
+    /**
+     * 浮生
+     * @param model
+     * @return
+     */
+    @GetMapping("/life")
+    public String life(Model model){
+        return "life";
+    }
+
+    /**
+     * 留言
+     * @param model
+     * @return
+     */
+    @GetMapping("/message")
+    public String message(Model model){
+        return "message";
     }
 }

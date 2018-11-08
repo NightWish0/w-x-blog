@@ -5,7 +5,7 @@ spring:
       driver-class-name: com.mysql.jdbc.Driver
       url: jdbc:mysql://47.98.57.18:3306/wxblog_production?useUnicode=true&characterEncoding=UTF-8&zeroDateTimeBehavior=convertToNull&autoReconnect=true&failOverReadOnly=false
       username: root
-      password: root
+      password: wxblog
       # 配置初始化大小、最小、最大
       initial-size: 5
       min-idle: 1
@@ -37,3 +37,5 @@ spring:
         enabled: true
         url-pattern: /*
         exclusions: '*.gif,*.png,*.jpg,*.html,*.adminlte,*.css,*.ico,/druid/*'
+logging:
+  config: classpath:logback-prod.xml

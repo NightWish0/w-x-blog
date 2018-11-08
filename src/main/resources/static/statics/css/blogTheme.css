@@ -787,3 +787,45 @@ a:focus{
     width: auto;
 }
 /*=========评论动画===============*/
+
+/*小黑屋*/
+.blog-dark-house{
+    background: url("../image/bg_dark_house.jpg") no-repeat;
+    background-size: cover;
+    width: 100%;
+    height: 100vh;
+}
+.blog-dark-house .tip{
+    text-align: center;
+    color: #fff;
+    margin-left: -5px;
+    font-size: 30px;
+    margin-top: 110px;
+}
+/*浮生*/
+.blog-life{
+    background: url("../image/bg_life.jpg") no-repeat;
+    background-size: cover;
+    width: 100%;
+    height: 100vh;
+}
+.blog-life .tip{
+    text-align: center;
+    color: #fff;
+    margin-left: -5px;
+    font-size: 30px;
+    margin-top: 70px;
+}
+/*留言*/
+.blog-message{
+    background: url("../image/bg_message.jpg") no-repeat;
+    background-size: cover;
+    width: 100%;
+    height: 100vh;
+}
+.blog-message .tip{
+    text-align: center;
+    color: #fff;
+    font-size: 30px;
+    margin-top: 40px;
+}

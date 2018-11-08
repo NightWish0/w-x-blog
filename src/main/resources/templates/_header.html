@@ -11,9 +11,9 @@
 				<ul class="nav navbar-nav navbar-right">
 					<li th:if="${li}!='index'"><a th:href="@{/}"></span> 首页</a></li>
 					<li th:class="${li}=='blog'?'li-this':''"><a th:href="@{/blog}"></span> 博文</a></li>
-					<li th:class="${li}=='darkHouse'?'li-this':''"><a href="#"></span> 小黑屋</a></li>
-					<li th:class="${li}=='life'?'li-this':''"><a href="#"></span> 生活</a></li>
-					<li th:class="${li}=='message'?'li-this':''"><a href="#"></span> 留言</a></li>
+					<li th:class="${li}=='darkHouse'?'li-this':''"><a th:href="@{/darkHouse}"></span> 小黑屋</a></li>
+					<li th:class="${li}=='life'?'li-this':''"><a th:href="@{/life}"></span> 浮生</a></li>
+					<li th:class="${li}=='message'?'li-this':''"><a th:href="@{/message}"></span> 留言</a></li>
 				</ul>
 			</div>
 		</nav>

@@ -51,3 +51,6 @@ mybatis-plus:
   global-config:
     # 自动刷新 Mapper 对应的 XML 文件.不建议在生产环境打开
     refresh: true
+logging:
+  file: log/wxblog.log
+  level.org.springframework.web: info
