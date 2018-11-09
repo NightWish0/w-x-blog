@@ -7,7 +7,7 @@ server:
     key-alias: tomcat
 spring:
   profiles:
-    active: dev
+    active: prod
 ## myBatisPlus
 mybatis-plus:
   type-aliases-package: com.wxblog.core.bean

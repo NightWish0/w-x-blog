@@ -5,10 +5,10 @@
 
     <groupId>com.wxblog</groupId>
     <artifactId>w-x-blog</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>1.0</version>
     <packaging>jar</packaging>
 
-    <name>w-x-blog</name>
+    <name>wxblog</name>
     <description>blog</description>
 
     <parent>
@@ -25,6 +25,7 @@
         <mybatisPlus.version>3.0.5</mybatisPlus.version>
         <druid.version>1.1.10</druid.version>
         <shiro.version>1.4.0-RC2</shiro.version>
+        <docker-plugin.version>0.4.13</docker-plugin.version>
     </properties>
 
     <dependencies>
@@ -98,6 +99,22 @@
                 <configuration>
                     <!--fork:如果没有该项配置，devtools不会起作用，即应用不会restart -->
                     <fork>true</fork>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>com.spotify</groupId>
+                <artifactId>docker-maven-plugin</artifactId>
+                <version>${docker-plugin.version}</version>
+                <configuration>
+                    <imageName>w-x-blog-1.0</imageName>
+                    <dockerDirectory>${project.basedir}</dockerDirectory>
+                    <resources>
+                        <resource>
+                            <targetPath>/</targetPath>
+                            <directory>${project.build.directory}</directory>
+                            <include>${project.build.finalName}</include>
+                        </resource>
+                    </resources>
                 </configuration>
             </plugin>
         </plugins>
