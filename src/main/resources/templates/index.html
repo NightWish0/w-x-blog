@@ -3,6 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <title>OnePiece-身未动,心已远</title>
+    <link rel="shortcut icon" th:href="@{/statics/favicon.ico}"/>
+    <link rel="bookmark" th:href="@{/statics/favicon.ico}"/>
     <link rel="stylesheet" th:href="@{/statics/css/blogTheme.css}">
     <script th:src="@{/statics/js/jquery.min.js}"></script>
 </head>
@@ -15,7 +17,7 @@
                 <div class="layer-1"></div>
                 <div data-offset="-5" class="layer-2">[[${users[0].userName}]]</div>
                 <div data-offset="-10" class="layer-3">
-                    <a class="a-github" target="_blank" href="https://github.com/NightWish0" th:title="GitHub">
+                    <a class="a-github" target="_blank" href="https://github.com/NightWish0" title="GitHub">
                         <i class="fa fa-github"></i>
                     </a>
                     <a class="a-email" href="javascript:;" title="18156816237@163.com">
@@ -24,7 +26,6 @@
                 </div>
                 <div data-offset="-10" class="layer-4">
                     [[${users[0].profile}]]
-                    专攻后端的Coder
                 </div>
                 <div data-offset="-5" class="layer-5"></div>
             </div>
@@ -33,10 +34,10 @@
                 <div class="layer-1"></div>
                 <div data-offset="-5" class="layer-2">[[${users[1].userName}]]</div>
                 <div data-offset="-10" class="layer-3">
-                    <a href="https://github.com/wglzqx" th:title="GitHub">
+                    <a class="a-github" target="_blank" href="https://github.com/wglzqx" title="GitHub">
                         <i class="fa fa-github"></i>
                     </a>
-                    <a href="" th:title="邮箱" title="">
+                    <a class="a-email" href="javascript:;" title="邮箱">
                         <i class="fa fa-envelope"></i>
                     </a>
                 </div>
@@ -52,18 +53,48 @@
             <label class="wx-title">架构演化尝试源项目</label>
             <div class="wx-info">
                 博客项目开源在
-                <a class="a-github" href="https://github.com/NightWish0/w-x-blog">GitHub</a>
+                <a class="a-github" href="https://github.com/NightWish0/w-x-blog" target="_blank">GitHub</a>
             </div>
             <div class="wx-detail">
+                使用
+                <a href="http://spring.io/projects/spring-boot" target="_blank">
+                    <img class="springboot-img" th:src="@{/statics/image/spring_boot.png}">
+                </a>
+                快速构建，
                 基于
-                <img class="springboot-img" th:src="@{/statics/image/spring_boot.png}">
-                强力构建
-
+                <a href="https://www.docker-cn.com/" target="_blank">
+                    <img class="docker-img" th:src="@{/statics/image/docker.png}">
+                </a>
+                强力部署
             </div>
-
+            <div class="technology-list">
+                <div class="version-info">
+                    <label class="blog-version">1.0版本</label>
+                    <div class="technology-item">
+                        <label>Spring</label>
+                        <label>SpringMVC</label>
+                        <label>MyBatiPlus</label>
+                        <label>Thymeleaf</label>
+                        <label>Druid</label>
+                        <label>Shiro</label>
+                        <label>lombok</label>
+                    </div>
+                </div>
+            </div>
+            <div class="thanks-tip">
+                作为非专业前端，客中使用的前端特效元素，非常’脸红‘的享受了别人的开源，在此表示十分的感谢
+            </div>
         </div>
     </div>
+    <div class="waiting-body">
 
+    </div>
+    <div th:insert="~{_footer :: footer}"></div>
+    <div class="sky-body">
+        <div id='stars'></div>
+        <div id='stars2'></div>
+        <div id='stars3'></div>
+    </div>
     <script th:src="@{/statics/js/index_effect.js}"></script>
 </body>
 </html>

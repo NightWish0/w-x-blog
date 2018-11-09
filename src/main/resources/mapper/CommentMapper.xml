@@ -77,7 +77,7 @@
     </delete>
     
     <update id="updateCommentAuthorName">
-        UPDATE blog_comment SET name=#{name} WHERE user_id=#{userId}
+        UPDATE blog_comment SET name=#{name} WHERE author_id=#{authorId}
     </update>
 
     <update id="updateContent">

@@ -25,7 +25,7 @@ public interface CommentMapper extends BaseMapper<Comment> {
     void deleteAll();
 
     int updateCommentAuthorName(@Param("name")String name,
-                                @Param("userId")Long userId);
+                                @Param("authorId")Long authorId);
 
     int commentCountOfTopic(@Param("topicId")Long topicId);
 }
