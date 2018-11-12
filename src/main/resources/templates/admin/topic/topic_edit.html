@@ -32,9 +32,10 @@
             <!--<div class="layui-form-item layui-form-text" style="display: none">-->
                 <!--<textarea class="layui-textarea layui-hide" name="content" lay-verify="content" id="LAY_demo_editor"></textarea>-->
             <!--</div>-->
+            <!--editormd-html-textarea-->
             <div class="layui-form-item">
-                <div id="editormd">
-                        <textarea class="form-control" id="editormd-html-textarea" name="editormd-html-textarea" th:utext="${topic.content}"></textarea>
+                <div id="editormd" mdl-cell mdl-card mdl-cell--12-col mdl-shadow--2dp content editormd-preview-theme-dark>
+                        <textarea class="form-control" id="editormd-html-textarea" name="makedown_content" th:text="${topic.markdownContent}"></textarea>
                     <textarea class="editormd-html-textarea" name="content" id="content"></textarea>
                 </div>
             </div>

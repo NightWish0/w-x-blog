@@ -42,7 +42,7 @@ public class AdminController {
     public String infoSave(@RequestParam("file") MultipartFile file, String userName, String profile, Model model){
         boolean isSuccess=userService.updateUserInfo(file,userName,profile,model);
         if (isSuccess){
-            return "redirect:/admin/user/info";
+            return "redirect:/admin/info";
         }
         return "redirect:/admin/user/info_update";
     }

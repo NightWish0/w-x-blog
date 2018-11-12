@@ -24,6 +24,7 @@ public class Topic implements Serializable {
     private Long id;
     private String title;
     private String content;
+    private String markdownContent;
     private Long userId;
     private Long categoryId;
     private Integer readCount;
