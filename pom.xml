@@ -25,7 +25,7 @@
         <mybatisPlus.version>3.0.5</mybatisPlus.version>
         <druid.version>1.1.10</druid.version>
         <shiro.version>1.4.0-RC2</shiro.version>
-        <docker-plugin.version>0.4.13</docker-plugin.version>
+        <docker-plugin.version>1.4.0</docker-plugin.version>
     </properties>
 
     <dependencies>
@@ -103,18 +103,13 @@
             </plugin>
             <plugin>
                 <groupId>com.spotify</groupId>
-                <artifactId>docker-maven-plugin</artifactId>
+                <artifactId>dockerfile-maven-plugin</artifactId>
                 <version>${docker-plugin.version}</version>
                 <configuration>
-                    <imageName>w-x-blog-1.0</imageName>
-                    <dockerDirectory>${project.basedir}</dockerDirectory>
-                    <resources>
-                        <resource>
-                            <targetPath>/</targetPath>
-                            <directory>${project.build.directory}</directory>
-                            <include>${project.build.finalName}</include>
-                        </resource>
-                    </resources>
+                    <repository>${project.artifactId}</repository>
+                    <buildArgs>
+                        <JAR_FILE>target/${project.build.finalName}.jar</JAR_FILE>
+                    </buildArgs>
                 </configuration>
             </plugin>
         </plugins>

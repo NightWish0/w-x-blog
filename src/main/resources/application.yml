@@ -1,13 +1,13 @@
 server:
   port: 8000
-  ssl:
-    key-store: .keystore
-    key-store-password: wxblog
-    key-store-type: PKCS12
-    key-alias: tomcat
+#  ssl:
+#    key-store: .keystore
+#    key-store-password: wxblog
+#    key-store-type: PKCS12
+#    key-alias: tomcat
 spring:
   profiles:
-    active: prod
+    active: dev
 ## myBatisPlus
 mybatis-plus:
   type-aliases-package: com.wxblog.core.bean

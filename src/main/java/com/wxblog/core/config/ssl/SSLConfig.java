@@ -13,7 +13,7 @@ import org.springframework.context.annotation.Configuration;
  * @create:
  * @description: 配置http 8080端口自动跳https
  **/
-@Configuration
+//@Configuration
 public class SSLConfig {
 
 
