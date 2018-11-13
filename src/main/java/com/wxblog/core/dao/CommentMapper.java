@@ -28,4 +28,6 @@ public interface CommentMapper extends BaseMapper<Comment> {
                                 @Param("authorId")Long authorId);
 
     int commentCountOfTopic(@Param("topicId")Long topicId);
+
+    int todayCount();
 }

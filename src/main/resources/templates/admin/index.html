@@ -11,14 +11,105 @@
     <script th:src="@{/statics/js/jquery.min.js}"></script>
     <script th:src="@{/statics/js/lauyiInit.js}"></script>
 </head>
-<body class="layui-layout-body">
+<body class="layui-layout-body admin-index">
 <div class="layui-layout layui-layout-admin">
     <div th:insert="~{admin/layout/layout_header :: header}"></div>
     <div th:insert="~{admin/layout/layout_menu :: menu}"></div>
     <div class="layui-body">
-
+        <div class="layui-fluid">
+            <div class="layui-col-sm6 data-list">
+                <div class="layui-card">
+                    <div class="layui-card-header">
+                        最近概览
+                        <div style="float: right;">
+                            <span class="layui-badge layui-bg-blue">今日</span>
+                            <span class="layui-badge layui-bg-blue">最近一月</span>
+                            <span class="layui-badge layui-bg-blue">最近一年</span>
+                        </div>
+                    </div>
+                    <div class="layui-card-body">
+                        <ul class="layui-row layui-col-space10">
+                            <li class="layui-col-xs3">
+                                <div class="data-info">
+                                    <h5>我发布的</h5>
+                                    <p>
+                                        <cite th:text="${data.publishCount}"></cite>
+                                    </p>
+                                </div>
+                            </li>
+                            <li class="layui-col-xs3">
+                                <div class="data-info">
+                                    <h5>今日博文</h5>
+                                    <p>
+                                        <cite th:text="${data.todayCount}"></cite>
+                                    </p>
+                                </div>
+                            </li>
+                            <li class="layui-col-xs3">
+                                <div class="data-info">
+                                    <h5>今日评论</h5>
+                                    <p>
+                                        <cite th:text="${data.todayCommentCount}"></cite>
+                                    </p>
+                                </div>
+                            </li>
+                            <li class="layui-col-xs3">
+                                <div class="data-info">
+                                    <h5>今日留言</h5>
+                                    <p>
+                                        <cite>0</cite>
+                                    </p>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="layui-col-sm6 data-list">
+                <div class="layui-card">
+                    <div class="layui-card-header">
+                        总概览
+                    </div>
+                    <div class="layui-card-body">
+                        <ul class="layui-row layui-col-space10">
+                            <li class="layui-col-xs3">
+                                <div class="data-info">
+                                    <h5>总博文量</h5>
+                                    <p>
+                                        <cite th:text="${data.totalCount}"></cite>
+                                    </p>
+                                </div>
+                            </li>
+                            <li class="layui-col-xs3">
+                                <div class="data-info">
+                                    <h5>总浏览量</h5>
+                                    <p>
+                                        <cite th:text="${data.readCount}"></cite>
+                                    </p>
+                                </div>
+                            </li>
+                            <li class="layui-col-xs3">
+                                <div class="data-info">
+                                    <h5>总点赞量</h5>
+                                    <p>
+                                        <cite th:text="${data.likeCount}"></cite>
+                                    </p>
+                                </div>
+                            </li>
+                            <li class="layui-col-xs3">
+                                <div class="data-info">
+                                    <h5>总评论量</h5>
+                                    <p>
+                                        <cite th:text="${data.commentCount}"></cite>
+                                    </p>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
-
     <div th:insert="~{admin/layout/layout_footer :: footer}"></div>
 </div>
 </body>

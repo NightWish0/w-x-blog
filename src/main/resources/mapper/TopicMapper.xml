@@ -130,4 +130,14 @@
         UPDATE blog_topic SET category_id=null WHERE category_id=#{categoryId}
     </update>
     
+    <select id="totalData" resultType="map">
+        SELECT COUNT(t.id) AS 'totalCount',SUM(t.read_count) AS 'readCount',SUM(t.like_count) AS 'likeCount',COUNT(c.id) AS 'commentCount' FROM blog_topic t
+        LEFT JOIN blog_comment c ON t.id=c.topic_id
+    </select>
+    
+    <select id="todayData" resultType="map">
+        SELECT COUNT(case when t.user_id=#{userId} then 1 else null end) AS 'publishCount',count(t.id) AS 'todayCount' FROM blog_topic t
+        WHERE TO_DAYS(t.created_at)=TO_DAYS(now()) AND t.status=1
+    </select>
+    
 </mapper>

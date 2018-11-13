@@ -56,6 +56,31 @@ a:hover{
 .layui-layout-admin .layui-menu .layui-nav-child{
     margin-bottom:0;
 }
+/*首页*/
+.admin-index .layui-body{
+    background: #f2f2f2;
+}
+.admin-index .layui-body .data-list .layui-badge{
+    cursor: pointer;
+}
+.admin-index .layui-body .data-list .layui-badge:hover{
+    background-color: #54aef1!important;
+}
+.admin-index .layui-body .data-list{
+    padding: 10px;
+}
+.admin-index .layui-body .data-list .data-info{
+    background: #f8f8f8;
+    padding: 10px;
+}
+.admin-index .layui-body .data-list .data-info p{
+    margin: 0;
+}
+.admin-index .layui-body .data-list .data-info p cite{
+    font-style: normal;
+    font-size: 28px;
+    color: #08daf8;
+}
 /*文章模块*/
 .topic-all .layui-card-header,
 .topics-my .layui-card-header,

@@ -1,6 +1,7 @@
 package com.wxblog.web.controller.admin;
 
 import com.wxblog.core.response.ResultJson;
+import com.wxblog.web.service.BaseService;
 import com.wxblog.web.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -19,10 +20,13 @@ public class AdminController {
 
     @Autowired
     private UserService userService;
+    @Autowired
+    private BaseService baseService;
 
     @GetMapping
     public String index(Model model){
         userService.initUserInfo(model);
+        baseService.initAdminIndex(model);
         return "admin/index";
     }
 

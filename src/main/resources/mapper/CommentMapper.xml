@@ -84,4 +84,9 @@
         UPDATE blog_comment SET content=#{content} WHERE id=#{id}
     </update>
 
+    <select id="todayCount" resultType="int">
+        SELECT count(id) FROM blog_comment
+        WHERE TO_DAYS(created_at)=TO_DAYS(now())
+    </select>
+
 </mapper>

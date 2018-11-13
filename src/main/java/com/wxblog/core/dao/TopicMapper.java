@@ -34,4 +34,8 @@ public interface TopicMapper extends BaseMapper<Topic> {
     int destroy(List<Long> ids);
 
     int deleteTopicCategory(@Param("categoryId") Long categoryId);
+
+    Map<String,Integer> totalData();
+
+    Map<String,Integer> todayData(@Param("userId")Long userId);
 }

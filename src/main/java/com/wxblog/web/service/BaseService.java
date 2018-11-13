@@ -14,4 +14,6 @@ public interface BaseService {
     boolean loginAuthentication(String loginName, String password, Model model);
 
     void loginOut();
+
+    void initAdminIndex(Model model);
 }
