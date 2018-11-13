@@ -34,7 +34,7 @@
             <!--</div>-->
             <div class="layui-form-item">
                 <div id="editormd">
-                        <textarea class="form-control" id="editormd-html-textarea" name="editormd-html-textarea" th:text="${topic.content}?${topic.content}:''"></textarea>
+                        <textarea class="form-control" id="editormd-html-textarea" name="markdownContent" th:text="${topic.content}?${topic.content}:''"></textarea>
                     <textarea class="editormd-html-textarea" name="content" id="content"></textarea>
                 </div>
             </div>

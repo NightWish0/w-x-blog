@@ -6,7 +6,9 @@
 		<nav class="navbar navbar-default" role="navigation">
 			<div class="container-fluid">
 				<div class="navbar-header">
-					<a class="navbar-brand" href="#">OnePiece</a>
+					<a class="navbar-brand" th:href="@{/}">
+						<img class="logo-img" th:src="@{/statics/image/logo.png}"/>
+					</a>
 				</div>
 				<ul class="nav navbar-nav navbar-right">
 					<li th:if="${li}!='index'"><a th:href="@{/}"></span> 首页</a></li>

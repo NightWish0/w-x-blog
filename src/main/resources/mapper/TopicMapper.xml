@@ -4,7 +4,6 @@
 
     <resultMap id="topicMap" type="map">
         <result column="category_id" property="categoryId"></result>
-        <result column="category_id" property="categoryId"></result>
         <result column="read_count" property="readCount"></result>
         <result column="like_count" property="likeCount"></result>
         <result column="created_at" property="createdAt"></result>
@@ -17,6 +16,7 @@
         <id property="id" column="id"></id>
         <result column="title" property="title"></result>
         <result column="content" property="content"></result>
+        <result column="markdown_content" property="markdownContent"></result>
         <result column="read_count" property="readCount"></result>
         <result column="like_count" property="likeCount"></result>
         <result column="created_at" property="createdAt"></result>
@@ -82,12 +82,12 @@
     </select>
 
     <insert id="insert" parameterType="Topic" useGeneratedKeys="true" keyProperty="id">
-        INSERT INTO blog_topic(id,title,content,user_id,category_id,created_at,status)
-        VALUES (#{id},#{title},#{content},#{userId},#{categoryId},#{createdAt},#{status})
+        INSERT INTO blog_topic(id,title,content,markdown_content,user_id,category_id,created_at,status)
+        VALUES (#{id},#{title},#{content},#{markdownContent},#{userId},#{categoryId},#{createdAt},#{status})
     </insert>
     
     <update id="updateById" parameterType="Topic">
-        UPDATE blog_topic SET title=#{title},content=#{content},category_id=#{categoryId},status=#{status}
+        UPDATE blog_topic SET title=#{title},content=#{content},markdown_content=#{markdownContent},category_id=#{categoryId},status=#{status}
         WHERE id=#{id}
     </update>
     

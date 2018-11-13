@@ -41,6 +41,21 @@ a:hover{
 .layui-layout-admin .layui-card-header{
     height: auto;
 }
+.layui-layout-admin .layui-header .layui-nav .layui-nav-item a{
+    padding: 0 35px 0 8px;
+}
+.layui-layout-admin .layui-header .layui-nav-child dd{
+    height: 25px;
+    line-height: 25px;
+}
+.layui-layout-admin .layui-header .logo-img{
+    width: 150px;
+    height: 50px;
+}
+/*菜单*/
+.layui-layout-admin .layui-menu .layui-nav-child{
+    margin-bottom:0;
+}
 /*文章模块*/
 .topic-all .layui-card-header,
 .topics-my .layui-card-header,

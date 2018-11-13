@@ -33,6 +33,13 @@ a:focus{
 .blog-header li a:hover{
     color: #39cccc !important;
 }
+.blog-header .navbar-default .navbar-brand{
+    margin-top: -10px;
+}
+.blog-header .logo-img{
+    width: 150px;
+    height: 50px;
+}
 .blog-header .info{
 	height: 300px;
 }
@@ -633,7 +640,7 @@ label{
 	background: #fff;
 }
 .blog-topic .topic-sidebar .badge{
-    background-color: #59af2d;
+    background-color: #39cccc;
 }
 .blog-topic .topic-sidebar .lazy-tip{
     margin: 10px 15px 10px 15px;

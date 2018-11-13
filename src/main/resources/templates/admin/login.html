@@ -12,7 +12,8 @@
 </head>
 <body class="login-page">
     <div class="layui-container">
-      <h3 class="login-title">博客后台登陆</h3>
+      <!--<h3 class="login-title">博客后台登陆</h3>-->
+      <img class="logo-img" th:src="@{/statics/image/logo.png}"/>
       <form class="layui-form" th:action="@{/login}" method="post">
         <div class="layui-form-mid error-msg" th:if="${msg!=null}" th:text="${msg}"></div>
         <div class="layui-form-item">

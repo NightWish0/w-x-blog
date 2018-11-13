@@ -7,10 +7,16 @@
             <!-- 左侧导航区域（可配合layui已有的垂直导航） -->
             <ul class="layui-nav layui-nav-tree" lay-filter="menu-nav">
                 <li class="layui-nav-item">
-                    <a href="javascript:;">首页</a>
+                    <a href="javascript:;">
+                        <i class="fa fa-fw fa-area-chart"></i>
+                        首页
+                    </a>
                 </li>
                 <li th:class="${parent}=='topic'?'layui-nav-item layui-nav-itemed':'layui-nav-item'">
-                    <a href="javascript:;" >文章管理</a>
+                    <a href="javascript:;">
+                        <i class="fa fa-fw fa-file-text-o"></i>
+                        文章管理
+                    </a>
                     <dl class="layui-nav-child">
                         <dd><a th:href="@{/admin/topics}" th:class="${child}=='topics'?'layui-this':''">所有文章</a></dd>
                         <dd><a th:href="@{/admin/topics/my}" th:class="${child}=='myTopics'?'layui-this':''">我的文章</a></dd>
@@ -21,21 +27,45 @@
                     </dl>
                 </li>
                 <li th:class="${parent}=='comment'?'layui-nav-item layui-nav-itemed':'layui-nav-item'">
-                    <a href="javascript:;">评论管理</a>
+                    <a href="javascript:;">
+                        <i class="fa fa-fw fa-commenting-o"></i>
+                        评论管理
+                    </a>
                     <dl class="layui-nav-child">
                         <dd><a th:href="@{/admin/comments}" th:class="${child}=='comments'?'layui-this':''">所有评论</a></dd>
                         <dd><a th:href="@{/admin/comments/my}" th:class="${child}=='myComments'?'layui-this':''">我的评论</a></dd>
                     </dl>
                 </li>
-                <li th:class="${parent}=='academy'?'layui-nav-item layui-nav-itemed':'layui-nav-item'">
-                    <a href="javascript:;">研究院</a>
+                <li th:class="${parent}=='darkHouse'?'layui-nav-item layui-nav-itemed':'layui-nav-item'">
+                    <a href="javascript:;">
+                        <i class="fa fa-fw fa-diamond"></i>
+                        小黑屋
+                    </a>
+                    <dl class="layui-nav-child">
+                        <dd><a href="javascript:;" th:class="${child}=='unkonwn'?'layui-this':''">待定</a></dd>
+                    </dl>
+                </li>
+                <li th:class="${parent}=='life'?'layui-nav-item layui-nav-itemed':'layui-nav-item'">
+                    <a href="javascript:;">
+                        <i class="fa fa-fw fa-hourglass-2"></i>
+                        浮生
+                    </a>
+                    <dl class="layui-nav-child">
+                        <dd><a href="javascript:;" th:class="${child}=='unkonwn'?'layui-this':''">待定</a></dd>
+                    </dl>
+                </li>
+                <li th:class="${parent}=='message'?'layui-nav-item layui-nav-itemed':'layui-nav-item'">
+                    <a href="javascript:;">
+                        <i class="fa fa-fw fa-paper-plane-o"></i>
+                        留言
+                    </a>
                     <dl class="layui-nav-child">
                         <dd><a href="javascript:;" th:class="${child}=='unkonwn'?'layui-this':''">待定</a></dd>
                     </dl>
                 </li>
                 <li th:class="${parent}=='system'?'layui-nav-item layui-nav-itemed':'layui-nav-item'">
                     <a href="javascript:;">
-                        <i class="layui-icon layui-icon-set"></i>
+                        <i class="fa fa-fw fa-cogs"></i>
                         <cite>系统设置</cite>
                     </a>
                     <dl class="layui-nav-child">
