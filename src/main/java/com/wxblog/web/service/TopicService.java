@@ -46,6 +46,8 @@ public interface TopicService {
 
     IPage<Topic> topicShowOfCategoryByPage(Long userId,Long categoryId,Integer currentPage, Integer pageSize);
 
+    IPage<Topic> topicShowOfLabelByPage(Long labelId,Integer currentPage, Integer pageSize);
+
     ResultJson deleteTopic(Long id);
 
     ResultJson deleteTopics(Integer status);

@@ -89,6 +89,12 @@ public class BlogController {
         return topicService.topicShowOfCategoryByPage(userId,categoryId,currentSize,10);
     }
 
+    @GetMapping("/blogOfLabelByPage")
+    @ResponseBody
+    public IPage<Topic> blogOfLabelByPage(Long labelId,Integer currentSize){
+        return topicService.topicShowOfLabelByPage(labelId,currentSize,10);
+    }
+
     @PostMapping("/blog/{topicId}/comment")
     @ResponseBody
     public ResultJson commentPublish(Comment comment){

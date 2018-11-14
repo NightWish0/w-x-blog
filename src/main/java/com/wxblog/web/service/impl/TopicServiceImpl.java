@@ -48,6 +48,11 @@ public class TopicServiceImpl implements TopicService {
     }
 
     @Override
+    public IPage<Topic> topicShowOfLabelByPage(Long labelId, Integer currentPage, Integer pageSize) {
+        return null;
+    }
+
+    @Override
     public void topics(Model model) {
         List<Map<String,String>> topics=topicMapper.topics(StatusCode.TOPIC_PUBLISH_CODE,null);
         model.addAttribute("topics",topics);

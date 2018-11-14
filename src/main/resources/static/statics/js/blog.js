@@ -10,8 +10,12 @@ layui.use(['flow','layer'],function () {
             var url='/blogByPage?currentSize='+page;
             var categoryId=$(".category-info").attr('data');
             var userId=$(".user-username").attr('data');
+            var labelId=$(".label-info").attr('data');
             if (categoryId!=null&&categoryId!=''){
                 url='/blogOfCategoryByPage?userId='+userId+'&categoryId='+categoryId+'&currentSize='+page;
+            }
+            if (labelId!=null&&labelId!=''){
+                url='/blogOfLabelByPage?labelId='+labelId+'&currentSize='+page;
             }
             $.get(url,function (res) {
                 layui.each(res.records,function (index,item) {
