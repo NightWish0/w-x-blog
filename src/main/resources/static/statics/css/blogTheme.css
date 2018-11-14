@@ -604,6 +604,10 @@ label{
 	font-weight: 400;
 	line-height: 20px;
 }
+.blog-topic .topic-list .meta .interval{
+    margin-left: 8px;
+    margin-right: 8px;
+}
 .blog-topic .topic-list .meta .meta-info{
 	float: right;
 	color: #b4b4b4;
@@ -629,6 +633,7 @@ label{
 	height: auto;
 	float: left;
     margin-right: 10px;
+    border-radius: 0;
 }
 .blog-topic .topic-sidebar .box-footer .nav-stacked{
 	margin-bottom: 10px;
@@ -652,6 +657,20 @@ label{
     margin-top: 20px;
     color: #fff;
     text-align: center;
+}
+/*博文分类*/
+.blog-topic .content-box .category-info{
+    margin: 15px 20px;
+    height: 30px;
+    background: #ecf0f5;
+    border-radius: 10px;
+    color: #a79595;
+    text-align: center;
+    line-height: 30px;
+}
+.blog-topic .topic-sidebar .user-info{
+    text-align: center;
+    margin: 10px 0;
 }
 /*文章详情*/
 .topic-info .body-box{

@@ -22,5 +22,7 @@ public interface UserService {
 
     void updateLastLogin();
 
-    void userWithCategories(Model model);
+    void usersWithCategories(Model model);
+
+    void userWithCategories(Long userId,Model model);
 }

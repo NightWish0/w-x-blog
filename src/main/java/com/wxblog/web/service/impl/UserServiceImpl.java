@@ -1,5 +1,6 @@
 package com.wxblog.web.service.impl;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.wxblog.core.bean.Category;
 import com.wxblog.core.bean.User;
 import com.wxblog.core.dao.CategoryMapper;
@@ -103,14 +104,27 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void userWithCategories(Model model) {
-        List<User> users=userMapper.userWithCategories();
+    public void userWithCategories(Long userId,Model model) {
+        User user=userMapper.userWithCategories(userId);
+        int count=categoryMapper.notCategotyOfUser(userId);
+        Category category=new Category();
+        category.setId(0l);
+        category.setName("未分类");
+        category.setTopicTotal(count);
+        user.getCategories().add(category);
+        model.addAttribute("user",user);
+    }
+
+    @Override
+    public void usersWithCategories(Model model) {
+        List<User> users=userMapper.usersWithCategories();
         List<Map<String,Object>> list=categoryMapper.notCategoty();
         for (Map<String,Object> map:list){
             for (User user:users){
                 if ((long)map.get("userId")==user.getId()){
                     Category category=new Category();
-                    category.setName("其他");
+                    category.setId(0l);
+                    category.setName("未分类");
                     category.setTopicTotal(Integer.valueOf(map.get("total").toString()));
                     user.getCategories().add(category);
                 }

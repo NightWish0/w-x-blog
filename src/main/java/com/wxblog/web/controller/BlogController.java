@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.wxblog.core.bean.Comment;
 import com.wxblog.core.bean.Topic;
 import com.wxblog.core.response.ResultJson;
+import com.wxblog.web.service.CategoryService;
 import com.wxblog.web.service.LabelService;
 import com.wxblog.web.service.TopicService;
 import com.wxblog.web.service.UserService;
@@ -31,6 +32,8 @@ public class BlogController {
     private LabelService labelService;
     @Autowired
     private UserService userService;
+    @Autowired
+    private CategoryService categoryService;
 
     /**
      * 首页
@@ -51,8 +54,21 @@ public class BlogController {
     @GetMapping("/blog")
     public String blog(Model model){
         labelService.labels(false,model);
-        userService.userWithCategories(model);
+        userService.usersWithCategories(model);
         return "blog";
+    }
+
+    @GetMapping("/blog/{userId}/category/{categoryId}")
+    public String blogCategory(@PathVariable("userId") Long userId,@PathVariable("categoryId") Long categoryId,Model model){
+        categoryService.blogCategoryModel(categoryId,model);
+        userService.userWithCategories(userId,model);
+        return "blog_category";
+    }
+
+    @GetMapping("/blog/label")
+    public String blogLabel(Model model){
+        labelService.labels(false,model);
+        return "blog_label";
     }
 
     @GetMapping("/blog/{id}")
@@ -63,8 +79,14 @@ public class BlogController {
 
     @GetMapping("/blogByPage")
     @ResponseBody
-    public IPage<Topic> blog(Integer currentSize){
+    public IPage<Topic> blogByPage(Integer currentSize){
         return topicService.topicShowByPage(currentSize,10);
+    }
+
+    @GetMapping("/blogOfCategoryByPage")
+    @ResponseBody
+    public IPage<Topic> blogOfCategoryByPage(Long userId,Long categoryId,Integer currentSize){
+        return topicService.topicShowOfCategoryByPage(userId,categoryId,currentSize,10);
     }
 
     @PostMapping("/blog/{topicId}/comment")

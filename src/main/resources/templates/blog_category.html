@@ -15,16 +15,21 @@
     <div th:insert="~{_superman :: superman}"></div>
     <div class="row topic-body">
         <div class="col-md-8 content-box">
+            <div class="category-info" th:data="${category.id}">
+                当前分类：[[${category.name}]]
+            </div>
             <ul class="topic-list" id="topicList">
             </ul>
         </div>
         <div class="col-md-3 topic-sidebar">
-                <div class="box" th:each="user : ${users}">
+                <div class="box">
                     <div class="user-header">
                         <div class="user-avatar">
                             <img class="img-circle" th:src="${user.avatar}?${user.avatar}:@{/statics/image/avatar/default_avatar.png}">
                         </div>
-                        <h3 class="user-username" th:text="${user.userName}"></h3>
+                        <h3 class="user-username" th:data="${user.id}" th:text="${user.userName}"></h3>
+                    </div>
+                    <div class="user-info" th:text="${user.profile}">
                     </div>
                     <div class="box-footer">
                         <ul class="nav nav-stacked">
@@ -40,7 +45,6 @@
                         </ul>
                     </div>
                 </div>
-                <!--<div class="split-line">假装很华丽的分界线</div>-->
         </div>
     </div>
 </body>

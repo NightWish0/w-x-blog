@@ -68,4 +68,15 @@ public class CategoryServiceImpl implements CategoryService {
         return ResultJson.failure();
     }
 
+    @Override
+    public void blogCategoryModel(Long categoryId, Model model) {
+        Category category=new Category();
+        if(categoryId==0){
+            category.setId(categoryId);
+            category.setName("未分类");
+        }else{
+            category=categoryMapper.selectOne(new QueryWrapper<Category>().eq("id",categoryId));
+        }
+        model.addAttribute("category",category);
+    }
 }

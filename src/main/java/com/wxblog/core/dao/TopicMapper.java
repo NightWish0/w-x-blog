@@ -21,6 +21,8 @@ public interface TopicMapper extends BaseMapper<Topic> {
 
     IPage<Topic> topicShowByPage(Page page);
 
+    List<Topic> topicShowOfCategoryByPage(@Param("userId")Long userId,@Param("categoryId")Long categoryId,Page page);
+
     Topic topic(@Param("id") Long id);
 
     int updateById(Topic topic);

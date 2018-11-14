@@ -1,12 +1,13 @@
 package com.wxblog.web.service;
 
-import com.wxblog.core.bean.User;
 import com.wxblog.core.response.ResultJson;
 import org.springframework.ui.Model;
 
 public interface CategoryService {
 
     void categories(Model model);
+
+    void blogCategoryModel(Long categoryId,Model model);
 
     ResultJson addCategory(String name);
 

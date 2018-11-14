@@ -7,7 +7,13 @@ layui.use(['flow','layer'],function () {
         end: '差不多就行了吧，我不要底线的啊',
         done:function(page,next){
             var lis = [];
-            $.get('/blogByPage?currentSize='+page,function (res) {
+            var url='/blogByPage?currentSize='+page;
+            var categoryId=$(".category-info").attr('data');
+            var userId=$(".user-username").attr('data');
+            if (categoryId!=null&&categoryId!=''){
+                url='/blogOfCategoryByPage?userId='+userId+'&categoryId='+categoryId+'&currentSize='+page;
+            }
+            $.get(url,function (res) {
                 layui.each(res.records,function (index,item) {
                     var labelHtml='';
                     $.each(item.labels,function (index,label) {
@@ -18,8 +24,8 @@ layui.use(['flow','layer'],function () {
                     })
                     var categoryHtml=''
                     if (item.category.name!=null){
-                        categoryHtml='<label> - </label>'+
-                                         '<a href="">'+item.category.name+'</a>';
+                        categoryHtml='<label class="interval"> - </label>'+
+                                         '<a href="/blog/'+item.id+'/category/'+item.category.id+'">'+item.category.name+'</a>';
                     }
                     lis.push('<li>' +
                                 '<a class="title" href="/blog/'+item.id+'">'+item.title+'</a>'+

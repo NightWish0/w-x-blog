@@ -27,5 +27,7 @@ public interface UserMapper extends BaseMapper<User> {
 
     int updateLastLogin(@Param("id")Long id,@Param("lastLoginAt")Date lastLoginAt);
 
-    List<User> userWithCategories();
+    List<User> usersWithCategories();
+
+    User userWithCategories(Long id);
 }

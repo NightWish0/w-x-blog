@@ -30,6 +30,11 @@
         GROUP BY user_id
     </select>
     
+    <select id="notCategotyOfUser" resultType="int">
+        SELECT COUNT(id) AS 'total' FROM blog_topic
+        WHERE ISNULL(category_id) AND user_id=#{userId}
+    </select>
+    
     <select id="maxSort" resultType="integer">
         SELECT max(sort) FROM blog_user_category
     </select>

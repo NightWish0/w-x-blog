@@ -6,6 +6,7 @@
         <id column="id" property="id"></id>
         <result column="user_name" property="userName"></result>
         <result column="avatar" property="avatar"></result>
+        <result column="profile" property="profile"></result>
         <collection column="id" property="categories" ofType="Category" select="com.wxblog.core.dao.CategoryMapper.selectByUserId"></collection>
     </resultMap>
 
@@ -25,8 +26,13 @@
         UPDATE blog_user SET last_login_at=#{lastLoginAt} WHERE id=#{id}
     </update>
 
-    <select id="userWithCategories" resultMap="userCategories">
-        SELECT id,user_name,avatar FROM blog_user
+    <select id="usersWithCategories" resultMap="userCategories">
+        SELECT id,user_name,avatar,profile FROM blog_user
+    </select>
+
+    <select id="userWithCategories" parameterType="long" resultMap="userCategories">
+        SELECT id,user_name,avatar,profile FROM blog_user
+        WHERE id=#{id}
     </select>
 
 </mapper>

@@ -4,7 +4,6 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.wxblog.core.bean.*;
-import com.wxblog.core.dao.CategoryMapper;
 import com.wxblog.core.dao.CommentMapper;
 import com.wxblog.core.dao.LabelMapper;
 import com.wxblog.core.dao.TopicMapper;
@@ -39,6 +38,13 @@ public class TopicServiceImpl implements TopicService {
     public IPage<Topic> topicShowByPage(Integer currentPage, Integer pageSize) {
         Page<Topic> page=new Page<>(currentPage,pageSize);
         return topicMapper.topicShowByPage(page);
+    }
+
+    @Override
+    public IPage<Topic> topicShowOfCategoryByPage(Long userId,Long categoryId,Integer currentPage, Integer pageSize) {
+        Page<Topic> page=new Page<>(currentPage,pageSize);
+        List<Topic> topics=topicMapper.topicShowOfCategoryByPage(userId,categoryId,page);
+        return page.setRecords(topics);
     }
 
     @Override

@@ -29,13 +29,13 @@
                     <div class="box-footer">
                         <ul class="nav nav-stacked">
                             <li th:each="category:${user.categories}">
-                                <a th:href="@{'/blog/'+${user.id}+'/category/'+${category.id}}">
+                                <a href="#">
                                     [[${category.name}]]
                                     <span class="pull-right badge bg-blue" th:text="${category.topicTotal}"></span>
                                 </a>
                             </li>
                             <li class="lazy-tip" th:if="${#lists.isEmpty(user.categories)}">
-                                <span>他竟然到现在都没发过一篇博文，WHAT ARE YOU FUCKING DOING?</span>
+                                <span>他很懒，到现在没发过一篇文章，怎么好意思的</span>
                             </li>
                         </ul>
                     </div>

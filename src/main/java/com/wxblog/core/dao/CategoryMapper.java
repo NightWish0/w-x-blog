@@ -19,6 +19,8 @@ public interface CategoryMapper extends BaseMapper<Category> {
 
     List<Map<String,Object>> notCategoty();
 
+    int notCategotyOfUser(@Param("userId")Long userId);
+
     int maxSort();
 
 }
