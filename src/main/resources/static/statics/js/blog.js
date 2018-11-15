@@ -23,7 +23,7 @@ layui.use(['flow','layer'],function () {
                     $.each(item.labels,function (index,label) {
                         labelHtml+='<span>' +
                             '<i class="fa fa-tag"></i>'+
-                            '<a href="">'+label.name+'</a>'+
+                            '<a href="/blog/label/'+label.id+'">'+label.name+'</a>'+
                             '</span>';
                     })
                     var categoryHtml=''

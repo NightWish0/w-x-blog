@@ -44,5 +44,10 @@
         DELETE FROM blog_label_association
         WHERE topic_id=#{topicId}
     </delete>
+    
+    <select id="topicIdsOfLabel" parameterType="long" resultType="long">
+        SELECT topic_id FROM blog_label_association
+        WHERE label_id=#{labelId}
+    </select>
 
 </mapper>

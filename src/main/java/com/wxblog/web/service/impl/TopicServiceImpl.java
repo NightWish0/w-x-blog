@@ -49,7 +49,10 @@ public class TopicServiceImpl implements TopicService {
 
     @Override
     public IPage<Topic> topicShowOfLabelByPage(Long labelId, Integer currentPage, Integer pageSize) {
-        return null;
+        Page<Topic> page=new Page<>(currentPage,pageSize);
+        List<Long> ids=labelMapper.topicIdsOfLabel(labelId);
+        List<Topic> topics=topicMapper.topicShowOfLabelByPage(ids,page);
+        return page.setRecords(topics);
     }
 
     @Override

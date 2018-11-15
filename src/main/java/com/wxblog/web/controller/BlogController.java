@@ -65,9 +65,10 @@ public class BlogController {
         return "blog_category";
     }
 
-    @GetMapping("/blog/label")
-    public String blogLabel(Model model){
-        labelService.labels(false,model);
+    @GetMapping("/blog/label/{id}")
+    public String blogLabel(@PathVariable("id") Long labelId,Model model){
+        userService.usersWithCategories(model);
+        labelService.initBlogLabelModel(labelId,model);
         return "blog_label";
     }
 

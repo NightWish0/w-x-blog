@@ -42,6 +42,12 @@ public class LabelServiceImpl implements LabelService {
     }
 
     @Override
+    public void initBlogLabelModel(Long labelId,Model model) {
+        Label label=labelMapper.selectOne(new QueryWrapper<Label>().eq("id",labelId));
+        model.addAttribute("label",label);
+    }
+
+    @Override
     public ResultJson addLabel(String name) {
         Label label=new Label();
         label.setName(name);

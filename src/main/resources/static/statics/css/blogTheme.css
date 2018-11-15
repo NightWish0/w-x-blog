@@ -672,6 +672,16 @@ label{
     text-align: center;
     margin: 10px 0;
 }
+/*标签分类*/
+.blog-topic .content-box .label-info{
+    margin: 15px 20px;
+    height: 30px;
+    background: #ecf0f5;
+    border-radius: 10px;
+    color: #a79595;
+    text-align: center;
+    line-height: 30px;
+}
 /*文章详情*/
 .topic-info .body-box{
     background: #fff;

@@ -45,6 +45,19 @@
         ORDER BY t.created_at DESC
     </sql>
 
+    <sql id="topicsOfLabelShowSql">
+        SELECT t.*,u.user_name,c.name,c.sort,count(com.id) AS 'comment_count' FROM blog_topic t
+        LEFT JOIN blog_user u ON t.user_id=u.id
+        LEFT JOIN blog_user_category c ON t.category_id=c.id
+        LEFT JOIN blog_comment com ON com.topic_id=t.id
+        WHERE t.status=1 AND t.id IN
+        <foreach collection="ids" index="index" item="id" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+        GROUP BY t.id
+        ORDER BY t.created_at DESC
+    </sql>
+
     <sql id="topicsOfCategoryShowSql">
         SELECT t.*,u.user_name,c.name,c.sort,count(com.id) AS 'comment_count' FROM blog_topic t
         LEFT JOIN blog_user u ON t.user_id=u.id
@@ -101,6 +114,12 @@
         <include refid="topicsOfCategoryShowSql">
             <property name="userId" value="userId"></property>
             <property name="categoryId" value="categoryId"></property>
+        </include>
+    </select>
+    
+    <select id="topicShowOfLabelByPage" resultMap="topicShowInfo">
+        <include refid="topicsOfLabelShowSql">
+            <property name="ids" value="ids"></property>
         </include>
     </select>
 

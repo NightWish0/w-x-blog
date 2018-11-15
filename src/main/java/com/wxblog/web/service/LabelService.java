@@ -13,6 +13,8 @@ public interface LabelService {
 
     List<String> namesOfLabel();
 
+    void initBlogLabelModel(Long labelId,Model model);
+
     ResultJson addLabel(String name);
 
     ResultJson updateLabel(Long id,String name);
