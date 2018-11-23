@@ -1,6 +1,7 @@
 package com.wxblog.web.controller.admin;
 
 import com.wxblog.core.bean.Topic;
+import com.wxblog.core.response.EditorResultJson;
 import com.wxblog.core.response.ResultJson;
 import com.wxblog.core.util.StatusCode;
 import com.wxblog.web.service.CategoryService;
@@ -11,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
@@ -262,6 +264,12 @@ public class  TopicController {
     @ResponseBody
     public ResultJson destroy(List<Long> ids){
         return topicService.destroy(ids);
+    }
+
+    @PostMapping("/upload")
+    @ResponseBody
+    public EditorResultJson upload(@RequestParam("editormd-image-file")MultipartFile multipartFile){
+        return topicService.upload(multipartFile);
     }
 
 }

@@ -26,7 +26,7 @@ $(function () {
         sequenceDiagram : true,       // 开启时序/序列图支持，默认关闭,
         imageUpload : true,
         imageFormats : ["jpg", "jpeg", "gif", "png", "bmp", "webp"],
-        imageUploadURL : "./php/upload.php",
+        imageUploadURL : "/admin/topics/upload",
         onload : function() { //上传成功之后的回调
             console.log('onload', this);
         }

@@ -237,7 +237,7 @@ label{
     margin-left: -150px;
 }
 .blog-index .wxblog-body .technology-list .technology-item{
-    display: initial;
+    display: inline;
 }
 .blog-index .wxblog-body .thanks-tip{
     width: 487px;

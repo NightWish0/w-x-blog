@@ -5,9 +5,11 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.wxblog.core.bean.Category;
 import com.wxblog.core.bean.Comment;
 import com.wxblog.core.bean.Topic;
+import com.wxblog.core.response.EditorResultJson;
 import com.wxblog.core.response.ResultJson;
 import javafx.scene.control.Pagination;
 import org.springframework.ui.Model;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
@@ -59,4 +61,6 @@ public interface TopicService {
     ResultJson commentPublish(Comment comment);
 
     ResultJson updateLikeCount(Long id);
+
+    EditorResultJson upload(MultipartFile multipartFile);
 }

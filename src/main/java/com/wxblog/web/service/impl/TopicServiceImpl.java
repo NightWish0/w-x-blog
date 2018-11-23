@@ -7,7 +7,10 @@ import com.wxblog.core.bean.*;
 import com.wxblog.core.dao.CommentMapper;
 import com.wxblog.core.dao.LabelMapper;
 import com.wxblog.core.dao.TopicMapper;
+import com.wxblog.core.response.EditorResultJson;
+import com.wxblog.core.response.QiniuResultJson;
 import com.wxblog.core.response.ResultJson;
+import com.wxblog.core.util.QiNiuUtil;
 import com.wxblog.core.util.StatusCode;
 import com.wxblog.core.util.UserUtils;
 import com.wxblog.web.service.TopicService;
@@ -15,6 +18,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.*;
@@ -299,5 +305,17 @@ public class TopicServiceImpl implements TopicService {
             return ResultJson.success();
         }
         return ResultJson.failure();
+    }
+
+    @Override
+    public EditorResultJson upload(MultipartFile file) {
+        if (file!=null){
+            QiniuResultJson result = QiNiuUtil.uploadOfTopic(file);
+            if (result!=null){
+                String url=QiNiuUtil.domain+result.key;
+                return EditorResultJson.success(url);
+            }
+        }
+        return EditorResultJson.failure();
     }
 }
