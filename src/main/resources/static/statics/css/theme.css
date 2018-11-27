@@ -10,6 +10,15 @@ a:hover{
 .layui-layout-admin .layui-body{
     overflow: auto;
 }
+.layui-header{
+    z-index: 999;
+}
+.layui-side{
+    z-index: 900;
+}
+.editormd-fullscreen{
+    z-index: 1000;
+}
 .layui-layout-admin #content_page{
     min-width: 1100px;
 }

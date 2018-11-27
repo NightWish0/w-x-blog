@@ -33,6 +33,7 @@ public class Topic implements Serializable {
     private Date createdAt;
     @TableLogic
     private Integer status;
+    private String fileMarkHash;
 
     @TableField(exist = false)
     private User user;

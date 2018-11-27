@@ -62,5 +62,5 @@ public interface TopicService {
 
     ResultJson updateLikeCount(Long id);
 
-    EditorResultJson upload(MultipartFile multipartFile);
+    EditorResultJson upload(MultipartFile multipartFile,String fileMarkHash);
 }

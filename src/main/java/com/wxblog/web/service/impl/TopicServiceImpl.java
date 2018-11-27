@@ -4,8 +4,10 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.wxblog.core.bean.*;
+import com.wxblog.core.config.QiNiuConfig;
 import com.wxblog.core.dao.CommentMapper;
 import com.wxblog.core.dao.LabelMapper;
+import com.wxblog.core.dao.QiniuFileMapper;
 import com.wxblog.core.dao.TopicMapper;
 import com.wxblog.core.response.EditorResultJson;
 import com.wxblog.core.response.QiniuResultJson;
@@ -39,6 +41,10 @@ public class TopicServiceImpl implements TopicService {
     private LabelMapper labelMapper;
     @Autowired
     private CommentMapper commentMapper;
+    @Autowired
+    private QiniuFileMapper fileMapper;
+    @Autowired
+    private QiNiuConfig qiNiuConfig;
 
     @Override
     public IPage<Topic> topicShowByPage(Integer currentPage, Integer pageSize) {
@@ -308,11 +314,20 @@ public class TopicServiceImpl implements TopicService {
     }
 
     @Override
-    public EditorResultJson upload(MultipartFile file) {
+    public EditorResultJson upload(MultipartFile file,String fileMarkHash) {
         if (file!=null){
-            QiniuResultJson result = QiNiuUtil.uploadOfTopic(file);
+            QiniuResultJson result =QiNiuUtil.uploadOfTopic(file,qiNiuConfig);
             if (result!=null){
-                String url=QiNiuUtil.domain+result.key;
+                QiniuFile qiniuFile=new QiniuFile();
+                qiniuFile.setEtag(result.hash);
+                qiniuFile.setHashKey(result.key);
+                qiniuFile.setBucket(result.bucket);
+                qiniuFile.setFsize(Long.valueOf(result.fsize));
+                qiniuFile.setMimeType(result.mimeType);
+                qiniuFile.setMarkHash(fileMarkHash);
+                qiniuFile.setCreatedAt(new Date());
+                fileMapper.insert(qiniuFile);
+                String url=qiNiuConfig.getDomain()+"/"+result.key+"?"+qiNiuConfig.getWaterMark();
                 return EditorResultJson.success(url);
             }
         }

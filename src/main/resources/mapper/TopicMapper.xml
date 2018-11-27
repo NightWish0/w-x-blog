@@ -23,6 +23,7 @@
         <result column="status" property="status"></result>
         <result column="category_id" property="categoryId"></result>
         <result column="comment_count" property="commentCount"></result>
+        <result column="file_mark_hash" property="fileMarkHash"></result>
         <association property="category" javaType="Category">
             <id property="id" column="category_id"></id>
             <result property="name" column="name"></result>
@@ -123,11 +124,6 @@
         </include>
     </select>
 
-    <insert id="insert" parameterType="Topic" useGeneratedKeys="true" keyProperty="id">
-        INSERT INTO blog_topic(id,title,content,markdown_content,user_id,category_id,created_at,status)
-        VALUES (#{id},#{title},#{content},#{markdownContent},#{userId},#{categoryId},#{createdAt},#{status})
-    </insert>
-    
     <update id="updateById" parameterType="Topic">
         UPDATE blog_topic SET title=#{title},content=#{content},markdown_content=#{markdownContent},category_id=#{categoryId},status=#{status}
         WHERE id=#{id}

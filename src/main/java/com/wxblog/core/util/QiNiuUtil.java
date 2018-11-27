@@ -4,69 +4,61 @@ import com.google.gson.Gson;
 import com.qiniu.common.QiniuException;
 import com.qiniu.common.Zone;
 import com.qiniu.http.Response;
+import com.qiniu.storage.BucketManager;
 import com.qiniu.storage.Configuration;
 import com.qiniu.storage.UploadManager;
+import com.qiniu.storage.model.BatchStatus;
 import com.qiniu.util.Auth;
 import com.qiniu.util.StringMap;
-import com.qiniu.util.UrlSafeBase64;
+import com.wxblog.core.bean.QiniuFile;
+import com.wxblog.core.config.QiNiuConfig;
 import com.wxblog.core.response.QiniuResultJson;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.boot.context.properties.ConfigurationProperties;
-import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * @author: NightWish
  * @create:
  * @description: 七牛云存储工具类
  **/
-//@PropertySource("classpath:qiniu.yml")
 @Component
-@ConfigurationProperties(prefix = "qiniu")
 public class QiNiuUtil {
-
-    @Value("${AccessKey}")
-    private static String accessKey;
-    @Value("${SecretKey}")
-    private static String secretKey;
-    @Value("${Bucket}")
-    private static String bucket;
-    @Value("${Domain}")
-    public static String domain;
 
     private static final String TOPIC_PREFIX="topic/";
     private static final String USER_PREFIX="user/";
 
 
-    public static String generateToken(){
-        Auth auth = Auth.create(accessKey, secretKey);
+    public static String generateToken(QiNiuConfig config){
+        Auth auth = Auth.create(config.getAccessKey(), config.getSecretKey());
         StringMap putPolicy = new StringMap();
         putPolicy.put("returnBody", "{\"key\":\"$(key)\"," +
                 "\"hash\":\"$(etag)\"," +
                 "\"bucket\":\"$(bucket)\"," +
                 "\"mimeType\":\"$(mimeType)\"," +
                 "\"fsize\":$(fsize)}");
-        return auth.uploadToken(bucket, null, 3600L, putPolicy);
+        return auth.uploadToken(config.getBucket(), null, 3600L, putPolicy);
     }
 
-    public static String  generateEncodedEntryURI(String key){
-        String entry = bucket+":"+key;
-        return UrlSafeBase64.encodeToString(entry);
+    public static QiniuResultJson uploadOfTopic(MultipartFile file,QiNiuConfig config){
+        return upload(file,TOPIC_PREFIX,config);
     }
 
-    public static QiniuResultJson uploadOfTopic(MultipartFile file){
-        return upload(file,TOPIC_PREFIX);
+    public static QiniuResultJson uploadOfUser(MultipartFile file,QiNiuConfig config){
+        return upload(file,USER_PREFIX,config);
     }
 
-    public static QiniuResultJson upload(MultipartFile file,String prefix){
+    public static QiniuResultJson upload(MultipartFile file, String prefix,QiNiuConfig config){
         String fileName=renameOfFile(file.getOriginalFilename(),prefix);
         Configuration cfg = new Configuration(Zone.zone0());
         UploadManager uploadManager = new UploadManager(cfg);
         try {
-            Response response = uploadManager.put(file.getInputStream(),fileName,generateToken(),null, null);
+            Response response = uploadManager.put(file.getInputStream(),fileName,generateToken(config),null, null);
             //解析上传成功的结果
             QiniuResultJson result = new Gson().fromJson(response.bodyString(), QiniuResultJson.class);
             return result;
@@ -84,14 +76,65 @@ public class QiNiuUtil {
         }
     }
 
+    public static boolean delete(String key,QiNiuConfig config){
+        BucketManager bucketManager = getBucketManager(config);
+        try {
+            bucketManager.delete(config.getBucket(), key);
+            return true;
+        } catch (QiniuException ex) {
+            //如果遇到异常，说明删除失败
+            System.err.println(ex.code());
+            System.err.println(ex.response.toString());
+            return false;
+        }
+    }
+
+    /**
+     * 批量删除文件
+     * @param fileList
+     * @param config
+     * @return ids，已删除的文件id
+     */
+    public static List<Long> deleteBatch(List<QiniuFile> fileList, QiNiuConfig config){
+        List<Long> ids=new ArrayList<>();
+        List<String> keyList=new ArrayList<>();
+        Map<String,Long> map=new HashMap<>();
+        for (QiniuFile file:fileList){
+            map.put(file.getHashKey(),file.getId());
+            keyList.add(file.getHashKey());
+        }
+        String[] keys= (String[]) keyList.toArray();
+        BucketManager bucketManager = getBucketManager(config);
+        try {
+            BucketManager.BatchOperations batchOperations = new BucketManager.BatchOperations();
+            batchOperations.addDeleteOp(config.getBucket(), keys);
+            Response response = bucketManager.batch(batchOperations);
+            BatchStatus[] batchStatusList = response.jsonToObject(BatchStatus[].class);
+            for (int i = 0; i < keys.length; i++) {
+                BatchStatus status = batchStatusList[i];
+                String key = keys[i];
+                if (status.code == 200) {
+                    ids.add(map.get(key));
+                    System.out.println(status.data.error);
+                }
+            }
+        } catch (QiniuException ex) {
+            System.err.println(ex.response.toString());
+        }
+        return ids;
+    }
+
     public static String renameOfFile(String fileName,String prefix){
         String suffixName=fileName.substring(fileName.lastIndexOf("."));
         String newFileName=prefix+String.valueOf(System.currentTimeMillis());
         return newFileName+suffixName;
     }
 
-    public static void main(String[] args){
-        System.out.println(generateToken());
+    private static BucketManager getBucketManager(QiNiuConfig config){
+        Configuration cfg = new Configuration(Zone.zone0());
+        Auth auth = Auth.create(config.getAccessKey(), config.getSecretKey());
+        BucketManager bucketManager = new BucketManager(auth, cfg);
+        return bucketManager;
     }
 
 }

@@ -1,5 +1,6 @@
 package com.wxblog.core.util;
 
+import org.apache.shiro.codec.Base64;
 import org.apache.shiro.crypto.SecureRandomNumberGenerator;
 import org.apache.shiro.crypto.hash.SimpleHash;
 import org.apache.shiro.util.ByteSource;
@@ -37,9 +38,14 @@ public class MD5Util {
         return encodePwd;
     }
 
+    public static String generateMarkHash(){
+        return Base64.encodeToString(String.valueOf(System.currentTimeMillis()).getBytes());
+    }
+
     public static void main(String[] args){
         Map<String,String> map=encodeMd5Salt("18856496310","admin");
-        System.out.println(map.get("salt"));
-        System.out.println(map.get("password"));
+//        System.out.println(map.get("salt"));
+//        System.out.println(map.get("password"));
+        System.out.println(generateMarkHash());
     }
 }

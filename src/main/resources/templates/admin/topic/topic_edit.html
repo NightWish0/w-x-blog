@@ -58,6 +58,9 @@
                 <input type="number" style="display: none" th:value="${topic.status}" id="status" name="status" class="layui-input">
             </div>
             <div class="layui-form-item">
+                <input type="text" style="display: none" th:value="${topic.fileMarkHash}" id="fileMarkHash" name="fileMarkHash" class="layui-input">
+            </div>
+            <div class="layui-form-item">
                 <button type="submit" class="layui-btn">发布</button>
                 <button class="layui-btn save-draft">保存为草稿</button>
                 <a class="layui-btn layui-btn-primary" th:href="@{/admin/topics/my}">返回</a>

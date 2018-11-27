@@ -33,6 +33,7 @@ public class User {
     private Date lastLoginAt;
     @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss",timezone="GMT+8")
     private Date createdAt;
+    private String fileMarkHash;
 
     @TableField(exist = false)
     private List<Category> categories;

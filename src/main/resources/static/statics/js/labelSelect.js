@@ -1,4 +1,6 @@
 $(function () {
+    var fileMarkHash=$('#fileMarkHash').val();
+    console.log(fileMarkHash);
     editormd("editormd", {
         width: "100%",
         height: 640,
@@ -26,9 +28,9 @@ $(function () {
         sequenceDiagram : true,       // 开启时序/序列图支持，默认关闭,
         imageUpload : true,
         imageFormats : ["jpg", "jpeg", "gif", "png", "bmp", "webp"],
-        imageUploadURL : "/admin/topics/upload",
+        imageUploadURL : "/admin/topics/upload?fileMarkHash="+fileMarkHash,
         onload : function() { //上传成功之后的回调
-            console.log('onload', this);
+            // console.log('onload', this);
         }
     });
 });

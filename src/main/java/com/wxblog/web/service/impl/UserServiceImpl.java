@@ -2,17 +2,23 @@ package com.wxblog.web.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.wxblog.core.bean.Category;
+import com.wxblog.core.bean.QiniuFile;
 import com.wxblog.core.bean.User;
+import com.wxblog.core.config.QiNiuConfig;
 import com.wxblog.core.dao.CategoryMapper;
 import com.wxblog.core.dao.CommentMapper;
+import com.wxblog.core.dao.QiniuFileMapper;
 import com.wxblog.core.dao.UserMapper;
+import com.wxblog.core.response.QiniuResultJson;
 import com.wxblog.core.response.ResultJson;
 import com.wxblog.core.util.MD5Util;
+import com.wxblog.core.util.QiNiuUtil;
 import com.wxblog.core.util.UploadUtil;
 import com.wxblog.core.util.UserUtils;
 import com.wxblog.web.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -36,6 +42,10 @@ public class UserServiceImpl implements UserService {
     private CategoryMapper categoryMapper;
     @Autowired
     private CommentMapper commentMapper;
+    @Autowired
+    private QiniuFileMapper fileMapper;
+    @Autowired
+    private QiNiuConfig qiNiuConfig;
 
     @Override
     public void users(Model model) {
@@ -50,17 +60,34 @@ public class UserServiceImpl implements UserService {
         return user;
     }
 
+    @Transactional
     @Override
     public boolean updateUserInfo(MultipartFile file, String userName, String profile,Model model) {
         User user=initUserInfo(model);
         String userNameOld=user.getUserName();
         String avatarName=null;
+        QiniuFile oldFile=fileMapper.selectOne(new QueryWrapper<QiniuFile>().eq("mark_hash",user.getFileMarkHash()));
         if (file!=null&&!file.isEmpty()){
-            String oldName=user.getAvatar();
-            avatarName=UploadUtil.uploadAvatar(file);
-            UploadUtil.deleteAvatar(oldName);
+            QiniuResultJson result =QiNiuUtil.uploadOfUser(file,qiNiuConfig);
+            avatarName=qiNiuConfig.getDomain()+"/"+result.key;
+            QiniuFile qiniuFile=new QiniuFile();
+            qiniuFile.setEtag(result.hash);
+            qiniuFile.setHashKey(result.key);
+            qiniuFile.setBucket(result.bucket);
+            qiniuFile.setFsize(Long.valueOf(result.fsize));
+            qiniuFile.setMimeType(result.mimeType);
+            qiniuFile.setMarkHash(user.getFileMarkHash());
+            qiniuFile.setCreatedAt(new Date());
+            if (oldFile!=null){
+                fileMapper.update(qiniuFile,new QueryWrapper<QiniuFile>().eq("mark_hash",user.getFileMarkHash()));
+            }else{
+                fileMapper.insert(qiniuFile);
+            }
         }
         if(userMapper.updateInfo(user.getId(),userName,avatarName,profile)==1){
+            if (oldFile!=null){
+                QiNiuUtil.delete(oldFile.getHashKey(),qiNiuConfig);
+            }
             if (!userNameOld.equals(userName)){
                 commentMapper.updateCommentAuthorName(userName,user.getId());
             }

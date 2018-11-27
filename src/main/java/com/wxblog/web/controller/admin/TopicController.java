@@ -3,6 +3,7 @@ package com.wxblog.web.controller.admin;
 import com.wxblog.core.bean.Topic;
 import com.wxblog.core.response.EditorResultJson;
 import com.wxblog.core.response.ResultJson;
+import com.wxblog.core.util.MD5Util;
 import com.wxblog.core.util.StatusCode;
 import com.wxblog.web.service.CategoryService;
 import com.wxblog.web.service.LabelService;
@@ -135,6 +136,9 @@ public class  TopicController {
                            Model model){
         userService.initUserInfo(model);
         categoryService.categories(model);
+        if (topic.getFileMarkHash()==null){
+            topic.setFileMarkHash(MD5Util.generateMarkHash());
+        }
         model.addAttribute("labelId",labelId);
         model.addAttribute("topic",topic);
         model.addAttribute("errorMsg",errorMsg);
@@ -268,8 +272,8 @@ public class  TopicController {
 
     @PostMapping("/upload")
     @ResponseBody
-    public EditorResultJson upload(@RequestParam("editormd-image-file")MultipartFile multipartFile){
-        return topicService.upload(multipartFile);
+    public EditorResultJson upload(@RequestParam("editormd-image-file")MultipartFile multipartFile,String fileMarkHash){
+        return topicService.upload(multipartFile,fileMarkHash);
     }
 
 }

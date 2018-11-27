@@ -23,13 +23,3 @@ mybatis-plus:
       #逻辑删除配置
       logic-delete-value: -1
       logic-not-delete-value: 1
-qiniu:
-  AccessKey: HMShMf3yuzuH78ITQoNERURMZVp_J06CIFgF9E77
-  SecretKey: vs-2mnqnGLEgqxUM1jlOPGB9ptomqUdywkV2n8rR
-  #存储空间名
-  Bucket: wxblog
-  #外链域名
-  # 测试域名，2018/12/16日到期后不可用
-  Domain: pi9odhzle.bkt.clouddn.com
-  # 待备案域名
-  #Domain: www.onepsss.com
