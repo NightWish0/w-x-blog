@@ -1,5 +1,8 @@
 # w-x-blog  个人博客
 
+### 项目部署在阿里云服务器
+* http://47.98.57.15:8000
+
 ### 环境要求
 * JDK `1.8 以上`
 * Maven `3.5 以上`
@@ -21,5 +24,8 @@
   * bootstrap `3.3.7`
   * jquery `3.3.1`
   * editor.md `1.5` makedown编辑器
+* 部署
+  * docker
+
   
   
