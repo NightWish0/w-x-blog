@@ -17,7 +17,7 @@ public class MD5Util {
 
     /**
      * Md5+盐 加密
-     * 算列算法 md5(md5(password+loginName+salt))
+     * 散列算法 md5(md5(password+loginName+salt))
      * @param loginName
      * @param password
      * @return
