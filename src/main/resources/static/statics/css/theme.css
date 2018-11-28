@@ -257,6 +257,9 @@ a:hover{
     font-weight: 400;
     line-height: 1.7;
 }
+.topic-info .topic-body img {
+    max-width: 100%;
+}
 .topic-info .reply-body{
     border-top: 1px solid #eeeeee;
     margin-top: 50px;

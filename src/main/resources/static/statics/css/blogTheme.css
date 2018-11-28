@@ -744,6 +744,9 @@ label{
     line-height: 1.7;
     padding-bottom: 40px;
 }
+.topic-info .topic-body img {
+    max-width: 100%;
+}
 .topic-info .like-body{
     text-align: center;
     margin-top: 40px;
