@@ -119,6 +119,9 @@ public class TopicServiceImpl implements TopicService {
         try {
             labelHandle(topic,labelNames);
             //插入文章
+            if(topic.getCategoryId()==0){
+                topic.setCategoryId(null);
+            }
             topic.setCreatedAt(new Date());
             topic.setUserId(UserUtils.currentUser().getId());
             topicMapper.insert(topic);
