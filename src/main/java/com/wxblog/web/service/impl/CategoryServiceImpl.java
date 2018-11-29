@@ -36,7 +36,12 @@ public class CategoryServiceImpl implements CategoryService {
 
     @Override
     public ResultJson addCategory(String name) {
-        Integer sort=categoryMapper.maxSort()+1;
+        Integer sort=categoryMapper.maxSort();
+        if (sort==null){
+            sort=1;
+        }else{
+            sort+=1;
+        }
         Category category=new Category();
         category.setName(name);
         category.setUserId(UserUtils.currentUser().getId());
