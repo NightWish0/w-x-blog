@@ -1,7 +1,6 @@
 $(function () {
     var fileMarkHash=$('#fileMarkHash').val();
-    console.log(fileMarkHash);
-    editormd("editormd", {
+    var topiceEditor=editormd("editormd", {
         width: "100%",
         height: 640,
         path : '/statics/tools/editormd/lib/',
@@ -33,6 +32,61 @@ $(function () {
             // console.log('onload', this);
         }
     });
+    //图片ctrl+v粘贴上传
+    window.onload = function() {
+        $("#editormd").on('paste', function (event) {
+            var items = (event.clipboardData || event.originalEvent.clipboardData).items;
+            for (var index in items) {
+                var item = items[index];
+                if (item.kind === 'file') {
+                    var blob = item.getAsFile();
+                    if(blob!=null){
+                        var fd = new FormData();
+                        fd.append("editormd-image-file", blob, 'image.png');
+                        $.ajax({
+                            url: "/admin/topics/upload?fileMarkHash="+fileMarkHash,
+                            type : 'POST',
+                            processData : false,
+                            contentType : false,
+                            cache: false,
+                            enctype: "multipart/form-data",
+                            data:fd,
+                            success:function (result) {
+                                console.log(result.url);
+                                if (result.success === 1) {
+                                    //新一行的图片显示
+                                    topiceEditor.insertValue("\n![](" + result.url + ")");
+                                } else {
+                                    alert(result.message);
+                                }
+                            }
+                        });
+                    }
+                    //图片base64编码上传
+                    // var reader = new FileReader();
+                    // reader.onload = function (event) {
+                    //     var base64 = event.target.result;
+                    //     // console.log(base64);
+                    //     // ajax上传图片
+                    //     $.post("/admin/topics/upload?fileMarkHash="+fileMarkHash, {
+                    //         "editormd-image-file": base64
+                    //     }, function (result) {
+                    //         result = JSON.parse(result);
+                    //         //layer.msg(ret.msg);
+                    //         console.log(result.url);
+                    //         if (result.success === 1) {
+                    //             //新一行的图片显示
+                    //             testEditor.insertValue("\n![](" + result.url + ")");
+                    //         } else {
+                    //             alert("截图上传失败：" + ret.message);
+                    //         }
+                    //     });
+                    // };
+                    // reader.readAsDataURL(blob);
+                }
+            }
+        });
+    }
 });
 $(function () {
     // var labels = new Bloodhound({
