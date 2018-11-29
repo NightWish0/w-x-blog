@@ -23,16 +23,31 @@
         HAVING c.user_id=#{userId}
         ORDER BY c.sort ASC
     </select>
+
+    <select id="selectByUserIdAndPublishTopic" parameterType="long" resultMap="categoryMap">
+        SELECT c.*,count(t.id)  as 'total' FROM blog_user_category c
+        LEFT JOIN blog_topic t ON c.id=t.category_id
+        where t.status=1
+		GROUP BY c.id
+        HAVING c.user_id=#{userId}
+        ORDER BY c.sort ASC
+    </select>
     
     <select id="notCategoty" resultMap="notCategoryMap">
         SELECT user_id,COUNT(id) AS 'total' FROM blog_topic
         WHERE ISNULL(category_id)
+        <if test="status!=null">
+            AND status=#{status}
+        </if>
         GROUP BY user_id
     </select>
     
     <select id="notCategotyOfUser" resultType="int">
         SELECT COUNT(id) AS 'total' FROM blog_topic
         WHERE ISNULL(category_id) AND user_id=#{userId}
+        <if test="status!=null">
+            AND status=#{status}
+        </if>
     </select>
     
     <select id="maxSort" resultType="integer">

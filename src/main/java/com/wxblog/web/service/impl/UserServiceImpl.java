@@ -11,10 +11,7 @@ import com.wxblog.core.dao.QiniuFileMapper;
 import com.wxblog.core.dao.UserMapper;
 import com.wxblog.core.response.QiniuResultJson;
 import com.wxblog.core.response.ResultJson;
-import com.wxblog.core.util.MD5Util;
-import com.wxblog.core.util.QiNiuUtil;
-import com.wxblog.core.util.UploadUtil;
-import com.wxblog.core.util.UserUtils;
+import com.wxblog.core.util.*;
 import com.wxblog.web.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -133,7 +130,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public void userWithCategories(Long userId,Model model) {
         User user=userMapper.userWithCategories(userId);
-        int count=categoryMapper.notCategotyOfUser(userId);
+        int count=categoryMapper.notCategotyOfUser(userId,StatusCode.TOPIC_PUBLISH_CODE);
         Category category=new Category();
         category.setId(0l);
         category.setName("未分类");
@@ -145,7 +142,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public void usersWithCategories(Model model) {
         List<User> users=userMapper.usersWithCategories();
-        List<Map<String,Object>> list=categoryMapper.notCategoty();
+        List<Map<String,Object>> list=categoryMapper.notCategoty(StatusCode.TOPIC_PUBLISH_CODE);
         for (Map<String,Object> map:list){
             for (User user:users){
                 if ((long)map.get("userId")==user.getId()){

@@ -7,7 +7,7 @@
         <result column="user_name" property="userName"></result>
         <result column="avatar" property="avatar"></result>
         <result column="profile" property="profile"></result>
-        <collection column="id" property="categories" ofType="Category" select="com.wxblog.core.dao.CategoryMapper.selectByUserId"></collection>
+        <collection column="id" property="categories" ofType="Category" select="com.wxblog.core.dao.CategoryMapper.selectByUserIdAndPublishTopic"></collection>
     </resultMap>
 
     <select id="checkUserIsExists" parameterType="string" resultType="User">

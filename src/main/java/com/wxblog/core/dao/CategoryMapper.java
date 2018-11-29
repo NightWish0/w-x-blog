@@ -17,9 +17,11 @@ public interface CategoryMapper extends BaseMapper<Category> {
 
     List<Category> selectByUserId(@Param("userId") Long userId);
 
-    List<Map<String,Object>> notCategoty();
+    List<Category> selectByUserIdAndPublishTopic(@Param("userId") Long userId);
 
-    int notCategotyOfUser(@Param("userId")Long userId);
+    List<Map<String,Object>> notCategoty(@Param("status")Integer status);
+
+    int notCategotyOfUser(@Param("userId")Long userId,@Param("status")Integer status);
 
     int maxSort();
 
