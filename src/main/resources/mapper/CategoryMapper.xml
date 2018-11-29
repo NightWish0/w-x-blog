@@ -51,7 +51,7 @@
     </select>
     
     <select id="maxSort" resultType="integer">
-        SELECT max(sort) FROM blog_user_category
+        SELECT IFNULL(max(sort),0) FROM blog_user_category
     </select>
     
 </mapper>
