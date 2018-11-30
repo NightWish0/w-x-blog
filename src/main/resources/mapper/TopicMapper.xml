@@ -226,7 +226,7 @@
     </update>
     
     <select id="totalData" resultType="map">
-        SELECT COUNT(t.id) AS 'totalCount',SUM(t.read_count) AS 'readCount',SUM(t.like_count) AS 'likeCount',COUNT(c.id) AS 'commentCount' FROM blog_topic t
+        SELECT COUNT(t.id) AS 'totalCount',IFNULL(SUM(t.read_count),0) AS 'readCount',IFNULL(SUM(t.like_count),0) AS 'likeCount',COUNT(c.id) AS 'commentCount' FROM blog_topic t
         LEFT JOIN blog_comment c ON t.id=c.topic_id
     </select>
     
