@@ -12,46 +12,73 @@
     <script th:src="@{/statics/js/lauyiInit.js}"></script>
 </head>
 <body class="layui-layout-body">
-<div class="layui-layout layui-layout-admin">
+<div class="layui-layout layui-layout-admin topic-all">
     <div th:insert="~{admin/layout/layout_header :: header}"></div>
     <div th:insert="~{admin/layout/layout_menu :: menu(parent='topic',child='recycle')}"></div>
     <div class="layui-body">
         <div class="body-box">
-            <div class="layui-btn-group demoTable">
-                <button class="layui-btn layui-btn-danger">全部还原</button>
-                <button class="layui-btn layui-btn-danger">清空回收站</button>
+            <div class="layui-card layadmin-header">
+                <span class="layui-breadcrumb">
+                  <a href="">首页</a>
+                  <a><cite>文章管理</cite></a>
+                  <a><cite>回收站</cite></a>
+                </span>
             </div>
-            <table class="layui-table" lay-data="{page:true}">
-                <thead>
-                <tr>
-                    <th lay-data="{type:'checkbox',align:'center'}"></th>
-                    <th lay-data="{type:'numbers', minWidth:60,align:'center', sort: true}">ID</th>
-                    <th lay-data="{field:'title',align:'center', minWidth:180}">标题</th>
-                    <th lay-data="{field:'readCount',align:'center', minWidth:90,sort: true}">阅读量</th>
-                    <th lay-data="{field:'likeCount',align:'center', minWidth:90, sort: true}">点赞量</th>
-                    <th lay-data="{field:'content',align:'center', minWidth:90, sort: true}">评论量</th>
-                    <th lay-data="{field:'createdAt',align:'center', minWidth:160, sort: true}">创建时间</th>
-                    <th lay-data="{field:'operate',align:'center',minWidth:220}">操作</th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr th:each="topic:${topics}">
-                    <td></td>
-                    <td></td>
-                    <td>
-                        <a th:href="@{'/admin/topics/'+${topic.id}}" th:text="${topic.title}"></a>
-                    </td>
-                    <td th:text="${topic.readCount}"></td>
-                    <td th:text="${topic.likeCount}"></td>
-                    <td th:text="${topic.likeCount}"></td>
-                    <td th:text="${topic.createdAt}"></td>
-                    <td>
-                        <a class="layui-btn layui-btn-xs" lay-event="resume">还原</a>
-                        <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
-                    </td>
-                </tr>
-                </tbody>
-            </table>
+            <div class="layui-fluid">
+                <div class="layui-card">
+                    <div class="layui-form layui-card-header">
+                        <div class="layui-form-item">
+                            <div class="layui-inline">
+                                <div class="layui-input-inline">
+                                    <input type="text" name="title" autocomplete="off" placeholder="文章标题搜索" class="layui-input">
+                                </div>
+                            </div>
+                            <div class="layui-inline">
+                                <button class="layui-btn layuiadmin-btn-list" lay-submit lay-filter="LAY-app-contlist-search">
+                                    <i class="layui-icon layui-icon-search"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="layui-card-body">
+                        <div class="layui-btn-container" >
+                            <button class="layui-btn layui-btn-sm topic-del" data-type="selectedResume">选中还原</button>
+                            <button class="layui-btn layui-btn-sm topic-del" data-type="allResume">全部还原</button>
+                            <button class="layui-btn layui-btn-sm layui-btn-danger topic-del" data-type="selectedDes">选中清空</button>
+                            <button class="layui-btn layui-btn-sm layui-btn-danger topic-del" data-type="allDes">清空回收站</button>
+                        </div>
+                        <table id="topicTable" class="layui-table" lay-data="{id:'topicTable',page:true,limits:[10,20,30]}" lay-filter="topicTable">
+                            <thead>
+                            <tr>
+                                <th lay-data="{type:'checkbox',align:'center'}"></th>
+                                <th lay-data="{field:'id',type:'numbers', minWidth:60,align:'center', sort: true}">ID</th>
+                                <th lay-data="{field:'title',align:'center', minWidth:180}">标题</th>
+                                <th lay-data="{field:'createdAt',align:'center', minWidth:160, sort: true}">创建时间</th>
+                                <th lay-data="{field:'deletedAt',align:'center', minWidth:160, sort: true}">删除时间</th>
+                                <th lay-data="{field:'deletedUserName',align:'center', minWidth:140}">删除人</th>
+                                <th lay-data="{field:'operate',align:'center',minWidth:160}">操作</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr th:each="topic:${topics}">
+                                <td></td>
+                                <td th:text="${topic.id}"></td>
+                                <td>
+                                    <a th:href="@{'/admin/topics/'+${topic.id}}" th:text="${topic.title}"></a>
+                                </td>
+                                <td th:text="${topic.createdAt}"></td>
+                                <td th:text="${topic.deletedAt}"></td>
+                                <td th:text="${topic.deletedUserName}"></td>
+                                <td>
+                                    <a class="layui-btn layui-btn-xs" lay-event="resume">还原</a>
+                                    <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="destroy">彻底删除</a>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
     <div th:insert="~{admin/layout/layout_footer :: footer}"></div>

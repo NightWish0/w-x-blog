@@ -2,6 +2,7 @@ package com.wxblog.core.bean;
 
 import com.baomidou.mybatisplus.annotation.*;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.wxblog.core.util.UserUtils;
 import lombok.Data;
 import org.apache.ibatis.type.Alias;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -33,6 +34,9 @@ public class Topic implements Serializable {
     private Date createdAt;
     @TableLogic
     private Integer status;
+    private Date deletedAt;
+    private Long deletedUserId;
+    private Integer deletedBeforeStatus;
     private String fileMarkHash;
 
     @TableField(exist = false)

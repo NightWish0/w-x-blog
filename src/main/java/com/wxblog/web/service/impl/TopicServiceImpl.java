@@ -16,6 +16,7 @@ import com.wxblog.core.util.QiNiuUtil;
 import com.wxblog.core.util.StatusCode;
 import com.wxblog.core.util.UserUtils;
 import com.wxblog.web.service.TopicService;
+import org.apache.shiro.SecurityUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -89,8 +90,7 @@ public class TopicServiceImpl implements TopicService {
 
     @Override
     public void recycle(Model model) {
-        List<Map<String,String>> topics=topicMapper.topics(StatusCode.TOPIC_DELETE_CODE,
-                UserUtils.currentUser().getId());
+        List<Map<String,String>> topics=topicMapper.topicsOfDeleted(null);
         model.addAttribute("topics",topics);
     }
 
@@ -164,29 +164,73 @@ public class TopicServiceImpl implements TopicService {
 
     @Override
     public ResultJson deleteTopic(Long id) {
-        if (topicMapper.deleteById(id)==1){
+        if (topicMapper.deleteTopicById(id,new Date(),UserUtils.currentUser().getId())==1){
             return ResultJson.success();
         }
         return ResultJson.failure();
     }
 
     @Override
-    public ResultJson deleteTopics(Integer status) {
-        topicMapper.deleteAll(status);
+    public ResultJson deleteTopics() {
+        topicMapper.deleteAll(new Date(),UserUtils.currentUser().getId());
         return ResultJson.success();
     }
 
     @Override
     public ResultJson deleteTopics(List<Long> ids) {
-        if(topicMapper.delete(new QueryWrapper<Topic>().in("id",ids))==ids.size()){
+        if(topicMapper.deleteAllByIds(ids,new Date(),UserUtils.currentUser().getId())==ids.size()){
             return ResultJson.success();
         }
         return ResultJson.failure();
     }
 
     @Override
-    public ResultJson destroy(List<Long> ids) {
-        if (topicMapper.destroy(ids)==ids.size()){
+    public ResultJson resumeTopic(Long id) {
+        if (topicMapper.resumeById(id)==1){
+            return ResultJson.success();
+        }
+        return ResultJson.failure();
+    }
+
+    @Override
+    public ResultJson resumeTopics() {
+        try{
+            topicMapper.resumeAll();
+            return ResultJson.success();
+        }catch (Exception e){
+            return ResultJson.failure();
+        }
+    }
+
+    @Override
+    public ResultJson resumeTopics(List<Long> ids) {
+        if (topicMapper.resumeAllByIds(ids)==ids.size()){
+            return ResultJson.success();
+        }
+        return ResultJson.failure();
+    }
+
+    @Override
+    public ResultJson destroyTopic(Long id) {
+        if (topicMapper.destroyById(id)==1){
+            return ResultJson.success();
+        }
+        return ResultJson.failure();
+    }
+
+    @Override
+    public ResultJson destroyTopics() {
+        try{
+            topicMapper.destroyAll();
+            return ResultJson.success();
+        }catch (Exception e){
+            return ResultJson.failure();
+        }
+    }
+
+    @Override
+    public ResultJson destroyTopics(List<Long> ids) {
+        if (topicMapper.destroyAllByIds(ids)==ids.size()){
             return ResultJson.success();
         }
         return  ResultJson.failure();

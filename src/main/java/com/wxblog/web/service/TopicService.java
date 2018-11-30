@@ -52,11 +52,21 @@ public interface TopicService {
 
     ResultJson deleteTopic(Long id);
 
-    ResultJson deleteTopics(Integer status);
+    ResultJson deleteTopics();
 
     ResultJson deleteTopics(List<Long> ids);
 
-    ResultJson destroy(List<Long> ids);
+    ResultJson resumeTopic(Long id);
+
+    ResultJson resumeTopics();
+
+    ResultJson resumeTopics(List<Long> ids);
+
+    ResultJson destroyTopic(Long id);
+
+    ResultJson destroyTopics();
+
+    ResultJson destroyTopics(List<Long> ids);
 
     ResultJson commentPublish(Comment comment);
 

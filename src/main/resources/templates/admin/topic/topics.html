@@ -77,8 +77,8 @@
                                     <button th:if="${topic.status}==1" class="layui-btn layui-btn-xs" style="background: #22961a">已发布</button>
                                 </td>
                                 <td>
-                                    <a class="layui-btn layui-btn-xs" th:if="${topic.userId}==${user.id}" th:href="@{'/admin/topics/'+${topic.id}+'/edit'}" lay-event="edit">编辑</a>
-                                    <a class="layui-btn layui-btn-danger layui-btn-xs" th:if="${topic.userId}==${user.id}" lay-event="del">删除</a>
+                                    <a class="layui-btn layui-btn-xs" th:href="@{'/admin/topics/'+${topic.id}+'/edit'}" lay-event="edit">编辑</a>
+                                    <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
                                     <a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="detail">导出</a>
                                     <a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="detail">打印</a>
                                 </td>

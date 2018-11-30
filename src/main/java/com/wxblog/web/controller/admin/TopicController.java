@@ -233,7 +233,7 @@ public class  TopicController {
     @DeleteMapping("/deleteAll")
     @ResponseBody
     public ResultJson topicsDelete(){
-        return topicService.deleteTopics(StatusCode.TOPIC_PUBLISH_CODE);
+        return topicService.deleteTopics();
     }
 
     /**
@@ -260,14 +260,40 @@ public class  TopicController {
         return "admin/topic/topics_recycle";
     }
 
-    /**
-     * 清空回收站/彻底删除单个文章
-     * @return
-     */
-    @DeleteMapping("/destroy")
+    @PostMapping("/recycle/resume/{id}")
     @ResponseBody
-    public ResultJson destroy(List<Long> ids){
-        return topicService.destroy(ids);
+    public ResultJson resume(@PathVariable("id") Long id){
+        return topicService.resumeTopic(id);
+    }
+
+    @PostMapping("/recycle/resumeAll")
+    @ResponseBody
+    public ResultJson resumeAll(){
+        return topicService.resumeTopics();
+    }
+
+    @PostMapping("/recycle/resumeSelected")
+    @ResponseBody
+    public ResultJson resumeSelected(@RequestBody List<Long> ids){
+        return topicService.resumeTopics(ids);
+    }
+
+    @DeleteMapping("/recycle/destroy/{id}")
+    @ResponseBody
+    public ResultJson destroy(@PathVariable("id") Long id){
+        return topicService.destroyTopic(id);
+    }
+
+    @DeleteMapping("/recycle/destroyAll")
+    @ResponseBody
+    public ResultJson destroyAll(){
+        return topicService.destroyTopics();
+    }
+
+    @DeleteMapping("/recycle/destroySelected")
+    @ResponseBody
+    public ResultJson destroySelected(@RequestBody List<Long> ids){
+        return topicService.destroyTopics(ids);
     }
 
     @PostMapping("/upload")

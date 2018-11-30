@@ -4,7 +4,7 @@ layui.use(['form','element','upload','layedit','table','layer'],function () {
     var layedit = layui.layedit;
     var table= layui.table;
     var layer= layui.layer;
-    $=layui.jquery;
+    var $=layui.jquery;
     /*文章管理*/
     table.on('tool(topicTable)', function(obj){
        var id = obj.data.id;
@@ -39,11 +39,41 @@ layui.use(['form','element','upload','layedit','table','layer'],function () {
                 //     }
                 // });
             });
-        }
+       }
+       if(layEvent === 'resume'){
+         $.ajax({
+           type:'post',
+             url:'/admin/topics/recycle/resume/'+id,
+             success:function (result) {
+               if (result.status){
+                 obj.del();
+               }else{
+                 layer.msg("还原失败", {
+                   time: 3000,
+                 });
+               }
+             }
+         });
+       }
+       if(layEvent === 'destroy'){
+         $.ajax({
+           type:'delete',
+           url:'/admin/topics/recycle/destroy/'+id,
+           success:function (result) {
+             if (result.status){
+               obj.del();
+             }else{
+               layer.msg("彻底删除失败", {
+                 time: 3000,
+               });
+             }
+           }
+         });
+       }
     });
 
     //选中、全部删除
-    var active = {
+    var operate = {
         selectedDel: function(){
             var checkStatus = table.checkStatus('topicTable')
                 ,checkData = checkStatus.data; //得到选中的数据
@@ -80,7 +110,7 @@ layui.use(['form','element','upload','layedit','table','layer'],function () {
             });
         }
         //全部删除
-        ,allDel: function(othis){
+        ,allDel: function(){
             layer.confirm('确定全部删除吗？', function(index) {
                 $.ajax({
                     type:'delete',
@@ -96,11 +126,103 @@ layui.use(['form','element','upload','layedit','table','layer'],function () {
                     }
                 });
             });
-        }
+        },
+        selectedResume: function(){ //验证是否全选
+            var checkStatus = table.checkStatus('topicTable')
+                ,checkData = checkStatus.data; //得到选中的数据
+            if(checkData.length === 0){
+                return layer.msg('请选择需要还原的文章');
+            }
+            var ids=[];
+            $.each(checkData,function (index,value) {
+                ids[index]=parseInt(value.id);
+            })
+            layer.confirm('确定还原吗？', function(index) {
+                $.ajax({
+                    type:'post',
+                    url:'/admin/topics/recycle/resumeSelected',
+                    dateType:"json",
+                    contentType : 'application/json',
+                    data:JSON.stringify(ids),
+                    success:function (result) {
+                        if (result.status){
+                            location.reload();
+                        }else{
+                            layer.msg("删除失败", {
+                                time: 3000,
+                            });
+                        }
+                    }
+                });
+            });
+        },
+        allResume: function(){ //验证是否全选
+            layer.confirm('确定全部还原吗？', function(index) {
+                $.ajax({
+                    type:'post',
+                    url:'/admin/topics/recycle/resumeAll',
+                    success:function (result) {
+                        if (result.status){
+                            location.reload();
+                        }else{
+                            layer.msg("删除失败", {
+                                time: 3000,
+                            });
+                        }
+                    }
+                });
+            });
+        },
+        selectedDes: function(){
+            var checkStatus = table.checkStatus('topicTable')
+                ,checkData = checkStatus.data; //得到选中的数据
+            if(checkData.length === 0){
+                return layer.msg('请选择需要彻底删除的文章');
+            }
+            var ids=[];
+            $.each(checkData,function (index,value) {
+                ids[index]=parseInt(value.id);
+            })
+            layer.confirm('确定切底删除吗？', function(index) {
+                $.ajax({
+                    type:'delete',
+                    url:'/admin/topics/recycle/destroySelected',
+                    dateType:"json",
+                    contentType : 'application/json',
+                    data:JSON.stringify(ids),
+                    success:function (result) {
+                        if (result.status){
+                            location.reload();
+                        }else{
+                            layer.msg("删除失败", {
+                                time: 3000,
+                            });
+                        }
+                    }
+                });
+            });
+        },
+         allDes: function(othis){
+            layer.confirm('确定全部切底删除吗？', function(index) {
+                $.ajax({
+                    type:'delete',
+                    url:'/admin/topics/recycle/destroyAll',
+                    success:function (result) {
+                        if (result.status){
+                            location.reload();
+                        }else{
+                            layer.msg("删除失败", {
+                                time: 3000,
+                            });
+                        }
+                    }
+                });
+            });
+         }
     };
-    $('.layui-btn.topic-del').on('click', function(){
+    $('.layui-btn-container .topic-del').on('click', function(){
         var type = $(this).data('type');
-        active[type] ? active[type].call(this) : '';
+        operate[type] ? operate[type].call(this) : '';
     });
 
     /*标签管理*/
@@ -250,7 +372,7 @@ layui.use(['form','element','upload','layedit','table','layer'],function () {
             }
         });
     });
-    
+
     /*所有评论*/
     //选中、全部删除
     var active = {

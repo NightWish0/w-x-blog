@@ -11,6 +11,15 @@
         <result column="avatar" property="userAvatar"></result>
         <result column="user_name" property="userName"></result>
     </resultMap>
+    
+    <resultMap id="topicsOfDeletedMap" type="map">
+        <result column="id" property="id"></result>
+        <result column="title" property="title"></result>
+        <result column="created_at" property="createdAt"></result>
+        <result column="deleted_at" property="deletedAt"></result>
+        <result column="deleted_user_id" property="deletedUserId"></result>
+        <result column="deleted_user_name" property="deletedUserName"></result>
+    </resultMap>
 
     <resultMap id="topicShowInfo" type="Topic">
         <id property="id" column="id"></id>
@@ -81,9 +90,8 @@
         LEFT JOIN blog_user_category c ON t.category_id=c.id
         LEFT JOIN blog_comment com ON com.topic_id=t.id
         <where>
-            t.status=1
             <if test="id!=null">
-                AND t.id=#{id}
+                t.id=#{id}
             </if>
         </where>
         GROUP BY t.id
@@ -146,6 +154,17 @@
             <property name="userId" value="userId"></property>
         </include>
     </select>
+    <select id="topicsOfDeleted" resultMap="topicsOfDeletedMap">
+        SELECT t.id,t.title,t.created_at,t.deleted_at,t.deleted_user_id,u.user_name AS 'deleted_user_name' FROM blog_topic t
+        LEFT JOIN blog_user u ON t.user_id=u.id
+        <where>
+            t.status=-1
+            <if test="userId!=null">
+                AND t.user_id=#{userId}
+            </if>
+        </where>
+        ORDER BY t.deleted_at DESC
+    </select>
 
     <select id="topic" resultMap="topicShowInfo" parameterType="long">
         <include refid="topicShowSql">
@@ -153,12 +172,50 @@
         </include>
     </select>
 
-    <update id="deleteAll" parameterType="integer">
-        UPDATE blog_topic SET status=-1 WHERE status=#{status};
+    <update id="deleteTopicById">
+        UPDATE blog_topic SET deleted_before_status=status,status=-1,deleted_at=#{deletedAt},deleted_user_id=#{deletedUserId} WHERE id=#{id};
     </update>
-    
-    <delete id="destroy" parameterType="list">
-        DELETE FROM blog_topic WHERE id in 
+
+    <update id="deleteAll">
+        UPDATE blog_topic SET deleted_before_status=status,status=-1,deleted_at=#{deletedAt},deleted_user_id=#{deletedUserId} WHERE status=0;
+    </update>
+
+    <update id="deleteAllByIds">
+        UPDATE blog_topic SET deleted_before_status=status,status=-1,deleted_at=#{deletedAt},deleted_user_id=#{deletedUserId}
+        WHERE id IN
+        <foreach collection="ids" index="index" item="id" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </update>
+
+    <update id="resumeById" parameterType="long">
+        UPDATE blog_topic SET status=deleted_before_status,deleted_at=NULL,deleted_user_id=NULL,deleted_before_status=NULL
+        WHERE id=#{id}
+    </update>
+
+    <update id="resumeAll">
+        UPDATE blog_topic SET status=deleted_before_status,deleted_at=NULL,deleted_user_id=NULL,deleted_before_status=NULL
+        WHERE status=-1
+    </update>
+
+    <update id="resumeAllByIds" parameterType="list">
+        UPDATE blog_topic SET status=deleted_before_status,deleted_at=NULL,deleted_user_id=NULL,deleted_before_status=NULL
+        WHERE id IN
+        <foreach collection="list" index="index" item="id" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </update>
+
+    <delete id="destroyById" >
+        DELETE FROM blog_topic WHERE id=#{id}
+    </delete>
+
+    <delete id="destroyAll" >
+        DELETE FROM blog_topic WHERE status=-1
+    </delete>
+
+    <delete id="destroyAllByIds" parameterType="list">
+        DELETE FROM blog_topic WHERE id IN
         <foreach collection="list" index="index" item="id" open="(" separator="," close=")">
           #{id}
         </foreach>

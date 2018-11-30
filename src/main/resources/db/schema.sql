@@ -1,6 +1,6 @@
 /*==============================================================*/
 /* DBMS name:      MySQL 5.0                                    */
-/* Created on:     2018/11/28 11:01:26                          */
+/* Created on:     2018/11/30 15:33:57                          */
 /*==============================================================*/
 
 
@@ -78,6 +78,9 @@ create table blog_topic
             0-草稿；
             -1-删除；',
    file_mark_hash       varchar(255) comment '资源标识,时间戳的base64转码',
+   deleted_at           datetime comment '删除时间',
+   deleted_user_id      bigint comment '删除人',
+   deleted_before_status int comment '删除前状态值',
    primary key (id)
 );
 
