@@ -3,9 +3,9 @@ spring:
     type: com.alibaba.druid.pool.DruidDataSource
     druid:
       driver-class-name: com.mysql.jdbc.Driver
-      url: jdbc:mysql://47.98.57.15:3306/wxblog_production?useUnicode=true&characterEncoding=UTF-8&zeroDateTimeBehavior=convertToNull&autoReconnect=true&failOverReadOnly=false
+      url: jdbc:mysql://localhost:3306/wxblog_production?useUnicode=true&characterEncoding=UTF-8&zeroDateTimeBehavior=convertToNull&autoReconnect=true&failOverReadOnly=false
       username: root
-      password: wxblog
+      password: root
       # 配置初始化大小、最小、最大
       initial-size: 5
       min-idle: 1

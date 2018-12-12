@@ -1,12 +1,9 @@
 qiniu:
-  accessKey: HMShMf3yuzuH78ITQoNERURMZVp_J06CIFgF9E77
-  secretKey: vs-2mnqnGLEgqxUM1jlOPGB9ptomqUdywkV2n8rR
+  accessKey:
+  secretKey:
   #存储空间名
-  bucket: wxblog
+  bucket:
   #外链域名
-  # 测试域名，2018/12/16日到期后不可用
-  domain: http://pi9odhzle.bkt.clouddn.com
-  # 待备案域名
-  #Domain: www.onepsss.com
+  domain:
   #水印代码
-  waterMark: imageView2/0/q/75|watermark/2/text/T25lUGllY2U=/font/5a6L5L2T/fontsize/360/fill/IzNBQzM0MA==/dissolve/90/gravity/SouthEast/dx/10/dy/10|imageslim
+  waterMark: imageView2/0/q/75|watermark/2/text/T25lUGllY2U=/font/5a6L5L2T/fontsize/360/fill/IzA1QzZFQg==/dissolve/71/gravity/SouthEast/dx/10/dy/10|imageslim
