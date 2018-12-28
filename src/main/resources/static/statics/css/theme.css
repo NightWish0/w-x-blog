@@ -453,6 +453,9 @@ a:hover{
     border-color: #fff !important;
 }
 /*设置*/
+.setting-page .layui-layout-admin{
+    background: #fff;
+}
 .setting-page .setting-box{
     margin: 20px 20px 0 20px;
 }

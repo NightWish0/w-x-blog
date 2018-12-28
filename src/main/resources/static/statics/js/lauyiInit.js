@@ -577,7 +577,7 @@ layui.use(['form','element','upload','layedit','table','layer'],function () {
             url:'/admin/update_pwd',
             data:{'oldPwd':oldPwd,'newPwd':newPwd,'confirmPwd':confirmPwd},
             success:function (result) {
-                if (result.state){
+                if (result.status){
                     layer.msg('修改密码成功', {
                         time: 3000,
                     });
